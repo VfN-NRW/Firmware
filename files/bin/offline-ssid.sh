@@ -45,6 +45,7 @@ do
 	1) #check: batman knows an gateway
 		GWQ=$(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
 		if [ $GWQ -lt 10 ]; then
+			OFFLINE=1
 			MODE=3
 		else
 			MODE=2
@@ -53,9 +54,8 @@ do
 		;;
 	2) #check: gateway is reachable 
 		if [ $ACTIVE_CHECK -eq 1 ]; then
-			
-			#if MODE=3
-			continue
+			#check via ping
+			MODE=3
 		else
 			MODE=3
 		fi
