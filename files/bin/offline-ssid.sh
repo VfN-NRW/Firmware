@@ -47,6 +47,9 @@ do
 	case $MODE in
 	1) #check: batman knows an gateway
 		GWQ=$(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
+		if ! [ "$GWQ" -eq "$GWQ" ] 2>/dev/null; then
+                        GWQ=0
+                fi
 		echo -n "Debug: Gateway-Quality is $GWQ"
 		if [ $GWQ -lt 10 ]; then
 			echo " - this is not okay, we're offline"
