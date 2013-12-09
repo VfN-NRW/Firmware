@@ -111,7 +111,7 @@ do
 	if [ $CHANGED -eq 1 ]; then
 		rm /tmp/hostapd-phy0.conf.temp 2>/dev/null
 		cat /var/run/hostapd-phy0.conf | grep -v "^ssid=" > /tmp/hostapd-phy0.conf.temp
-		echo "ssid=$SSID_0" >> /tmp/hostapd-phy0.conf.temp
+		echo "$SSID_0" >> /tmp/hostapd-phy0.conf.temp
 		mv /tmp/hostapd-phy0.conf.temp /var/run/hostapd-phy0.conf
 		if [ -f $HOSTAPD_PHY1 ]; then
 			rm /tmp/hostapd-phy1.conf.temp 2>/dev/null
