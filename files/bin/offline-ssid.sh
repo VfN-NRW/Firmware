@@ -29,10 +29,13 @@ if ! [ $# -eq 1 -o "$1" -eq "$1" ] 2>/dev/null; then
 	echo "Error: Please define a runtime in seconds" && exit 2 
 else
 	RUNTIME=$1
+	echo "Debug: Runtime will be $RUNTIME seconds, please restart me after this time"
 fi
 
 if [ ! -f $HOSTAPD_PHY0 ]; then 
 	echo "Error: PHY0 Hostapd-File not found" && exit 2
+else
+	echo "Debug: Found hostapd-phy0.conf"
 fi
 
 START=`cat /proc/uptime | cut -d"." -f1`
@@ -44,10 +47,13 @@ do
 	case $MODE in
 	1) #check: batman knows an gateway
 		GWQ=$(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
+		echo -n "Debug: Gateway-Quality is $GWQ"
 		if [ $GWQ -lt 10 ]; then
+			echo " - this is not okay, we're offline"
 			OFFLINE=1
 			MODE=3
 		else
+			echo " - this is fine, we're online"
 			MODE=2
 			continue
 		fi
@@ -61,6 +67,7 @@ do
 		fi
 		;;
 	3) #sleep
+		echo "Debug: Sleeping now for $SLEEP seconds"
 		sleep $SLEEP
 		MODE=1
 		continue
@@ -87,12 +94,14 @@ do
 	
 	CHANGED=0
 	if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
+		echo "Debug: Our check says, were offline, now changing SSIDs"
 		CHANGED=1
 		SSID_0="ssid=Offline-$SSID_0-$DEVICE"
 		if [ -f $HOSTAPD_PHY1 ]; then
 			SSID_1="ssid=Offline-$SSID_1-$DEVICE"
 		fi
 	elif [ $OFFLINE -eq 0 -a $ISOFFLINE -eq 1 ]; then
+		echo "Debug: Our check says, were back online, now changing SSIDs"
 		CHANGED=1
 		SSID_0="ssid=$SSID_0"
 		if [ -f $HOSTAPD_PHY1 ]; then
