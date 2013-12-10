@@ -81,20 +81,23 @@ do
 		if ! [ "$GWLS" -eq "$GWLS" ] 2>/dev/null; then
                         GWLS=65535
                 fi
-		echo -n "Debug: Gateways Last-Seen is $GWLS seconds"
-		if [ $GWLS -gt $(( `cat /sys/devices/virtual/net/bat0/mesh/orig_interval` / 1000 * 2)) ]; then
-			echo " - this is not okay, we seem to be offline"
-			OFFLINE=1
-			MODE=3
-			if [ $GWLS -eq 65535 ] ; then #if no gateway found, skipping active ACTIVE_CHECK
-				MODE=4
-			else
-				continue
-			fi
-		else
-			echo " - this is fine, we're online"
-			OFFLINE=0
+#		GWLS=65535
+		if [ $GWLS -eq 65535 ] ; then #if no gateway found, skipping active ACTIVE_CHECK
 			MODE=4
+			OFFLINE=1
+			echo "Debug: No Gateway in Originators found - we're offline."
+		else
+			echo -n "Debug: Gateways Last-Seen is $GWLS seconds"
+			if [ $GWLS -gt $(( `cat /sys/devices/virtual/net/bat0/mesh/orig_interval` / 1000 * 2)) ]; then
+				echo " - this is not okay, we seem to be offline"
+				OFFLINE=1
+				MODE=3
+				continue
+			else
+				echo " - this is fine, we're online"
+				OFFLINE=0
+				MODE=4
+			fi
 		fi
 		;;
 	3) #check: gateway is reachable 
@@ -154,6 +157,7 @@ do
 	fi
 	
 	CHANGED=0
+	echo "Debug: OFFLINE=$OFFLINE ISOFFLINE=$ISOFFLINE"
 	if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
 		echo "Debug: Our check says, were offline, now changing SSIDs"
 		CHANGED=1
