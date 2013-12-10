@@ -100,8 +100,14 @@ do
 	if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
 		echo "Debug: Our check says, were offline, now changing SSIDs"
 		CHANGED=1
+		if [ ${#SSID_0} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
+                        SSID_0="${SSID_0:0:$(( 20 - ${#DEVICE} ))}..."
+                fi
 		SSID_0="ssid=Offline-$SSID_0-$DEVICE"
 		if [ -f $HOSTAPD_PHY1 ]; then
+			if [ ${#SSID_1} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
+                                SSID_1="${SSID_1:0:$(( 20 - ${#DEVICE} ))}..."
+                        fi
 			SSID_1="ssid=Offline-$SSID_1-$DEVICE"
 		fi
 	elif [ $OFFLINE -eq 0 -a $ISOFFLINE -eq 1 ]; then
