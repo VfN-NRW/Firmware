@@ -4,13 +4,15 @@
 
 #Warning: This script will immediately set the ssid configured in uci if its changed.
 
+#This script expect that an temporary SSID is set on boot. The Script will read ssid_online and set it when node is online.
+
 #Options
 SLEEP=4
 ACTIVE_CHECK=1
-SSID_PHY0="wireless.wifi_freifunk.ssid"
+SSID_PHY0="wireless.wifi_freifunk.ssid_online"
 HOSTAPD_PHY0="/var/run/hostapd-phy0.conf"
-SSID_PHY1="wireless.wifi_freifunk5.ssid" #if phy1.conf is not found, this will be not used
-HOSTAPD_PHY1="/var/run/hostapd-phy1.conf" 
+SSID_PHY1="wireless.wifi_freifunk5.ssid_online" #if phy1.conf is not found, this will be not used
+HOSTAPD_PHY1="/var/run/hostapd-phy1.conf"
 
 #vars
 RUNTIME=60 #default runtime in seconds
