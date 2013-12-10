@@ -77,7 +77,7 @@ do
 		if [ "$GWM" == "" ]; then
 			GWM="00:00:00:00:00"
 		fi
-		GWLS=`cat /sys/kernel/debug/batman_adv/bat0/originators | grep "^$GWM" | cut -d" " -f5 | cut -d"s" -f1 | cut -d"." -f1`
+		GWLS=`cat /sys/kernel/debug/batman_adv/bat0/originators | grep "^$GWM" | cut -d" " -f3-5 | cut -d"s" -f1 | cut -d"." -f1`
 		if ! [ "$GWLS" -eq "$GWLS" ] 2>/dev/null; then
                         GWLS=65535
                 fi
