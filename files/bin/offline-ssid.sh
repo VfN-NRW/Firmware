@@ -57,6 +57,7 @@ do
 			MODE=3
 		else
 			echo " - this is fine, we're online"
+			OFFLINE=0
 			MODE=2
 			continue
 		fi
