@@ -237,10 +237,10 @@ do
 	
 		echo -n "Debug: Hostap gave us SSID_1='$SSID_1', "
 
-		if [ $ISOFFLINE -eq 1 -a "$SSID_1" != "$SSID_1_ONLINE" ]; then
+		if [ $ISOFFLINE -eq 1 -a "$SSID_1" != "$SSID_1_ONLINE" -a $FORCE_CHANGE -eq 0 ]; then
 			FORCE_CHANGE=1
 			echo "WARNING SSID for Radio1 not in the same status, forcing change."
-		elif [ $ISOFFLINE -eq 0 -a "$SSID_1" != "$SSID_1_OFFLINE" ]; then		
+		elif [ $ISOFFLINE -eq 0 -a "$SSID_1" != "$SSID_1_OFFLINE" -a $FORCE_CHANGE -eq 0 ]; then		
 			FORCE_CHANGE=1
 			echo "WARNING SSID for Radio1 not in the same status, forcing change."
 		elif [ $FORCE_CHANGE -eq 0 -a "$SSID_1" == "$SSID_1_BOOT" ]; then
