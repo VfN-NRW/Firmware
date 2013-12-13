@@ -255,7 +255,7 @@ do
 	
 	echo "Debug: OFFLINE=$OFFLINE ISOFFLINE=$ISOFFLINE FORCE_CHANGE=$FORCE_CHANGE"
 	
-	if ! [ FORCE_CHANGE -eq 1 ]; then
+	if ! [ $FORCE_CHANGE -eq 1 ]; then
 		
 		if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
 			echo "Debug: our check says, we're offline, need to change SSIDs"
