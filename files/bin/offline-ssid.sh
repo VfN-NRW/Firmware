@@ -28,8 +28,15 @@ GWLS=0
 GWL=0
 OFFLINE=0
 ISOFFLINE=0
+RADIOONE=0
 SSID_0=""
 SSID_1=""
+SSID_0_BOOT=""
+SSID_0_ONLINE=""
+SSID_0_OFFLINE=""
+SSID_1_BOOT=""
+SSID_1_ONLINE=""
+SSID_1_OFFLINE=""
 DEVICE=`cat /proc/sys/kernel/hostname`
 CHANGED=0
 FORCE_CHANGE=0
@@ -148,73 +155,166 @@ do
 	#get hostap-status
 	FORCE_CHANGE=0
 	ISOFFLINE=0
+	SSID_0_BOOT=""
+	SSID_0_ONLINE=""
+	SSID_0_OFFLINE=""
+	RADIOONE=0 
+	SSID_1_BOOT=""		      
+	SSID_1_ONLINE=""
+	SSID_1_OFFLINE=""
+	CHANGED=0
+
+	
+	if ! [ -f $HOSTAPD_PHY0 ]; then
+		echo "ERROR: Hostapd-phy0.conf missing. Skipping any SSID change."
+		continue
+	fi	
+
+	### RADIO 0 ###
+
+	SSID_0_BOOT="$(uci get $SSID_PHY0_BOOT)"
+	SSID_0_ONLINE="$(uci get $SSID_PHY0)"
+	#Generate Offline-SSID
+	if [ ${#SSID_0_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
+		SSID_0_OFFLINE="${SSID_0_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
+	fi
+	SSID_0_OFFLINE="ssid=Offline-$SSID_0_OFFLINE-$DEVICE"
 
 	SSID_0=`cat $HOSTAPD_PHY0 | grep "^ssid="`
 	SSID_0=${SSID_0:5} #rm ssid=
 	
-	if [ "$SSID_0" == "$(uci get $SSID_PHY0)" ]; then
-		ISOFFLINE=0
-	else
-		ISOFFLINE=1
-		#overwrite boot-ssid when offline
-		if [ "$SSID_0" == "$(uci get $SSID_PHY0_BOOT)" ]; then
-			FORCE_CHANGE=1
-		fi
-		SSID_0=`uci get $SSID_PHY0`
+	echo "Debug: RADIO0:'
+	echo "      SSID for boot   : '$SSID_0_BOOT'"
+	echo "      SSID for online : '$SSID_0_ONLINE'"
+	echo "      SSID for offline: '$SSID_0_OFFLINE'"
+
+	if [ "$SSID_0_BOOT" == "" -o "$SSID_0_ONLINE" == "" -o "$SSID_0_OFFLINE" == "" ]; then
+		echo "ERROR: fetching / generating of SSIDs was wrong"
+		continue
 	fi
+	
+	echo -n "Debug: Hostap gave us SSID_0='$SSID_0', "
+
+	if [ "$SSID_0" == "$SSID_0_ONLINE" ]; then
+		ISOFFLINE=0
+		echo "our online-SSID"
+	elif [ "$SSID_0" == "$SSID_0_OFFLINE" ]; then		
+		ISOFFLINE=1
+		echo "our offline-SSID"
+	elif [ "$SSID_0" == "$SSID_0_BOOT" ]; then
+		FORCE_CHANGE=1
+		echo "our boot-SSID"
+	else
+		FORCE_CHANGE=1
+		echo "WARNING this seems wrong, we're changing it now."
+	fi
+
+	### RADIO 1 ###
 	
 	if [ -f $HOSTAPD_PHY1 ]; then
+		RADIOONE=1
+
+		SSID_1_BOOT="$(uci get $SSID_PHY1_BOOT)"
+		SSID_1_ONLINE="$(uci get $SSID_PHY1)"
+		#Generate Offline-SSID
+		if [ ${#SSID_1_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
+			SSID_1_OFFLINE="${SSID_1_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
+		fi
+		SSID_1_OFFLINE="ssid=Offline-$SSID_1_OFFLINE-$DEVICE"
+
 		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
 		SSID_1=${SSID_1:5} #rm ssid=
-		echo "Debug: Hostapd-phy1.conf SSID='$SSID_1'"
-		
-		#work around "wifi" runs, where PHY1_CONFIG is not always there.
-		if ! [ "$SSID_1" == "$(uci get $SSID_PHY1)" ]; then 
-			FORCE_CHANGE=1
-		#overwrite boot-ssid when offline
-		echo "ISOFFLINE=$ISOFFLINE"
-		echo "$SSID_1 == $(uci get $SSID_PHY1_BOOT)?"
-		elif [ $ISOFFLINE -eq 1 -a "$SSID_1" == "$(uci get $SSID_PHY1_BOOT)" ]; then 
-			FORCE_CHANGE=1
+	
+		echo "Debug: RADIO1:'
+		echo "      SSID for boot   : '$SSID_1_BOOT'"
+		echo "      SSID for online : '$SSID_1_ONLINE'"
+		echo "      SSID for offline: '$SSID_1_OFFLINE'"
+
+		if [ "$SSID_1_BOOT" == "" -o "$SSID_1_ONLINE" == "" -o "$SSID_1_OFFLINE" == "" ]; then
+			echo "ERROR: fetching / generating of SSIDs was wrong"
+			continue
 		fi
-		SSID_1=`uci get $SSID_PHY1`
+	
+		echo -n "Debug: Hostap gave us SSID_1='$SSID_1', "
+
+		if [ $ISONLINE -eq 1 -a "$SSID_1" != "$SSID_1_ONLINE" ]; then
+			FORCE_CHANGE=1
+			echo "WARNING SSID for Radio1 not in the same status, forcing change."
+		elif [ $ISONLINE -eq 0 -a "$SSID_1" != "$SSID_1_OFFLINE" ]; then		
+			FORCE_CHANGE=1
+			echo "WARNING SSID for Radio1 not in the same status, forcing change."
+		elif [ $FORCE_CHANGE -eq 0 -a "$SSID_1" == "$SSID_1_BOOT" ]; then
+			FORCE_CHANGE=1
+			echo "WARNING SSID for Radio1 still in booting status, forcing change."
+		else
+			echo "ok."
+		fi
 	fi
 	
-	CHANGED=0
-	echo "Debug: OFFLINE=$OFFLINE ISOFFLINE=$ISOFFLINE"
-	if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
-		echo "Debug: Our check says, were offline, now changing SSIDs"
-		CHANGED=1
-		if [ ${#SSID_0} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
-			SSID_0="${SSID_0:0:$(( 20 - ${#DEVICE} ))}..."		   
+	### Checking if update is needed ###
+	
+	echo "Debug: OFFLINE=$OFFLINE ISOFFLINE=$ISOFFLINE FORCE_CHANGE=$FORCE_CHANGE"
+	
+	if ! [ FORCE_CHANGE -eq 1 ]; then
+		
+		if [ $OFFLINE -eq 1 -a $ISOFFLINE -eq 0 ]; then
+			echo "Debug: our check says, we're offline, need to change SSIDs"
+			CHANGED=1
+		elif [ $OFFLINE -eq 0 -a $ISOFFLINE -eq 1 ]; then
+			echo "Debug: our check says, we're back online, need to change SSIDs"
+			CHANGED=1
 		fi
-		SSID_0="ssid=Offline-$SSID_0-$DEVICE"
-		if [ -f $HOSTAPD_PHY1 ]; then
-			if [ ${#SSID_1} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
-				SSID_1="${SSID_1:0:$(( 20 - ${#DEVICE} ))}..."
-			fi
-			SSID_1="ssid=Offline-$SSID_1-$DEVICE"
+	else
+		echo "Debug: need to change SSIDs."
+	fi
+	
+	### getting right SSIDs ###
+
+	if [ $CHANGED -eq 1 -o $FORCE_CHANGE -eq 1 ]; then
+		if [ $OFFLINE -eq 1 ]; then
+			SSID_0=$SSID_0_OFFLINE
+		else
+			SSID_0=$SSID_0_ONLINE
 		fi
-	elif [ $OFFLINE -eq 0 -a $ISOFFLINE -eq 1 ]; then
-		echo "Debug: Our check says, were back online, now changing SSIDs"
-		CHANGED=1
+
 		SSID_0="ssid=$SSID_0"
-		if [ -f $HOSTAPD_PHY1 ]; then
+		
+		if [ $RADIOONE -eq 1 ]; then
+			if [ $OFFLINE -eq 1 ]; then
+				SSID_1=$SSID_1_OFFLINE
+			else
+				SSID_1=$SSID_1_ONLINE
+			fi
+			
 			SSID_1="ssid=$SSID_1"
 		fi
-	fi
-	if [ $CHANGED -eq 1 -o $FORCE_CHANGE -eq 1 ]; then
+		
+		if ! [ -f $HOSTAPD_PHY0 ]; then
+			echo "ERROR: Hostapd-phy0.conf gone. Skipping the SSID change."
+			continue
+		fi	
+		
 		rm /tmp/hostapd-phy0.conf.temp 2>/dev/null
 		cat /var/run/hostapd-phy0.conf | grep -v "^ssid=" > /tmp/hostapd-phy0.conf.temp
 		echo "$SSID_0" >> /tmp/hostapd-phy0.conf.temp
 		mv /tmp/hostapd-phy0.conf.temp /var/run/hostapd-phy0.conf
-		if [ -f $HOSTAPD_PHY1 ]; then
-			rm /tmp/hostapd-phy1.conf.temp 2>/dev/null
-			cat /var/run/hostapd-phy1.conf | grep -v "^ssid=" > /tmp/hostapd-phy1.conf.temp
-			echo "$SSID_1" >> /tmp/hostapd-phy1.conf.temp
-			mv /tmp/hostapd-phy1.conf.temp /var/run/hostapd-phy1.conf
+		
+		if [ $RADIOONE -eq 1 ]; then
+		
+			if [ -f $HOSTAPD_PHY1 ]; then
+				rm /tmp/hostapd-phy1.conf.temp 2>/dev/null
+				cat /var/run/hostapd-phy1.conf | grep -v "^ssid=" > /tmp/hostapd-phy1.conf.temp
+				echo "$SSID_1" >> /tmp/hostapd-phy1.conf.temp
+				mv /tmp/hostapd-phy1.conf.temp /var/run/hostapd-phy1.conf
+			else
+				echo "Error: hostapd-phy1.conf is gone ... we cant process the SSID-Change for Radio1"
+			fi
 		fi
 		
+		echo -n "Debug: HUPing hostapd now..."
 		killall -HUP hostapd
+		echo "done."
+	else
+		echo "Debug: nothing to do"
 	fi
 done
