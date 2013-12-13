@@ -183,10 +183,10 @@ do
 	SSID_0=`cat $HOSTAPD_PHY0 | grep "^ssid="`
 	SSID_0=${SSID_0:5} #rm ssid=
 	
-	echo "Debug: RADIO0:"
-	echo "      SSID for boot   : '$SSID_0_BOOT'"
-	echo "      SSID for online : '$SSID_0_ONLINE'"
-	echo "      SSID for offline: '$SSID_0_OFFLINE'"
+#	echo "Debug: RADIO0:"
+#	echo "      SSID for boot   : '$SSID_0_BOOT'"
+#	echo "      SSID for online : '$SSID_0_ONLINE'"
+#	echo "      SSID for offline: '$SSID_0_OFFLINE'"
 
 	if [ "$SSID_0_BOOT" == "" -o "$SSID_0_ONLINE" == "" -o "$SSID_0_OFFLINE" == "" ]; then
 		echo "ERROR: fetching / generating of SSIDs was wrong"
@@ -225,10 +225,10 @@ do
 		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
 		SSID_1=${SSID_1:5} #rm ssid=
 	
-		echo "Debug: RADIO1:"
-		echo "      SSID for boot   : '$SSID_1_BOOT'"
-		echo "      SSID for online : '$SSID_1_ONLINE'"
-		echo "      SSID for offline: '$SSID_1_OFFLINE'"
+#		echo "Debug: RADIO1:"
+#		echo "      SSID for boot   : '$SSID_1_BOOT'"
+#		echo "      SSID for online : '$SSID_1_ONLINE'"
+#		echo "      SSID for offline: '$SSID_1_OFFLINE'"
 
 		if [ "$SSID_1_BOOT" == "" -o "$SSID_1_ONLINE" == "" -o "$SSID_1_OFFLINE" == "" ]; then
 			echo "ERROR: fetching / generating of SSIDs was wrong"
