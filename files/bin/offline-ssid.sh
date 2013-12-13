@@ -7,8 +7,8 @@
 #This script expect that an temporary SSID is set on boot. The Script will read ssid_online and set it when node is online.
 
 #Options
-SLEEP=4
-ACTIVE_CHECK=1
+SLEEP=4 # wait time in seconds before rechecking
+ACTIVE_CHECK=1 # do pinging selected gateway via L2-ping, if last-seen is to high
 SSID_PHY0="wireless.wifi_freifunk.ssid_online"
 SSID_PHY0_BOOT="wireless.wifi_freifunk.ssid"
 HOSTAPD_PHY0="/var/run/hostapd-phy0.conf"
@@ -86,7 +86,6 @@ do
                 if ! [ "$GWLS" -eq "$GWLS" ] 2>/dev/null; then
                         GWLS=65535
                 fi
-#                GWLS=65535
                 if [ $GWLS -eq 65535 ] ; then #if no gateway found, skipping active ACTIVE_CHECK
                         MODE=4
                         OFFLINE=1
@@ -147,34 +146,38 @@ do
         esac
         
         #get hostap-status
-	FORCE_CHANGE=0
+        FORCE_CHANGE=0
+	ISOFFLINE=0
 
         SSID_0=`cat $HOSTAPD_PHY0 | grep "^ssid="`
         SSID_0=${SSID_0:5} #rm ssid=
         
-        if [ "$SSID_0" == `uci get $SSID_PHY0` ]; then
+        if [ "$SSID_0" == "$(uci get $SSID_PHY0)" ]; then
                 ISOFFLINE=0
         else
                 ISOFFLINE=1
-		#overwrite boot-ssid when offline
-		if [ "$SSID_0" == `uci get $SSID_PHY0_BOOT` ]; then 
+                #overwrite boot-ssid when offline
+                if [ "$SSID_0" == "$(uci get $SSID_PHY0_BOOT)" ]; then
 			FORCE_CHANGE=1
-		fi
+                fi
                 SSID_0=`uci get $SSID_PHY0`
         fi
         
         if [ -f $HOSTAPD_PHY1 ]; then
-		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
-	        SSID_1=${SSID_0:5} #rm ssid=
-		#work around "wifi" runs, where PHY1_CONFIG is not always there.
-		if ! [ "$SSID_1" == `uci get $SSID_PHY1` ]; then 
-			FORCE_CHANGE=1
-		fi
-		#overwrite boot-ssid when offline
-		elif [ $ISOFFLINE -eq 1 -a "$SSID_1" == `uci get $SSID_PHY1_BOOT` ]; then 
-			FORCE_CHANGE=1
-		fi
-		SSID_1=`uci get $SSID_PHY1`
+                SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
+                SSID_1=${SSID_1:5} #rm ssid=
+		echo "Debug: Hostapd-phy1.conf SSID='$SSID_1'"
+		
+                #work around "wifi" runs, where PHY1_CONFIG is not always there.
+                if ! [ "$SSID_1" == "$(uci get $SSID_PHY1)" ]; then 
+                        FORCE_CHANGE=1
+                #overwrite boot-ssid when offline
+		echo "ISOFFLINE=$ISOFFLINE"
+		echo "$SSID_1 == $(uci get $SSID_PHY1_BOOT)?"
+                elif [ $ISOFFLINE -eq 1 -a "$SSID_1" == "$(uci get $SSID_PHY1_BOOT)" ]; then 
+                        FORCE_CHANGE=1
+                fi
+                SSID_1=`uci get $SSID_PHY1`
         fi
         
         CHANGED=0
