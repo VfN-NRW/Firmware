@@ -225,7 +225,7 @@ do
 		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
 		SSID_1=${SSID_1:5} #rm ssid=
 	
-		echo "Debug: RADIO1:'
+		echo "Debug: RADIO1:"
 		echo "      SSID for boot   : '$SSID_1_BOOT'"
 		echo "      SSID for online : '$SSID_1_ONLINE'"
 		echo "      SSID for offline: '$SSID_1_OFFLINE'"
