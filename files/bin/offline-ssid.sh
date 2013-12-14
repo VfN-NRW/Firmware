@@ -265,7 +265,7 @@ do
 			echo "WARNING SSID for Radio1 not in the same status, forcing change."
 		elif [ $ISOFFLINE -eq 1 -a "$SSID_1" != "$SSID_1_OFFLINE" -a $FORCE_CHANGE -eq 0 ]; then		
 			FORCE_CHANGE=1
-		echo "WARNING SSID for Radio1 not in the same status, forcing change."
+			echo "WARNING SSID for Radio1 not in the same status, forcing change."
 		elif [ $FORCE_CHANGE -eq 0 -a "$SSID_1" == "$SSID_1_BOOT" ]; then
 			FORCE_CHANGE=1
 			echo "WARNING SSID for Radio1 still in booting status, forcing change."
