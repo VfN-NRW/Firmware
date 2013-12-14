@@ -319,7 +319,5 @@ do
 		echo -n "Debug: HUPing hostapd now..."
 		killall -HUP hostapd
 		echo "done."
-	else
-		echo "Debug: nothing to do"
 	fi
 done
