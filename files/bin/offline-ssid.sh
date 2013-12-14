@@ -54,11 +54,31 @@ else
 	echo "Debug: Runtime will be $RUNTIME seconds, please restart me after this time"
 fi
 
+#Checking Files and Options
 if [ ! -f $HOSTAPD_PHY0 ]; then 
 	echo "Error: PHY0 Hostapd-File not found" && exit 2
-else
-	echo "Debug: Found hostapd-phy0.conf"
-fi
+
+elif [ "$(uci get $SSID_PHY0_BOOT 2>/dev/null)" == "" ]; then
+	echo "Error: UCI can't find Boot-SSID for Radio0 Append them with:
+uci set $SSID_PHY0_BOOT=x
+uci commit" && exit 2
+
+elif [ "$(uci get $SSID_PHY0 2>/dev/null)" == "" ]; then
+	echo "Error: UCI can't find SSID for Radio0. Append them with:
+uci set $SSID_PHY0=x
+uci commit" && exit 2
+
+elif [ -f $HOSTAPD_PHY1 -a "$(uci get $SSID_PHY1_BOOT 2>/dev/null)" == "" ]; then
+	echo "Error: UCI can't find Boot-SSID for Radio1 Append them with:
+uci set $SSID_PHY1_BOOT=x
+uci commit" && exit 2
+
+elif [ -f $HOSTAPD_PHY1 -a "$(uci get $SSID_PHY1 2>/dev/null)" == "" ]; then
+	echo "Error: UCI can't find SSID for Radio1. Append them with:
+uci set $SSID_PHY1=x
+uci commit" && exit 2
+
+fi 
 
 START=`cat /proc/uptime | cut -d"." -f1`
 END=$(( $START + $RUNTIME ))
@@ -222,8 +242,6 @@ do
 		#Generate Offline-SSID
 		if [ ${#SSID_1_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
 			SSID_1_OFFLINE="${SSID_1_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
-		else
-			SSID_1_OFFLINE=$SSID_1_ONLINE
 		fi
 		SSID_1_OFFLINE="Offline-$SSID_1_OFFLINE-$DEVICE"
 
@@ -242,12 +260,12 @@ do
 	
 		echo -n "Debug: Hostap gave us SSID_1='$SSID_1', "
 
-		if [ $ISOFFLINE -eq 1 -a "$SSID_1" != "$SSID_1_ONLINE" -a $FORCE_CHANGE -eq 0 ]; then
+		if [ $ISOFFLINE -eq 0 -a "$SSID_1" != "$SSID_1_ONLINE" -a $FORCE_CHANGE -eq 0 ]; then
 			FORCE_CHANGE=1
 			echo "WARNING SSID for Radio1 not in the same status, forcing change."
-		elif [ $ISOFFLINE -eq 0 -a "$SSID_1" != "$SSID_1_OFFLINE" -a $FORCE_CHANGE -eq 0 ]; then		
+		elif [ $ISOFFLINE -eq 1 -a "$SSID_1" != "$SSID_1_OFFLINE" -a $FORCE_CHANGE -eq 0 ]; then		
 			FORCE_CHANGE=1
-			echo "WARNING SSID for Radio1 not in the same status, forcing change."
+		echo "WARNING SSID for Radio1 not in the same status, forcing change."
 		elif [ $FORCE_CHANGE -eq 0 -a "$SSID_1" == "$SSID_1_BOOT" ]; then
 			FORCE_CHANGE=1
 			echo "WARNING SSID for Radio1 still in booting status, forcing change."
