@@ -144,6 +144,7 @@ do
 	4) #sleep
 		echo "Debug: Sleeping now for $SLEEP seconds"
 		sleep $SLEEP
+		echo ""
 		MODE=1
 		continue
 		;;
