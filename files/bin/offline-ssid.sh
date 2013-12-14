@@ -17,6 +17,7 @@ SSID_PHY1_BOOT="wireless.wifi_freifunk5.ssid"
 HOSTAPD_PHY1="/var/run/hostapd-phy1.conf" 
 PING_CNT=3 #Ping-Packets for ACTIVE_CHECK: 3 is recommented, 5-10 for lossy connections
 OGM_INT_MULT=2 #Tolerable missing OGMs, before pinging (if ACTIVE_CHECK=1): 1 for fast responsive, 2 for slower reactions, 3-4 for lossy connections
+LED_STATUS=1
 
 #vars
 RUNTIME=60 #default runtime in seconds
@@ -77,6 +78,17 @@ elif [ -f $HOSTAPD_PHY1 -a "$(uci get $SSID_PHY1 2>/dev/null)" == "" ]; then
 	echo "Error: UCI can't find SSID for Radio1. Append them with:
 uci set $SSID_PHY1=x
 uci commit" && exit 2
+
+elif ! [ -f /etc/diag.sh ]; then
+	if [ $LED_STATUS -eq 1 ]; then
+		echo "Error: /etc/diag.sh not found." && exit 2
+	fi
+fi
+
+if [ $LED_STATUS -eq 1 ]; then
+	. /etc/diag.sh
+	get_status_led
+fi
 
 fi 
 
@@ -307,8 +319,14 @@ do
 		if [ $RADIOONE -eq 1 ]; then
 			if [ $OFFLINE -eq 1 ]; then
 				SSID_1=$SSID_1_OFFLINE
+				if [ $LED_STATUS -eq 1 ]; then
+					status_led_set_timer 60 400
+				fi
 			else
 				SSID_1=$SSID_1_ONLINE
+				if [ $LED_STATUS -eq 1 ]; then
+					status_led_on
+				fi
 			fi
 			
 			SSID_1="ssid=$SSID_1"
