@@ -178,7 +178,7 @@ do
 	if [ ${#SSID_0_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
 		SSID_0_OFFLINE="${SSID_0_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
 	fi
-	SSID_0_OFFLINE="ssid=Offline-$SSID_0_OFFLINE-$DEVICE"
+	SSID_0_OFFLINE="Offline-$SSID_0_OFFLINE-$DEVICE"
 
 	SSID_0=`cat $HOSTAPD_PHY0 | grep "^ssid="`
 	SSID_0=${SSID_0:5} #rm ssid=
@@ -220,7 +220,7 @@ do
 		if [ ${#SSID_1_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
 			SSID_1_OFFLINE="${SSID_1_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
 		fi
-		SSID_1_OFFLINE="ssid=Offline-$SSID_1_OFFLINE-$DEVICE"
+		SSID_1_OFFLINE="Offline-$SSID_1_OFFLINE-$DEVICE"
 
 		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
 		SSID_1=${SSID_1:5} #rm ssid=
