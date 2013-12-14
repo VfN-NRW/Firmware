@@ -242,6 +242,8 @@ do
 		#Generate Offline-SSID
 		if [ ${#SSID_1_ONLINE} -gt $(( 23 - ${#DEVICE} )) ]; then  #cut ssid to the maximum
 			SSID_1_OFFLINE="${SSID_1_ONLINE:0:$(( 20 - ${#DEVICE} ))}..."
+		else
+			SSID_1_OFFLINE=$SSID_1_ONLINE
 		fi
 		SSID_1_OFFLINE="Offline-$SSID_1_OFFLINE-$DEVICE"
 
