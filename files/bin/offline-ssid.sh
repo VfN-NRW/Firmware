@@ -308,8 +308,14 @@ do
 	if [ $CHANGED -eq 1 -o $FORCE_CHANGE -eq 1 ]; then
 		if [ $OFFLINE -eq 1 ]; then
 			SSID_0=$SSID_0_OFFLINE
+			if [ $LED_STATUS -eq 1 ]; then
+				status_led_set_timer 60 400
+			fi
 		else
 			SSID_0=$SSID_0_ONLINE
+			if [ $LED_STATUS -eq 1 ]; then
+				status_led_on
+			fi
 		fi
 
 		SSID_0="ssid=$SSID_0"
@@ -317,14 +323,8 @@ do
 		if [ $RADIOONE -eq 1 ]; then
 			if [ $OFFLINE -eq 1 ]; then
 				SSID_1=$SSID_1_OFFLINE
-				if [ $LED_STATUS -eq 1 ]; then
-					status_led_set_timer 60 400
-				fi
 			else
 				SSID_1=$SSID_1_ONLINE
-				if [ $LED_STATUS -eq 1 ]; then
-					status_led_on
-				fi
 			fi
 			
 			SSID_1="ssid=$SSID_1"
