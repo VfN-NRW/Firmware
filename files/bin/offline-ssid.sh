@@ -90,8 +90,6 @@ if [ $LED_STATUS -eq 1 ]; then
 	get_status_led
 fi
 
-fi 
-
 START=`cat /proc/uptime | cut -d"." -f1`
 END=$(( $START + $RUNTIME ))
 END=$(( $END - 1 ))
