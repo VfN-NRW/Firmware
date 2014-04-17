@@ -17,14 +17,19 @@ prepOwrt() {
     ln -s ../dl
     cp feeds.conf.default feeds.conf
     echo src-git fastd git://git.metameute.de/lff/pkg_fastd >> feeds.conf
+    echo src-link custom `pwd`/../custom-feed >> feeds.conf
 
     scripts/feeds update
     scripts/feeds install kmod-batman-adv
     scripts/feeds install fastd
     scripts/feeds install curl
+    scripts/feeds install ecdsautils
 
     echo CONFIG_TARGET_$1=y > .config || exit1
     make defconfig || exit 1
+
+    setConfig IB y
+    setConfig TARGET_ROOTFS_SQUASHFS n
 
     setConfig PACKAGE_kmod-batman-adv m
     setConfig PACKAGE_kmod-bridge m
@@ -39,6 +44,7 @@ prepOwrt() {
     setConfig PACKAGE_hostapd m
     setConfig PACKAGE_hostapd-utils m
     setConfig PACKAGE_ppp m
+    setConfig PACKAGE_ecdsautils m
 
     make defconfig || exit 1
 
