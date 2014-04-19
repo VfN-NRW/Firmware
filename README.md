@@ -2,5 +2,5 @@ This is just a piece of alpha software, DO NOT USE it for anything except testin
 
 == How to Build == 
 
-git clone https://github.com/RubenKelevra/Firmware.git  
-git submodule update openwrt
+`git clone https://github.com/RubenKelevra/Firmware.git`  
+`git submodule update openwrt`  
