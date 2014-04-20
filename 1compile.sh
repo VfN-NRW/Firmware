@@ -30,7 +30,6 @@ prepOwrt() {
 
     setConfig IB y
     setConfig TARGET_ROOTFS_SQUASHFS n
-
     setConfig PACKAGE_kmod-batman-adv m
     setConfig PACKAGE_kmod-bridge m
     setConfig PACKAGE_curl m
@@ -45,13 +44,11 @@ prepOwrt() {
     setConfig PACKAGE_hostapd-utils m
     setConfig PACKAGE_ppp m
     setConfig PACKAGE_ecdsautils m
-
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
-
     make defconfig || exit 1
 
     make download || exit 1

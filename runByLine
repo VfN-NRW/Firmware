@@ -1,0 +1,14 @@
+#!/bin/bash
+echo '*************************'
+i=0
+cat $1 | while read line ; do
+  i=$((i+1))
+  if [[ $line != \#* ]] ; then
+    bash -c "$line"
+    exitcode=$?
+    if [[ $exitcode != 0 ]] ; then
+      echo "error in $1:$i, exitcode $exitcode"
+      exit
+    fi
+  fi
+done
