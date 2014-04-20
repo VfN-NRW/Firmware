@@ -1,0 +1,2 @@
+ping -c 2 fda0:747e:ab29:4859::c01 > /dev/null
+ping -c 2 fda0:747e:ab29:4859::c02 > /dev/null

@@ -1,0 +1,50 @@
+NAME="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
+if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
+  passwd -d root
+
+  uci set system.@system[0].hostname=$NAME
+  uci delete dhcp.@dnsmasq[0]
+
+  IPV61=`echo -n $NAME|head -c4`
+  IPV62=`echo -n $NAME|head -c8|tail -c4`
+  IPV63=`echo -n $NAME|tail -c4`
+  IPV6="fda0:747e:ab29:4859:ffff:$IPV61:$IPV62:$IPV63/64"
+
+  ## setup lan
+  sh /etc/freifunk/init.lan
+  /etc/init.d/network restart
+
+  ## setup wireless
+  sh /etc/freifunk/init.wireless
+
+  uci set network.l2mesh='interface'
+  uci set network.l2mesh.type='bridge'
+  uci set network.l2mesh.proto='static'
+  uci set network.l2mesh.ifname='bat0'
+  uci set network.l2mesh.ip6addr="$IPV6"
+  uci set network.l2mesh.ipaddr='10.206.0.1'
+
+
+  uci set batman-adv.bat0.fragmentation=1
+  uci set batman-adv.bat0.orig_interval=5000
+
+  sh /etc/freifunk/init.fastd
+
+  uci set freifunk.fw.confver=1
+  uci commit 
+  /etc/init.d/boot restart
+  /etc/init.d/network restart
+
+  /etc/init.d/fastd enable
+  /etc/init.d/fastd restart
+
+fi
+
+ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
+ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
+ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 10.206.0.1/32 -j DROP #local services
+
+ping -c 10 fda0:747e:ab29:4859::c01 &
+ping -c 10 fda0:747e:ab29:4859::c02 &
+sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
+

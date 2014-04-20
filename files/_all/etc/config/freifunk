@@ -1,0 +1,10 @@
+config hotspot 'hotspot'
+	option community ''
+
+config ap 'private'
+	option ssid ''
+	option key ''
+
+config firmware 'fw'
+	option confver '0'
+

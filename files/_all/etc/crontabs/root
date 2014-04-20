@@ -1,0 +1,3 @@
+*/6 * * * * sh /etc/freifunk/ping-hack
+* * * * * sh /usr/sbin/ff-stats
+
