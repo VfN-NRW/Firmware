@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 setConfig () {
   key=$1
   value=$2
@@ -10,7 +9,7 @@ setConfig () {
   echo "CONFIG_$key=$value" >> .config
 }
 
-prepOwrt() {
+buildOwrt() {
   (
     cd openwrt || exit 1
     git clean -fdX || exit 1
@@ -59,5 +58,6 @@ prepOwrt() {
   ) || exit 1
 }
 
-prepOwrt ar71xx 
-echo blub
+buildOwrt ar71xx 
+buildOwrt x86_64
+
