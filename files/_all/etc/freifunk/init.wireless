@@ -24,10 +24,10 @@ if [ "$COMMUNITY" == "gronau" ] ; then
 fi
 
 if [ "$COMMUNITY" == "wermelskirchen" ] ; then
-  bssid='02:CA:FF:EE:21:91'
+  bssid='02:CA:FE:15:21:96'
   ssid='wk.freifunk.net-test'
   channel2=5
-  channel5=36
+  channel5=44
 fi
 
 
