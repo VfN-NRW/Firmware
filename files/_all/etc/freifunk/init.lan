@@ -1,0 +1,14 @@
+# setup simple networking
+uci del network.wan6
+uci del network.wan
+uci del network.lan
+uci del network.eth0
+uci set network.eth0=interface
+uci set network.eth0.ifname=eth0
+uci set network.eth0.proto=dhcp
+
+uci del network.eth1
+uci set network.eth1=interface
+uci set network.eth1.ifname=eth1
+uci set network.eth1.proto=dhcp
+

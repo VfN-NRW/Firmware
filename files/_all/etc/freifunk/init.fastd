@@ -1,0 +1,35 @@
+  #### fastd config
+  uci delete fastd.sample_config
+  uci delete fastd.sample_peer
+  uci delete fastd.sample_group
+
+  uci set fastd.ffmesh=fastd
+  uci set fastd.ffmesh.enabled=1
+  #uci set fastd.ffmesh.syslog_level=info
+  uci set fastd.ffmesh.syslog_level=debug
+  uci add_list fastd.ffmesh.method=salsa2012+gmac
+  uci set fastd.ffmesh.mode=tap
+  uci set fastd.ffmesh.interface=vpn-ffmesh
+  uci set fastd.ffmesh.mtu=1426
+  uci set fastd.ffmesh.forward=0
+  uci set fastd.ffmesh.secret=generate
+  uci set fastd.ffmesh.up='ip link set dev vpn-ffmesh up ; echo bat0 > /sys/devices/virtual/net/vpn-ffmesh/batman_adv/mesh_iface'
+
+#  uci set fastd.bb_boer=peer
+#  uci set fastd.bb_boer.enabled=1
+#  uci set fastd.bb_boer.net=ffmesh
+#  uci set fastd.bb_boer.group=g_backbone
+#  uci set fastd.bb_boer.key=0
+#  uci add_list fastd.bb_boer.remote=37.221.193.163:151206
+
+  uci set fastd.bb_bragi=peer
+  uci set fastd.bb_bragi.enabled=1
+  uci set fastd.bb_bragi.net=ffmesh
+  uci set fastd.bb_bragi.group=g_backbone
+  uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
+  uci add_list fastd.bb_bragi.remote='ipv4 "46.38.232.72" port 15206'
+
+  uci set fastd.g_backbone=peer_group
+  uci set fastd.g_backbone.enabled=1
+  uci set fastd.g_backbone.net=ffmesh
+  uci set fastd.g_backbone.peer_limit=2

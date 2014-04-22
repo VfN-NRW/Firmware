@@ -1,0 +1,12 @@
+#!/bin/sh
+# source : https://github.com/FreifunkAdvanced/geolocate/blob/master/geolocate
+(iw dev wlan0 scan && iw dev wlan1 scan) | \
+egrep -o -e '^BSS [0-9a-f:]{17}' -e '^[[:space:]]SSID.*' -e '^[[:space:]]signal: [0-9.-]*' \
+| tr "\n\t" " " \
+| sed 's/BSS /\n/g' \
+| tail -n +2 \
+| cut -d' ' -f1,4,7- \
+| sed 's/^\([^ ]*\) \([^ ]*\) \(.*\) $/{"mac_address":"\1", "signal_strength":"\2", "ssid":"\3"}/' \
+| tr "\n" , \
+| sed 's/,$//'
+
