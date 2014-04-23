@@ -71,6 +71,7 @@ fi
     uci set wireless.radio1.channel=$channel2
     uci set wireless.radio1.country=DE
     uci set wireless.radio1.hwmode=11g
+    uci set wireless.radio1.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio1'
     uci set wireless.@wifi-iface[-1].mode='adhoc'
