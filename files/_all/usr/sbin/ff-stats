@@ -5,8 +5,8 @@ BATIF=$(for i in `ls -1 /sys/class/net/`; do [ -f /sys/class/net/$i/batman_adv/m
 
 (
 echo ///start
-#echo -n ///build=
-#uci get gronau.fw.version
+echo -n ///build=
+echo 2.$(cat /build)
 
 echo -n ///hwid=
 ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"
