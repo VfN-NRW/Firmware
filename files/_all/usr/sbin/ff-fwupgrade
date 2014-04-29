@@ -1,11 +1,11 @@
 #!/bin/sh
 
-DIST=$1
 FWFILE=$(uci get freifunk.fw.filename)
+DISTRIBUTION=$(uci get freifunk.fw.distribution)
 
-
-# cat /etc/freifunk/fwupgrade/nightly | awk '{print $1}' | sed ':a;N;$!ba;s/\n/ /g'
+# cat /etc/freifunk/fwupgrade/$DISTRIBUTION | awk '{print $1}' | sed ':a;N;$!ba;s/\n/ /g'
 
 cd /tmp && \
-ff-curl firmware2/$DIST/"$FWFILE" -o firmware.bin && \
-sysupgrade $2 firmware.bin
+ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin && \
+sysupgrade $@ firmware.bin
+
