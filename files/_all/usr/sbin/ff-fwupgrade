@@ -9,9 +9,7 @@ ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin || exit 1
 
 PARAMpubkeys=$(cat /etc/freifunk/fwupgrade/nightly  | awk '{if ($1 != "") print "-p " $1}' | sed ':a;N;$!ba;s/\n/ /g')
 PARAMsignatures=$(cat firmware.sig | awk '{if ($1 != "") print "-s " $1}' | sed ':a;N;$!ba;s/\n/ /g')
-ecdsaverify $PARAMsignatures $PARAMpubkeys < firmware.bin || exit 1
-
-exit
+ecdsaverify $PARAMsignatures $PARAMpubkeys firmware.bin || exit 1
 
 sysupgrade $@ firmware.bin
 
