@@ -3,9 +3,15 @@
 FWFILE=$(uci get freifunk.fw.filename)
 DISTRIBUTION=$(uci get freifunk.fw.distribution)
 
-# cat /etc/freifunk/fwupgrade/$DISTRIBUTION | awk '{print $1}' | sed ':a;N;$!ba;s/\n/ /g'
+cd /tmp || exit 1
+ff-curl firmware2/$DISTRIBUTION/"$FWFILE".sig -o firmware.sig || exit 1
+ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin || exit 1
 
-cd /tmp && \
-ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin && \
+PARAMpubkeys=$(cat /etc/freifunk/fwupgrade/nightly  | awk '{if ($1 != "") print "-p " $1}' | sed ':a;N;$!ba;s/\n/ /g')
+PARAMsignatures=$(cat firmware.sig | awk '{if ($1 != "") print "-s " $1}' | sed ':a;N;$!ba;s/\n/ /g')
+ecdsautils $PARAMsignatures $PARAMpubkeys < firmware.bin || exit 1
+
+exit
+
 sysupgrade $@ firmware.bin
 
