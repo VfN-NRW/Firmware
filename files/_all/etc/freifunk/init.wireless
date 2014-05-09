@@ -8,6 +8,7 @@ while [ -z "$COMMUNITY" ] ; do
 
   grep -q gronau.freifunk.net /tmp/detectcommunity && COMMUNITY='gronau'
   grep -q wk.freifunk.net /tmp/detectcommunity && COMMUNITY='wermelskirchen'
+  grep -q rs.freifunk.net /tmp/detectcommunity && COMMUNITY='remscheid'
 
 
   rm /tmp/detectcommunity
@@ -43,6 +44,20 @@ if [ "$COMMUNITY" == "wermelskirchen" ] ; then
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=7d0543ebafdde88978817d514c21b09b965540b0181096e27f672aae5232648f
   uci add_list fastd.bb_bragi.remote='46.38.232.72:15052; remote [2a03:4000:2:453::2]:15052;'
+fi
+
+if [ "$COMMUNITY" == "remscheid" ] ; then
+  bssid='02:CA:FE:15:21:91'
+  ssid='rs.freifunk.net'
+  channel2=5
+  channel5=44
+  #fastd
+  uci set fastd.bb_bragi=peer
+  uci set fastd.bb_bragi.enabled=1
+  uci set fastd.bb_bragi.net=ffmesh
+  uci set fastd.bb_bragi.group=g_backbone
+  uci set fastd.bb_bragi.key=4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15069; remote [2a03:4000:2:453::2]:15069;'
 fi
 
 
