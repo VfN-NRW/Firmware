@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 setConfig () {
   key=$1
   value=$2
@@ -10,7 +9,7 @@ setConfig () {
   echo "CONFIG_$key=$value" >> .config
 }
 
-prepOwrt() {
+buildOwrt() {
   (
     cd openwrt || exit 1
     git clean -fdX || exit 1
@@ -30,7 +29,6 @@ prepOwrt() {
 
     setConfig IB y
     setConfig TARGET_ROOTFS_SQUASHFS n
-
     setConfig PACKAGE_kmod-batman-adv m
     setConfig PACKAGE_kmod-bridge m
     setConfig PACKAGE_curl m
@@ -42,22 +40,25 @@ prepOwrt() {
     setConfig PACKAGE_6relayd n
     setConfig PACKAGE_odhcp6c n
     setConfig PACKAGE_hostapd m
-    setConfig PACKAGE_hostapd-utils m
     setConfig PACKAGE_ppp m
     setConfig PACKAGE_ecdsautils m
-
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
-
+    setConfig PACKAGE_hostapd-utils m
     make defconfig || exit 1
 
     make download || exit 1
+    make defconfig || exit 1
+
+    make V=s || exit 1
+    cp bin/*/OpenWrt-ImageBuilder* ../imagebuilder/ || exit 1
 
   ) || exit 1
 }
 
-prepOwrt ar71xx 
-echo blub
+buildOwrt ar71xx 
+buildOwrt x86_64
+

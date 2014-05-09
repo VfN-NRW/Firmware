@@ -1,0 +1,4 @@
+config defaults
+    option input		ACCEPT
+    option output		ACCEPT
+    option forward		ACCEPT

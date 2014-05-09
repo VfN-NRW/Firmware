@@ -4,5 +4,6 @@ if [[ "$1" == "" ]] ; then
   exit 1
 fi
 
+rm /var/www/firmware2/$1/*
 cp -r images/* /var/www/firmware2/$1/ || exit 1
 cp build.txt /var/www/firmware2/$1/build || exit 1

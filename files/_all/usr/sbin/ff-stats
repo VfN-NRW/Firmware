@@ -1,0 +1,67 @@
+#!/bin/sh
+[ ! -d /tmp/ff-stats/ ] && mkdir /tmp/ff-stats/
+L2MESH=$(/usr/sbin/brctl show | sed -n -e '/^br-l2mesh[[:space:]]/,/^\S/ { /^\(br-l2mesh[[:space:]]\|\t\)/s/^.*\t//p }' | grep -v bat0 | tr '\n' ' ')
+BATIF=$(for i in `ls -1 /sys/class/net/`; do [ -f /sys/class/net/$i/batman_adv/mesh_iface ] && grep -q bat0 /sys/class/net/$i/batman_adv/mesh_iface && echo -n "$i "; done)
+
+(
+echo ///start
+echo -n ///build=
+echo 2.$(cat /build)
+
+echo -n ///hwid=
+ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"
+
+echo -n ///timestamp=
+date +%s
+
+echo -n ///uptime=
+cat /proc/uptime
+
+echo ///l2mesh=$L2MESH
+
+echo ///batif=$BATIF
+
+echo ///wlanclients
+for if in $L2MESH; do
+iw dev $if station dump | grep ^Station | cut -d ' ' -f 2
+done
+
+echo ///ifconfig
+ifconfig | egrep 'HWaddr|bytes'
+
+echo -n ///vpnactive=
+cat /sys/kernel/debug/batman_adv/bat0/originators | grep -q vpn-mesh && echo 1 || echo 0
+
+echo -n ///gwq=
+echo $(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
+
+echo -n ///fastd=
+[ $(uci get fastd.ffmesh.secret) != 'generate' ] &&  echo $(/etc/init.d/fastd show_key ffmesh)
+
+echo ///neighborhoods
+batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'
+
+echo ///wlan-scan
+[ -f /tmp/wlan-scan ] && cat /tmp/wlan-scan
+
+echo 
+
+) > /tmp/ff-stats/`date +%s`
+
+[ -f /tmp/wlan-scan ] && rm /tmp/wlan-scan
+
+sleep `awk "BEGIN{srand(); print(int(rand()*20));}"` #no ddos ;)
+
+
+
+#////// bad stuff ;)
+
+NAME="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
+IPV61=`echo -n $NAME|head -c4`
+IPV62=`echo -n $NAME|head -c8|tail -c4`
+IPV63=`echo -n $NAME|tail -c4`
+IPV6="fda0:747e:ab29:4859:ffff:$IPV61:$IPV62:$IPV63"
+
+for i in /tmp/ff-stats/*; do 
+  ff-curl api/collect.php?ip="$IPV6" -v -X POST --data "`cat $i`"  && rm $i || exit
+done
