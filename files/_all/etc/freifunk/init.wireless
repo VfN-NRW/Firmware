@@ -32,7 +32,8 @@ if [ "$COMMUNITY" == "gronau" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15206; remote [2a03:4000:2:453::2]:15206;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15206'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15206'
 
 fi
 
@@ -47,7 +48,8 @@ if [ "$COMMUNITY" == "wermelskirchen" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=7d0543ebafdde88978817d514c21b09b965540b0181096e27f672aae5232648f
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15052; remote [2a03:4000:2:453::2]:15052;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15052'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15052'
 fi
 
 if [ "$COMMUNITY" == "remscheid" ] ; then
@@ -61,7 +63,8 @@ if [ "$COMMUNITY" == "remscheid" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15069; remote [2a03:4000:2:453::2]:15069;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15069'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15069'
 fi
 
 if [ "$COMMUNITY" == "leverkusen" ] ; then
@@ -75,7 +78,8 @@ if [ "$COMMUNITY" == "leverkusen" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=cec71b1bd4c9aad0c906766f71a29d35414c0b4a2a00f177de8ba2be68da517b
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15076; remote [2a03:4000:2:453::2]:15076;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15076'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15076'
 fi
 
 if [ "$COMMUNITY" == "oberhausen" ] ; then
@@ -89,7 +93,8 @@ if [ "$COMMUNITY" == "oberhausen" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=d654658fb5d02837e2587e294027d617f19ce73afa64d9313bb960318b9ead83
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15000; remote [2a03:4000:2:453::2]:15000;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15076'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15076'
 fi
 
 if [ "$COMMUNITY" == "gelsenkirchen" ] ; then
@@ -103,7 +108,8 @@ if [ "$COMMUNITY" == "gelsenkirchen" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=df5b704ae0615f8079a3a50b61ee83bec7c31b1fc43ebc945bb891592856efde
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15001; remote [2a03:4000:2:453::2]:15001;'
+    uci add_list fastd.bb_bragi.remote='46.38.232.72:15001'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15001'
 fi
 
 if [ "$COMMUNITY" == "geldern" ] ; then
@@ -117,7 +123,8 @@ if [ "$COMMUNITY" == "geldern" ] ; then
   uci set fastd.bb_bragi.net=ffmesh
   uci set fastd.bb_bragi.group=g_backbone
   uci set fastd.bb_bragi.key=f65a0b0a8916140c220c2265727da998e398288cd4689aab4fb5403b23fdfdea
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15073; remote [2a03:4000:2:453::2]:15073;'
+  uci add_list fastd.bb_bragi.remote='46.38.232.72:15073'
+  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15073'
 fi
 
 
