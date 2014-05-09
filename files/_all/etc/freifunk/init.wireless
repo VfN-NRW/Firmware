@@ -6,6 +6,7 @@ while [ -z "$COMMUNITY" ] ; do
   iw dev wlan0 scan > /tmp/detectcommunity
   iw dev wlan0 del
 
+#FIXME: load SSIDs from Config-Files
   grep -q gronau.freifunk.net /tmp/detectcommunity && COMMUNITY='gronau'
   grep -q wk.freifunk.net /tmp/detectcommunity && COMMUNITY='wermelskirchen'
   grep -q rs.freifunk.net /tmp/detectcommunity && COMMUNITY='remscheid'
