@@ -1,4 +1,8 @@
+MAX_COMMUNITY_SCANS=30
+
 COMMUNITY=$(uci -q get freifunk.community)
+
+COMMUNITY_SCANS=0
 while [ -z "$COMMUNITY" ] ; do
   iw phy phy0 interface add wlan0 type ibss
   ip link set wlan0 up
@@ -19,8 +23,15 @@ while [ -z "$COMMUNITY" ] ; do
   rm /tmp/detectcommunity
   if [ ! -z "$COMMUNITY" ] ; then
     uci set freifunk.community="$COMMUNITY"
+  else
+    if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
+      COMMUNITY="fallback"
+      uci set freifunk.community="$COMMUNITY"
   fi
+  COMMUNITY_SCANS=$(expr $COMMUNITY_SCANS + 1)
 done
+
+unset COMMUNITY_SCANS
 
 if [ "$COMMUNITY" == "gronau" ] ; then
   bssid='12:CA:FF:EE:BA:BB'
