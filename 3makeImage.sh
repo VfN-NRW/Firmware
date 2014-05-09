@@ -34,6 +34,7 @@ makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGHOTSPOT" mpc85xx_generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN600' ar71xx-generic-mynet-n600-squashfs-factory.bin ar71xx-generic-mynet-n600-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet-n750-squashfs-factory.bin ar71xx-generic-mynet-n750-squashfs-sysupgrade.bin 
 
 rename.ul openwrt- ff-nrw- images/*
