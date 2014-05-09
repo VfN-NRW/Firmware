@@ -22,12 +22,12 @@
 #  uci set fastd.bb_boer.key=0
 #  uci add_list fastd.bb_boer.remote=37.221.193.163:15206
 
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
-  uci add_list fastd.bb_bragi.remote='ipv4 "46.38.232.72" port 15206'
+#  uci set fastd.bb_bragi=peer
+#  uci set fastd.bb_bragi.enabled=1
+#  uci set fastd.bb_bragi.net=ffmesh
+#  uci set fastd.bb_bragi.group=g_backbone
+#  uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
+#  uci add_list fastd.bb_bragi.remote='ipv4 "46.38.232.72" port 15206'
 
   uci set fastd.g_backbone=peer_group
   uci set fastd.g_backbone.enabled=1
