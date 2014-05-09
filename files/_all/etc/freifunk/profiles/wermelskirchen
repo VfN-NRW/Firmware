@@ -1,0 +1,9 @@
+ap_ssid='wk.freifunk.net'
+bssid='02:CA:FE:15:21:96'
+channel2=5
+channel5=44
+fastd_server="bragi"
+fastd_keys="7d0543ebafdde88978817d514c21b09b965540b0181096e27f672aae5232648f"
+fastd_remote4="46.38.232.72:15052"
+fastd_remote6="[2a03:4000:2:453::2]:15052"
+local_ip="10.52.0.1"
