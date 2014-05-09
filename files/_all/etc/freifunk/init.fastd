@@ -20,7 +20,7 @@
 #  uci set fastd.bb_boer.net=ffmesh
 #  uci set fastd.bb_boer.group=g_backbone
 #  uci set fastd.bb_boer.key=0
-#  uci add_list fastd.bb_boer.remote=37.221.193.163:151206
+#  uci add_list fastd.bb_boer.remote=37.221.193.163:15206
 
   uci set fastd.bb_bragi=peer
   uci set fastd.bb_bragi.enabled=1
