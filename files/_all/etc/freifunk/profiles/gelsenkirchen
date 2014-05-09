@@ -1,0 +1,9 @@
+ap_ssid='ge.freifunk.net'
+bssid='02:CA:FE:15:20:91'
+channel2=5
+channel5=44
+fastd_server="bragi"
+fastd_keys="df5b704ae0615f8079a3a50b61ee83bec7c31b1fc43ebc945bb891592856efde"
+fastd_remote4="46.38.232.72:15001"
+fastd_remote6="[2a03:4000:2:453::2]:15001"
+local_ip="10.1.0.1"
