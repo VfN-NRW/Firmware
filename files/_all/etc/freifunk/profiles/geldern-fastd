@@ -1,4 +1,0 @@
-fastd_server="bragi"
-fastd_keys="f65a0b0a8916140c220c2265727da998e398288cd4689aab4fb5403b23fdfdea"
-fastd_remote4="46.38.232.72:15073"
-fastd_remote6="[2a03:4000:2:453::2]:15073"
