@@ -19,7 +19,6 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q ge.freifunk.net /tmp/detectcommunity && COMMUNITY='gelsenkirchen'
   grep -q gel.freifunk.net /tmp/detectcommunity && COMMUNITY='geldern'
 
-
   rm /tmp/detectcommunity
   if [ ! -z "$COMMUNITY" ] ; then
     uci set freifunk.community="$COMMUNITY"
