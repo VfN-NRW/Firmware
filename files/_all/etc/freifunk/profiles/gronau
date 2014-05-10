@@ -1,0 +1,11 @@
+ap_ssid2='gronau.freifunk.net'
+ap_ssid5='gronau.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:25:62'
+channel2=5
+channel5=36
+fastd_servers="bragi"
+fastd_keys="64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e"
+fastd_remotes4="46.38.232.72:15206"
+fastd_remotes6="[2a03:4000:2:453::2]:15206"
+local_ip="10.206.0.1"
+community_sshkeys=""

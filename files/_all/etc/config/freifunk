@@ -7,4 +7,5 @@ config ap 'private'
 
 config firmware 'fw'
 	option confver '0'
+	option distribution 'stable'
 

@@ -40,7 +40,6 @@ buildOwrt() {
     setConfig PACKAGE_6relayd n
     setConfig PACKAGE_odhcp6c n
     setConfig PACKAGE_hostapd m
-    setConfig PACKAGE_hostapd-utils m
     setConfig PACKAGE_ppp m
     setConfig PACKAGE_ecdsautils m
     make defconfig || exit 1
@@ -48,11 +47,13 @@ buildOwrt() {
     setConfig PACKAGE_kmod-ebtables-ipv4 m
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
+    setConfig PACKAGE_hostapd-utils m
     make defconfig || exit 1
 
     make download || exit 1
+    make defconfig || exit 1
 
-    make || exit 1
+    make V=s || exit 1
     cp bin/*/OpenWrt-ImageBuilder* ../imagebuilder/ || exit 1
 
   ) || exit 1

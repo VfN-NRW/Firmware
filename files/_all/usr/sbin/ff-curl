@@ -1,4 +1,4 @@
 #!/bin/sh
-curl --cacert /etc/ff-cacert.pem --resolve freifunk.liztv.net:10643:fda0:747e:ab29:4859::c03 https://freifunk.liztv.net:10643/"$@" || \
-curl --cacert /etc/ff-cacert.pem https://freifunk.liztv.net:10643/"$@" || \
+curl -s --cacert /etc/ff-cacert.pem --resolve freifunk.liztv.net:10643:fda0:747e:ab29:4859::c03 https://freifunk.liztv.net:10643/"$@" || \
+curl -s --cacert /etc/ff-cacert.pem https://freifunk.liztv.net:10643/"$@" || \
 exit 1
