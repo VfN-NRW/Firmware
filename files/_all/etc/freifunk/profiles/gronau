@@ -1,4 +1,5 @@
-ap_ssid='gronau.freifunk.net'
+ap_ssid2='gronau.freifunk.net'
+ap_ssid5='gronau.freifunk.net (5 GHz)'
 bssid='02:CA:FE:15:25:62'
 channel2=5
 channel5=36
