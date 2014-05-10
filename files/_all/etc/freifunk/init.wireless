@@ -32,9 +32,12 @@ done
 
 unset COMMUNITY_SCANS
 
-source /etc/freifunk/profiles/$COMMUNITY-wifi
+source /etc/freifunk/profiles/$COMMUNITY
 
-##todo: cleanup and dont repeat myself anymore
+#cleanup unneeded vars
+unset fastd_server fastd_keys fastd_remote4 fastd_remote6 local_ip community_sshkeys
+
+#FIXME: cleanup and dont repeat myself anymore
   uci del wireless.@wifi-iface[0]
   uci del wireless.@wifi-iface[0]
   uci del wireless.@wifi-iface[0]
