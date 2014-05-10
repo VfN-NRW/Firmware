@@ -160,7 +160,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='adhoc'
     uci set wireless.@wifi-iface[-1].network=wlanmesh11
     uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
     uci set network.wlanmesh11=interface
     uci set network.wlanmesh11.proto=batadv
     uci set network.wlanmesh11.mesh=bat0
@@ -185,7 +185,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='adhoc'
     uci set wireless.@wifi-iface[-1].network=wlanmesh21
     uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
     uci set network.wlanmesh21=interface
     uci set network.wlanmesh21.proto=batadv
     uci set network.wlanmesh21.mesh=bat0
@@ -210,7 +210,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='adhoc'
     uci set wireless.@wifi-iface[-1].network=wlanmesh12
     uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
     uci set network.wlanmesh12=interface
     uci set network.wlanmesh12.proto=batadv
     uci set network.wlanmesh12.mesh=bat0
@@ -234,7 +234,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='adhoc'
     uci set wireless.@wifi-iface[-1].network=wlanmesh22
     uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
     uci set network.wlanmesh22=interface
     uci set network.wlanmesh22.proto=batadv
     uci set network.wlanmesh22.mesh=bat0
