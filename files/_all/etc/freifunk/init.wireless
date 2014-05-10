@@ -26,6 +26,7 @@ while [ -z "$COMMUNITY" ] ; do
     if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
       COMMUNITY="fallback"
       uci set freifunk.community="$COMMUNITY"
+    fi
   fi
   COMMUNITY_SCANS=$(expr $COMMUNITY_SCANS + 1)
 done
