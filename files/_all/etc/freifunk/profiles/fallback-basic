@@ -1,0 +1,2 @@
+local_ip="10.255.0.1"
+community_sshkey=""
