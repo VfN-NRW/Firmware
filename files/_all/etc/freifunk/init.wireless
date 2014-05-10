@@ -32,7 +32,7 @@ done
 
 unset COMMUNITY_SCANS
 
-source /etc/freifunk/profiles/$COMMUNITY
+source /etc/freifunk/profiles/$COMMUNITY-wifi
 
 ##todo: cleanup and dont repeat myself anymore
   uci del wireless.@wifi-iface[0]
