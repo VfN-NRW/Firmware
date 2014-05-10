@@ -1,0 +1,11 @@
+ap_ssid2='rs.freifunk.net'
+ap_ssid5='rs.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:21:91'
+channel2=5
+channel5=44
+fastd_servers="bragi"
+fastd_keys="4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad"
+fastd_remotes4="46.38.232.72:15069"
+fastd_remotes6="[2a03:4000:2:453::2]:15069"
+local_ip="10.69.0.1"
+community_sshkeys=""

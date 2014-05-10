@@ -1,0 +1,11 @@
+ap_ssid2='gel.freifunk.net'
+ap_ssid5='gel.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:28:31'
+channel2=5
+channel5=44
+fastd_servers="bragi"
+fastd_keys="f65a0b0a8916140c220c2265727da998e398288cd4689aab4fb5403b23fdfdea"
+fastd_remotes4="46.38.232.72:15073"
+fastd_remotes6="[2a03:4000:2:453::2]:15073"
+local_ip="10.73.0.1"
+community_sshkeys=""

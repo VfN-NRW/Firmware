@@ -1,4 +1,8 @@
+MAX_COMMUNITY_SCANS=30
+
 COMMUNITY=$(uci -q get freifunk.community)
+
+COMMUNITY_SCANS=0
 while [ -z "$COMMUNITY" ] ; do
   iw phy phy0 interface add wlan0 type ibss
   ip link set wlan0 up
@@ -6,6 +10,7 @@ while [ -z "$COMMUNITY" ] ; do
   iw dev wlan0 scan > /tmp/detectcommunity
   iw dev wlan0 del
 
+#FIXME: load SSIDs from Config-Files
   grep -q gronau.freifunk.net /tmp/detectcommunity && COMMUNITY='gronau'
   grep -q wk.freifunk.net /tmp/detectcommunity && COMMUNITY='wermelskirchen'
   grep -q rs.freifunk.net /tmp/detectcommunity && COMMUNITY='remscheid'
@@ -14,244 +19,157 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q ge.freifunk.net /tmp/detectcommunity && COMMUNITY='gelsenkirchen'
   grep -q gel.freifunk.net /tmp/detectcommunity && COMMUNITY='geldern'
 
-
   rm /tmp/detectcommunity
   if [ ! -z "$COMMUNITY" ] ; then
     uci set freifunk.community="$COMMUNITY"
+  else
+    if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
+      COMMUNITY="fallback"
+      uci set freifunk.community="$COMMUNITY"
   fi
+  COMMUNITY_SCANS=$(expr $COMMUNITY_SCANS + 1)
 done
 
-if [ "$COMMUNITY" == "gronau" ] ; then
-  bssid='12:CA:FF:EE:BA:BB'
-  ssid='gronau.freifunk.net'
-  channel2=1
-  channel5=36
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15206; remote [2a03:4000:2:453::2]:15206;'
+unset COMMUNITY_SCANS
 
-fi
+source /etc/freifunk/profiles/$COMMUNITY
 
-if [ "$COMMUNITY" == "wermelskirchen" ] ; then
-  bssid='02:CA:FE:15:21:96'
-  ssid='wk.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=7d0543ebafdde88978817d514c21b09b965540b0181096e27f672aae5232648f
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15052; remote [2a03:4000:2:453::2]:15052;'
-fi
+#cleanup unneeded vars
+unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6 local_ip community_sshkeys
 
-if [ "$COMMUNITY" == "remscheid" ] ; then
-  bssid='02:CA:FE:15:21:91'
-  ssid='rs.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15069; remote [2a03:4000:2:453::2]:15069;'
-fi
+#FIXME: cleanup and dont repeat myself anymore
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0] 
+uci del wireless.@wifi-iface[0] 
+uci del wireless.@wifi-iface[0] 
 
-if [ "$COMMUNITY" == "leverkusen" ] ; then
-  bssid='02:CA:FE:15:21:44'
-  ssid='lev.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=cec71b1bd4c9aad0c906766f71a29d35414c0b4a2a00f177de8ba2be68da517b
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15076; remote [2a03:4000:2:453::2]:15076;'
-fi
+iw phy0 info | grep -q '2412 MHz' && (
+  uci set wireless.radio0.disabled=0
+  uci set wireless.radio0.channel=$channel2
+  uci set wireless.radio0.country=DE
+  uci set wireless.radio0.hwmode=11g
+  uci set wireless.radio0.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio0'
+  uci set wireless.@wifi-iface[-1].mode='adhoc'
+  uci set wireless.@wifi-iface[-1].network=wlanmesh11
+  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].bssid="$bssid"
+  uci set network.wlanmesh11=interface
+  uci set network.wlanmesh11.proto=batadv
+  uci set network.wlanmesh11.mesh=bat0
+  uci set network.wlanmesh11.ifname=wlan0
+  uci set network.wlanmesh11.mtu=1528
 
-if [ "$COMMUNITY" == "oberhausen" ] ; then
-  bssid='02:CA:FE:15:20:88'
-  ssid='ob.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=d654658fb5d02837e2587e294027d617f19ce73afa64d9313bb960318b9ead83
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15000; remote [2a03:4000:2:453::2]:15000;'
-fi
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio0'
+  uci set wireless.@wifi-iface[-1].mode='ap'
+  uci set wireless.@wifi-iface[-1].encryption='none'
+  uci set wireless.@wifi-iface[-1].network='l2mesh'
+  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid2"
+)
+iw phy1 info | grep -q '2412 MHz' && (
+  uci set wireless.radio1.disabled=0
+  uci set wireless.radio1.channel=$channel2
+  uci set wireless.radio1.country=DE
+  uci set wireless.radio1.hwmode=11g
+  uci set wireless.radio1.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio1'
+  uci set wireless.@wifi-iface[-1].mode='adhoc'
+  uci set wireless.@wifi-iface[-1].network=wlanmesh21
+  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].bssid="$bssid"
+  uci set network.wlanmesh21=interface
+  uci set network.wlanmesh21.proto=batadv
+  uci set network.wlanmesh21.mesh=bat0
+  uci set network.wlanmesh21.ifname=wlan1
+  uci set network.wlanmesh21.mtu=1528
 
-if [ "$COMMUNITY" == "gelsenkirchen" ] ; then
-  bssid='02:CA:FE:15:20:91'
-  ssid='ge.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=df5b704ae0615f8079a3a50b61ee83bec7c31b1fc43ebc945bb891592856efde
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15001; remote [2a03:4000:2:453::2]:15001;'
-fi
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio1'
+  uci set wireless.@wifi-iface[-1].mode='ap'
+  uci set wireless.@wifi-iface[-1].encryption='none'
+  uci set wireless.@wifi-iface[-1].network='l2mesh'
+  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid2"
+)
 
-if [ "$COMMUNITY" == "geldern" ] ; then
-  bssid='02:CA:FE:15:28:31'
-  ssid='gel.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=f65a0b0a8916140c220c2265727da998e398288cd4689aab4fb5403b23fdfdea
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15073; remote [2a03:4000:2:453::2]:15073;'
-fi
+iw phy0 info | grep -q '5180 MHz' && (
+  uci set wireless.radio0.disabled=0
+  uci set wireless.radio0.channel=$channel5
+  uci set wireless.radio0.country=DE
+  uci set wireless.radio0.hwmode=11na
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio0'
+  uci set wireless.@wifi-iface[-1].mode='adhoc'
+  uci set wireless.@wifi-iface[-1].network=wlanmesh12
+  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].bssid="$bssid"
+  uci set network.wlanmesh12=interface
+  uci set network.wlanmesh12.proto=batadv
+  uci set network.wlanmesh12.mesh=bat0
+  uci set network.wlanmesh12.ifname=wlan0
+  uci set network.wlanmesh12.mtu=1528
 
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio0'
+  uci set wireless.@wifi-iface[-1].mode='ap'
+  uci set wireless.@wifi-iface[-1].encryption='none'
+  uci set wireless.@wifi-iface[-1].network='l2mesh'
+  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+)
+iw phy1 info | grep -q '5180 MHz' && (
+  uci set wireless.radio1.disabled=0
+  uci set wireless.radio1.channel=$channel5
+  uci set wireless.radio1.country=DE
+  uci set wireless.radio1.hwmode=11na
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio1'
+  uci set wireless.@wifi-iface[-1].mode='adhoc'
+  uci set wireless.@wifi-iface[-1].network=wlanmesh22
+  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].bssid="$bssid"
+  uci set network.wlanmesh22=interface
+  uci set network.wlanmesh22.proto=batadv
+  uci set network.wlanmesh22.mesh=bat0
+  uci set network.wlanmesh22.ifname=wlan1
+  uci set network.wlanmesh22.mtu=1528
 
-##todo: cleanup and dont repeat myself anymore
-  uci del wireless.@wifi-iface[0]
-  uci del wireless.@wifi-iface[0]
-  uci del wireless.@wifi-iface[0]
-  uci del wireless.@wifi-iface[0]
-  uci del wireless.@wifi-iface[0]
-  uci del wireless.@wifi-iface[0] 
-  uci del wireless.@wifi-iface[0] 
-  uci del wireless.@wifi-iface[0] 
+  uci add wireless wifi-iface
+  uci set wireless.@wifi-iface[-1].device='radio1'
+  uci set wireless.@wifi-iface[-1].mode='ap'
+  uci set wireless.@wifi-iface[-1].encryption='none'
+  uci set wireless.@wifi-iface[-1].network='l2mesh'
+  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+)
+#cleanup unneeded vars
+unset ap_ssid2 ap_ssid5 bssid channel2 channel5 
 
-  iw phy0 info | grep -q '2412 MHz' && (
-    uci set wireless.radio0.disabled=0
-    uci set wireless.radio0.channel=$channel2
-    uci set wireless.radio0.country=DE
-    uci set wireless.radio0.hwmode=11g
-    uci set wireless.radio0.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio0'
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh11
-    uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
-    uci set network.wlanmesh11=interface
-    uci set network.wlanmesh11.proto=batadv
-    uci set network.wlanmesh11.mesh=bat0
-    uci set network.wlanmesh11.ifname=wlan0
-    uci set network.wlanmesh11.mtu=1528
+PRIVATE_SSID=$(uci -q get freifunk.private.ssid)
+PRIVATE_KEY=$(uci -q get freifunk.private.key)
 
+if [ ! -z "$PRIVATE_SSID" ] ; then
+
+  if [ $(uci -q get wireless.radio0) == "wifi-device" ] ; then
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio0'
     uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
-  )
-  iw phy1 info | grep -q '2412 MHz' && (
-    uci set wireless.radio1.disabled=0
-    uci set wireless.radio1.channel=$channel2
-    uci set wireless.radio1.country=DE
-    uci set wireless.radio1.hwmode=11g
-    uci set wireless.radio1.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio1'
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh21
-    uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
-    uci set network.wlanmesh21=interface
-    uci set network.wlanmesh21.proto=batadv
-    uci set network.wlanmesh21.mesh=bat0
-    uci set network.wlanmesh21.ifname=wlan1
-    uci set network.wlanmesh21.mtu=1528
-
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio1'
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
-  )
-
-  iw phy0 info | grep -q '5180 MHz' && (
-    uci set wireless.radio0.disabled=0
-    uci set wireless.radio0.channel=$channel5
-    uci set wireless.radio0.country=DE
-    uci set wireless.radio0.hwmode=11na
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio0'
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh12
-    uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
-    uci set network.wlanmesh12=interface
-    uci set network.wlanmesh12.proto=batadv
-    uci set network.wlanmesh12.mesh=bat0
-    uci set network.wlanmesh12.ifname=wlan0
-    uci set network.wlanmesh12.mtu=1528
-
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio0'
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
-  )
-  iw phy1 info | grep -q '5180 MHz' && (
-    uci set wireless.radio1.disabled=0
-    uci set wireless.radio1.channel=$channel5
-    uci set wireless.radio1.country=DE
-    uci set wireless.radio1.hwmode=11na
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio1'
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh22
-    uci set wireless.@wifi-iface[-1].ssid='mesh'
-    uci set wireless.@wifi-iface[-1].bssid="$ibssid"
-    uci set network.wlanmesh22=interface
-    uci set network.wlanmesh22.proto=batadv
-    uci set network.wlanmesh22.mesh=bat0
-    uci set network.wlanmesh22.ifname=wlan1
-    uci set network.wlanmesh22.mtu=1528
-
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device='radio1'
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
-  )
-
-  PRIVATE_SSID=$(uci -q get freifunk.private.ssid)
-  PRIVATE_KEY=$(uci -q get freifunk.private.key)
-
-  if [ ! -z "$PRIVATE_SSID" ] ; then
-
-    if [ $(uci -q get wireless.radio0) == "wifi-device" ] ; then
-      uci add wireless wifi-iface
-      uci set wireless.@wifi-iface[-1].device='radio0'
-      uci set wireless.@wifi-iface[-1].mode='ap'
-      uci set wireless.@wifi-iface[-1].network=lan
-      uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID"
-      uci set wireless.@wifi-iface[-1].encryption="psk2"
-      uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
-    fi
-    if [ $(uci -q get wireless.radio1) == "wifi-device" ] ; then
-      uci add wireless wifi-iface
-      uci set wireless.@wifi-iface[-1].device='radio1'
-      uci set wireless.@wifi-iface[-1].mode='ap'
-      uci set wireless.@wifi-iface[-1].network=lan
-      uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID"
-      uci set wireless.@wifi-iface[-1].encryption="psk2"
-      uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
-    fi
+    uci set wireless.@wifi-iface[-1].network=lan
+    uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID"
+    uci set wireless.@wifi-iface[-1].encryption="psk2"
+    uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
   fi
+  if [ $(uci -q get wireless.radio1) == "wifi-device" ] ; then
+    uci add wireless wifi-iface
+    uci set wireless.@wifi-iface[-1].device='radio1'
+    uci set wireless.@wifi-iface[-1].mode='ap'
+    uci set wireless.@wifi-iface[-1].network=lan
+    uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID"
+    uci set wireless.@wifi-iface[-1].encryption="psk2"
+    uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
+  fi
+fi
