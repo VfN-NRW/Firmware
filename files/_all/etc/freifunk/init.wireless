@@ -32,112 +32,7 @@ done
 
 unset COMMUNITY_SCANS
 
-if [ "$COMMUNITY" == "gronau" ] ; then
-  bssid='12:CA:FF:EE:BA:BB'
-  ssid='gronau.freifunk.net'
-  channel2=1
-  channel5=36
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=64c2ad4d0e2ebb21cb368f9455f38149d12daff2232381c1e3afe0181ff7085e
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15206'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15206'
-
-fi
-
-if [ "$COMMUNITY" == "wermelskirchen" ] ; then
-  bssid='02:CA:FE:15:21:96'
-  ssid='wk.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=7d0543ebafdde88978817d514c21b09b965540b0181096e27f672aae5232648f
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15052'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15052'
-fi
-
-if [ "$COMMUNITY" == "remscheid" ] ; then
-  bssid='02:CA:FE:15:21:91'
-  ssid='rs.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15069'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15069'
-fi
-
-if [ "$COMMUNITY" == "leverkusen" ] ; then
-  bssid='02:CA:FE:15:21:44'
-  ssid='lev.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=cec71b1bd4c9aad0c906766f71a29d35414c0b4a2a00f177de8ba2be68da517b
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15076'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15076'
-fi
-
-if [ "$COMMUNITY" == "oberhausen" ] ; then
-  bssid='02:CA:FE:15:20:88'
-  ssid='ob.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=d654658fb5d02837e2587e294027d617f19ce73afa64d9313bb960318b9ead83
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15000'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15000'
-fi
-
-if [ "$COMMUNITY" == "gelsenkirchen" ] ; then
-  bssid='02:CA:FE:15:20:91'
-  ssid='ge.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=df5b704ae0615f8079a3a50b61ee83bec7c31b1fc43ebc945bb891592856efde
-    uci add_list fastd.bb_bragi.remote='46.38.232.72:15001'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15001'
-fi
-
-if [ "$COMMUNITY" == "geldern" ] ; then
-  bssid='02:CA:FE:15:28:31'
-  ssid='gel.freifunk.net'
-  channel2=5
-  channel5=44
-  #fastd
-  uci set fastd.bb_bragi=peer
-  uci set fastd.bb_bragi.enabled=1
-  uci set fastd.bb_bragi.net=ffmesh
-  uci set fastd.bb_bragi.group=g_backbone
-  uci set fastd.bb_bragi.key=f65a0b0a8916140c220c2265727da998e398288cd4689aab4fb5403b23fdfdea
-  uci add_list fastd.bb_bragi.remote='46.38.232.72:15073'
-  uci add_list fastd.bb_bragi.remote='[2a03:4000:2:453::2]:15073'
-fi
-
+source /etc/freifunk/profiles/$COMMUNITY
 
 ##todo: cleanup and dont repeat myself anymore
   uci del wireless.@wifi-iface[0]
@@ -172,7 +67,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='ap'
     uci set wireless.@wifi-iface[-1].encryption='none'
     uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid2"
   )
   iw phy1 info | grep -q '2412 MHz' && (
     uci set wireless.radio1.disabled=0
@@ -197,7 +92,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='ap'
     uci set wireless.@wifi-iface[-1].encryption='none'
     uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid2"
   )
 
   iw phy0 info | grep -q '5180 MHz' && (
@@ -222,7 +117,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='ap'
     uci set wireless.@wifi-iface[-1].encryption='none'
     uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
   )
   iw phy1 info | grep -q '5180 MHz' && (
     uci set wireless.radio1.disabled=0
@@ -246,7 +141,7 @@ fi
     uci set wireless.@wifi-iface[-1].mode='ap'
     uci set wireless.@wifi-iface[-1].encryption='none'
     uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ssid"
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
   )
 
   PRIVATE_SSID=$(uci -q get freifunk.private.ssid)
