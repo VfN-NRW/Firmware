@@ -42,6 +42,8 @@ buildOwrt() {
     setConfig PACKAGE_hostapd m
     setConfig PACKAGE_ppp m
     setConfig PACKAGE_ecdsautils m
+    setConfig PACKAGE_haveged m
+    setConfig PACKAGE_nano m
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
