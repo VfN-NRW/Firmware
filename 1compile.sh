@@ -23,6 +23,7 @@ buildOwrt() {
     scripts/feeds install fastd
     scripts/feeds install curl
     scripts/feeds install ecdsautils
+    scripts/feeds install haveged
 
     echo CONFIG_TARGET_$1=y > .config || exit1
     make defconfig || exit 1
