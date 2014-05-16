@@ -174,3 +174,8 @@ if [ ! -z "$PRIVATE_SSID" ] ; then
     uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
   fi
 fi
+
+uci commit wireless
+wifi down
+sleep 5
+wifi up
