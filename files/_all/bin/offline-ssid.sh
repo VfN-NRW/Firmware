@@ -39,6 +39,9 @@ SSID_1_BOOT=""
 SSID_1_ONLINE=""
 SSID_1_OFFLINE=""
 DEVICE=`cat /proc/sys/kernel/hostname`
+if [ ${#DEVICE} -gt 16 ]; then #cut device-name
+	DEVICE="${DEVICE:0:13}..."
+fi
 CHANGED=0
 FORCE_CHANGE=0
 
