@@ -62,4 +62,6 @@ ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local service
 ping -c 10 fda0:747e:ab29:4859::c01 &
 ping -c 10 fda0:747e:ab29:4859::c02 &
 sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
+sleep 10
+ff-curl boot/$(cat /proc/sys/kernel/hostname) | sh &
 
