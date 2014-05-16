@@ -30,7 +30,7 @@ echo ///ifconfig
 ifconfig | egrep 'HWaddr|bytes'
 
 echo -n ///vpnactive=
-cat /sys/kernel/debug/batman_adv/bat0/originators | grep -q vpn-mesh && echo 1 || echo 0
+cat /sys/kernel/debug/batman_adv/bat0/originators | grep -q vpn-ffmesh && echo 1 || echo 0
 
 echo -n ///gwq=
 echo $(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
