@@ -58,7 +58,7 @@ iw phy0 info | grep -q '2412 MHz' && (
   uci set wireless.@wifi-iface[-1].device='radio0'
   uci set wireless.@wifi-iface[-1].mode='adhoc'
   uci set wireless.@wifi-iface[-1].network=wlanmesh11
-  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
   uci set wireless.@wifi-iface[-1].bssid="$bssid"
   uci set network.wlanmesh11=interface
   uci set network.wlanmesh11.proto=batadv
@@ -83,7 +83,7 @@ iw phy1 info | grep -q '2412 MHz' && (
   uci set wireless.@wifi-iface[-1].device='radio1'
   uci set wireless.@wifi-iface[-1].mode='adhoc'
   uci set wireless.@wifi-iface[-1].network=wlanmesh21
-  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
   uci set wireless.@wifi-iface[-1].bssid="$bssid"
   uci set network.wlanmesh21=interface
   uci set network.wlanmesh21.proto=batadv
@@ -108,7 +108,7 @@ iw phy0 info | grep -q '5180 MHz' && (
   uci set wireless.@wifi-iface[-1].device='radio0'
   uci set wireless.@wifi-iface[-1].mode='adhoc'
   uci set wireless.@wifi-iface[-1].network=wlanmesh12
-  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
   uci set wireless.@wifi-iface[-1].bssid="$bssid"
   uci set network.wlanmesh12=interface
   uci set network.wlanmesh12.proto=batadv
@@ -132,7 +132,7 @@ iw phy1 info | grep -q '5180 MHz' && (
   uci set wireless.@wifi-iface[-1].device='radio1'
   uci set wireless.@wifi-iface[-1].mode='adhoc'
   uci set wireless.@wifi-iface[-1].network=wlanmesh22
-  uci set wireless.@wifi-iface[-1].ssid='mesh'
+  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
   uci set wireless.@wifi-iface[-1].bssid="$bssid"
   uci set network.wlanmesh22=interface
   uci set network.wlanmesh22.proto=batadv
