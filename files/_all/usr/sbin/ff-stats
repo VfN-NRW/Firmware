@@ -45,13 +45,13 @@ echo ///neighborhoods
 batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'
 
 echo ///wlan-scan
-[ -f /tmp/wlan-scan ] && cat /tmp/wlan-scan
+[ -f /tmp/wlanscan ] && cat /tmp/wlanscan
 
 echo 
 
 ) > /tmp/ff-stats/`date +%s`
 
-[ -f /tmp/wlan-scan ] && rm /tmp/wlan-scan
+[ -f /tmp/wlanscan ] && rm /tmp/wlanscan
 
 sleep `awk "BEGIN{srand(); print(int(rand()*20));}"` #no ddos ;)
 
