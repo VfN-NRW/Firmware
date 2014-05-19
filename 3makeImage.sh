@@ -30,6 +30,7 @@ CFGHOTSPOT='hostapd'
 
 echo $BUILD > files/_all/build
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin
 
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841n-v8-squashfs-factory.bin ar71xx-generic-tl-wr841n-v8-squashfs-sysupgrade.bin
