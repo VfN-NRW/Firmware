@@ -1,0 +1,11 @@
+ap_ssid2='kle.freifunk.net'
+ap_ssid5='kle.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:28:21'
+channel2=5
+channel5=44
+fastd_servers="bragi"
+fastd_keys="84169b6fd2f7e8cf0a4e5cf7cce8544d19236ef0c43baa1f69b3cad5fd449c9f"
+fastd_remotes4="46.38.232.72:15074"
+fastd_remotes6="[2a03:4000:2:453::2]:15074"
+local_ip="10.74.0.1"
+community_sshkeys="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAihRXbu9rkwCD5szx1CYyL7NuMlday+0qHfskswBCA9tfcUVS43xloy8oMfibKvtHfd9Ome8Rh89TeDIQ0KbPGAhZB4mYTSVHjKeRGsK5lEFJKclxPhOsXdI7lHhRiUvBOQcTVjgtsEUQi3xW8jaddP6iYtTtXWNTf5Wift+uhM5Fukzz6VGUTzhbbD6IXNLphYVWcFCIWtBC4MZchM2GxZazJ7vehMek9MfFkLMpim/0YgZsxWuqqtuTJl5wuq/1583zYI/JjcKNUS7xL7oiFQAHMo6eOq0krLJ4xkPntbshEb92H6hepeE4i1tDJUto7UKle9ftjsiClUT+tcNwYw== maint_kleveonly"
