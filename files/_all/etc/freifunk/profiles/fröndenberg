@@ -1,0 +1,11 @@
+ap_ssid2='frö.freifunk.net'
+ap_ssid5='frö.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:23:73'
+channel2=5
+channel5=44
+fastd_servers="bragi"
+fastd_keys="3eae96f867ab9e988cf470f2244ca612869845112b6002e44b52187f00efe32d"
+fastd_remotes4="46.38.232.72:15092"
+fastd_remotes6="[2a03:4000:2:453::2]:15092"
+local_ip="10.92.0.1"
+community_sshkeys=""
