@@ -55,6 +55,12 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
 
 fi
 
+#load community-profile
+COMMUNITY=$(uci -q get freifunk.community)
+source /etc/freifunk/profiles/$COMMUNITY
+
+unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6 community_sshkeys
+
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
