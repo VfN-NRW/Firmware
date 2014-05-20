@@ -25,6 +25,7 @@ buildOwrt() {
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
     scripts/feeds install nano
+    scripts/feeds install socat
 
     echo CONFIG_TARGET_$1=y > .config || exit1
     make defconfig || exit 1
