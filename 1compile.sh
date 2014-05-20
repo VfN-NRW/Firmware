@@ -47,6 +47,7 @@ buildOwrt() {
     setConfig PACKAGE_ecdsautils m
     setConfig PACKAGE_haveged m
     setConfig PACKAGE_nano m
+    setConfig PACKAGE_socat m
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
