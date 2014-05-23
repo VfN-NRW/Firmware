@@ -50,5 +50,6 @@ makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN600' ar71xx-generic-mynet-n600-squashfs-factory.bin ar71xx-generic-mynet-n600-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet-n750-squashfs-factory.bin ar71xx-generic-mynet-n750-squashfs-sysupgrade.bin 
 
-rename.ul openwrt- ff-nrw- images/*
+makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'WZRHPAG300H' ar71xx-generic-wzr-hp-ag300h-squashfs-factory.bin ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 
+rename.ul openwrt- ff-nrw- images/*
