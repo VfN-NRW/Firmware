@@ -65,9 +65,13 @@ ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
 
-ping -c 10 fda0:747e:ab29:4859::c01 &
-ping -c 10 fda0:747e:ab29:4859::c02 &
-sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
-sleep 10
-ff-curl boot/$(cat /proc/sys/kernel/hostname) | sh &
+uci del system.ntp.server
+uci set system.ntp.server="bragi.freifunk-nrw.de"
+uci set system.ntp.server="$mesh_ip_prefix::c02"
+/etc/init.d/sysntpd restart
 
+sleep 60 
+(
+  sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
+  ff-curl boot/$(cat /proc/sys/kernel/hostname) | sh
+)&
