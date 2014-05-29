@@ -66,5 +66,6 @@ IPV63=`echo -n $NAME|tail -c4`
 IPV6="fda0:747e:ab29:4859:ffff:$IPV61:$IPV62:$IPV63"
 
 for i in /tmp/ff-stats/*; do 
-  ff-curl api/collect.php?ip="$IPV6" -v -X POST --data "`cat $i`"  && rm $i || exit
+  ff-curl api/collect.php?ip="$IPV6" -v -X POST --data "`cat $i`" > /tmp/ff-stats-result && rm $i || exit
 done
+
