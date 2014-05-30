@@ -66,7 +66,6 @@ ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
 
 uci del system.ntp.server
-uci set system.ntp.server="bragi.freifunk-nrw.de"
 uci set system.ntp.server="$mesh_ip_prefix::c02"
 /etc/init.d/sysntpd restart
 
