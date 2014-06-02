@@ -25,5 +25,5 @@ stage2 = if everything worked fine in stage1, stage2 is released
 
 stable = stable firmware that has prooved running good (this is default)
 
-rocksolid = a conservative firmware release - the most stable. is only release if it is really needed. use this if you plan to include the router INTO walls.
+rocksolid = a conservative firmware release - the most stable. is only released if its really needed. use this if you plan to include the router INTO walls.
 
