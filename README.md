@@ -1,6 +1,13 @@
 
 This is just a piece of alpha software, DO NOT USE it for anything except testing purposes.
 
+# Bugtracker
+
+Do report EVERY bug you find!
+
+Bugtracker: http://bug.freifunk.net/projects/fff-nrw/issues/new
+
+
 # How to Build
 
 `git clone https://github.com/FF-NRW/Firmware.git`  
