@@ -1,4 +1,13 @@
 # this is a replacement for rc.local
 
+#Fix Bufferbloat
+ifconfig vpn-ffmesh txqueuelen 10
+ifconfig eth1 txqueuelen 10
+ifconfig eth0 txqueuelen 10
+ifconfig wlan0 txqueuelen 50
+ifconfig wlan1 txqueuelen 50
+ifconfig wlan1-1 txqueuelen 50
+ifconfig wlan0-1 txqueuelen 50
+
 
 exit 0
