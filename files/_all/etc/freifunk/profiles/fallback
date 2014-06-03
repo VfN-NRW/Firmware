@@ -3,6 +3,7 @@ ap_ssid5='freifunk-nrw.de (5 GHz)'
 bssid='02:CA:FE:15:ab:cd'
 channel2=5
 channel5=36
+mesh_ip_prefix="fda0:747e:ab29:abcd"
 fastd_servers="bragi"
 fastd_keys="4a5e4a4ef7e714e03272b2caf9b4c72376f3555695d686c3fa6ff16417c415fc"
 fastd_remotes4="46.38.232.72:15045"
