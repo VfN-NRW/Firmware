@@ -68,7 +68,7 @@ iw phy0 info | grep -q '2412 MHz' && (
   uci set network.wlanmesh11.proto=batadv
   uci set network.wlanmesh11.mesh=bat0
   uci set network.wlanmesh11.ifname=wlan0
-  uci set network.wlanmesh11.mtu=1528
+  uci set network.wlanmesh11.mtu=1532
 
   uci add wireless wifi-iface
   uci set wireless.@wifi-iface[-1].device='radio0'
@@ -93,7 +93,7 @@ iw phy1 info | grep -q '2412 MHz' && (
   uci set network.wlanmesh21.proto=batadv
   uci set network.wlanmesh21.mesh=bat0
   uci set network.wlanmesh21.ifname=wlan1
-  uci set network.wlanmesh21.mtu=1528
+  uci set network.wlanmesh21.mtu=1532
 
   uci add wireless wifi-iface
   uci set wireless.@wifi-iface[-1].device='radio1'
@@ -118,7 +118,7 @@ iw phy0 info | grep -q '5180 MHz' && (
   uci set network.wlanmesh12.proto=batadv
   uci set network.wlanmesh12.mesh=bat0
   uci set network.wlanmesh12.ifname=wlan0
-  uci set network.wlanmesh12.mtu=1528
+  uci set network.wlanmesh12.mtu=1532
 
   uci add wireless wifi-iface
   uci set wireless.@wifi-iface[-1].device='radio0'
@@ -142,7 +142,7 @@ iw phy1 info | grep -q '5180 MHz' && (
   uci set network.wlanmesh22.proto=batadv
   uci set network.wlanmesh22.mesh=bat0
   uci set network.wlanmesh22.ifname=wlan1
-  uci set network.wlanmesh22.mtu=1528
+  uci set network.wlanmesh22.mtu=1532
 
   uci add wireless wifi-iface
   uci set wireless.@wifi-iface[-1].device='radio1'
