@@ -1,5 +1,7 @@
 config hotspot 'hotspot'
 	option community ''
+	option wlanap '1'
+	option wlanmesh '1'
 
 config ap 'private'
 	option ssid ''
