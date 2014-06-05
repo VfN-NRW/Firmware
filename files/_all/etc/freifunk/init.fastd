@@ -43,9 +43,10 @@ for i in `seq $no_of_server` ; do
   uci set fastd.bb_$server.enabled=1
   uci add_list fastd.bb_$server.remote=$remotevier
   uci add_list fastd.bb_$server.remote=$remotesechs
+  tmpLastServer=$server
 done
 
-unset server no_of_server i key remotevier remotesechs
+unset server no_of_server i key remotevier remotesechs tmpLastServer
 
 #unload sourced vars
 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6
