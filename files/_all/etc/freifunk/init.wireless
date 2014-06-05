@@ -59,7 +59,7 @@ iw phy0 info | grep -q '2412 MHz' && (
   uci set wireless.radio0.hwmode=11g
   uci set wireless.radio0.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
 
-  if [ $(uci -q get freifunk.wlanmesh) == "1" ] ; then
+  if [ $(uci -q get freifunk.wlanmesh) != "0" ] ; then
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio0'
     uci set wireless.@wifi-iface[-1].mode='adhoc'
@@ -73,7 +73,7 @@ iw phy0 info | grep -q '2412 MHz' && (
     uci set network.wlanmesh11.mtu=1532
   fi
 
-  if [ $(uci -q get freifunk.wlanap) == "1" ] ; then
+  if [ $(uci -q get freifunk.wlanap) != "0" ] ; then
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio0'
     uci set wireless.@wifi-iface[-1].mode='ap'
@@ -89,7 +89,7 @@ iw phy1 info | grep -q '2412 MHz' && (
   uci set wireless.radio1.hwmode=11g
   uci set wireless.radio1.basic_rate '6000 9000 12000 18000 24000 36000 48000 54000'
 
-  if [ $(uci -q get freifunk.wlanmesh) == "1" ] ; then
+  if [ $(uci -q get freifunk.wlanmesh) != "0" ] ; then
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio1'
     uci set wireless.@wifi-iface[-1].mode='adhoc'
@@ -103,7 +103,7 @@ iw phy1 info | grep -q '2412 MHz' && (
     uci set network.wlanmesh21.mtu=1532
   fi
 
-  if [ $(uci -q get freifunk.wlanap) == "1" ] ; then
+  if [ $(uci -q get freifunk.wlanap) != "0" ] ; then
     uci add wireless wifi-iface
     uci set wireless.@wifi-iface[-1].device='radio1'
     uci set wireless.@wifi-iface[-1].mode='ap'
@@ -118,48 +118,58 @@ iw phy0 info | grep -q '5180 MHz' && (
   uci set wireless.radio0.channel=$channel5
   uci set wireless.radio0.country=DE
   uci set wireless.radio0.hwmode=11na
-  uci add wireless wifi-iface
-  uci set wireless.@wifi-iface[-1].device='radio0'
-  uci set wireless.@wifi-iface[-1].mode='adhoc'
-  uci set wireless.@wifi-iface[-1].network=wlanmesh12
-  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
-  uci set wireless.@wifi-iface[-1].bssid="$bssid"
-  uci set network.wlanmesh12=interface
-  uci set network.wlanmesh12.proto=batadv
-  uci set network.wlanmesh12.mesh=bat0
-  uci set network.wlanmesh12.ifname=wlan0
-  uci set network.wlanmesh12.mtu=1532
 
-  uci add wireless wifi-iface
-  uci set wireless.@wifi-iface[-1].device='radio0'
-  uci set wireless.@wifi-iface[-1].mode='ap'
-  uci set wireless.@wifi-iface[-1].encryption='none'
-  uci set wireless.@wifi-iface[-1].network='l2mesh'
-  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+  if [ $(uci -q get freifunk.wlanmesh) != "0" ] ; then
+    uci add wireless wifi-iface
+    uci set wireless.@wifi-iface[-1].device='radio0'
+    uci set wireless.@wifi-iface[-1].mode='adhoc'
+    uci set wireless.@wifi-iface[-1].network=wlanmesh12
+    uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
+    uci set network.wlanmesh12=interface
+    uci set network.wlanmesh12.proto=batadv
+    uci set network.wlanmesh12.mesh=bat0
+    uci set network.wlanmesh12.ifname=wlan0
+    uci set network.wlanmesh12.mtu=1532
+  fi
+
+  if [ $(uci -q get freifunk.wlanap) != "0" ] ; then
+    uci add wireless wifi-iface
+    uci set wireless.@wifi-iface[-1].device='radio0'
+    uci set wireless.@wifi-iface[-1].mode='ap'
+    uci set wireless.@wifi-iface[-1].encryption='none'
+    uci set wireless.@wifi-iface[-1].network='l2mesh'
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+  fi
 )
 iw phy1 info | grep -q '5180 MHz' && (
   uci set wireless.radio1.disabled=0
   uci set wireless.radio1.channel=$channel5
   uci set wireless.radio1.country=DE
   uci set wireless.radio1.hwmode=11na
-  uci add wireless wifi-iface
-  uci set wireless.@wifi-iface[-1].device='radio1'
-  uci set wireless.@wifi-iface[-1].mode='adhoc'
-  uci set wireless.@wifi-iface[-1].network=wlanmesh22
-  uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
-  uci set wireless.@wifi-iface[-1].bssid="$bssid"
-  uci set network.wlanmesh22=interface
-  uci set network.wlanmesh22.proto=batadv
-  uci set network.wlanmesh22.mesh=bat0
-  uci set network.wlanmesh22.ifname=wlan1
-  uci set network.wlanmesh22.mtu=1532
 
-  uci add wireless wifi-iface
-  uci set wireless.@wifi-iface[-1].device='radio1'
-  uci set wireless.@wifi-iface[-1].mode='ap'
-  uci set wireless.@wifi-iface[-1].encryption='none'
-  uci set wireless.@wifi-iface[-1].network='l2mesh'
-  uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+  if [ $(uci -q get freifunk.wlanmesh) != "0" ] ; then
+    uci add wireless wifi-iface
+    uci set wireless.@wifi-iface[-1].device='radio1'
+    uci set wireless.@wifi-iface[-1].mode='adhoc'
+    uci set wireless.@wifi-iface[-1].network=wlanmesh22
+    uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
+    uci set wireless.@wifi-iface[-1].bssid="$bssid"
+    uci set network.wlanmesh22=interface
+    uci set network.wlanmesh22.proto=batadv
+    uci set network.wlanmesh22.mesh=bat0
+    uci set network.wlanmesh22.ifname=wlan1
+    uci set network.wlanmesh22.mtu=1532
+  fi
+
+  if [ $(uci -q get freifunk.wlanap) != "0" ] ; then
+    uci add wireless wifi-iface
+    uci set wireless.@wifi-iface[-1].device='radio1'
+    uci set wireless.@wifi-iface[-1].mode='ap'
+    uci set wireless.@wifi-iface[-1].encryption='none'
+    uci set wireless.@wifi-iface[-1].network='l2mesh'
+    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+  fi
 )
 #cleanup unneeded vars
 unset ap_ssid2 ap_ssid5 bssid channel2 channel5 
