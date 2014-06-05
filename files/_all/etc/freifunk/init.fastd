@@ -7,6 +7,7 @@ uci set fastd.ffmesh=fastd
 uci set fastd.ffmesh.enabled=1
 #uci set fastd.ffmesh.syslog_level=info
 uci set fastd.ffmesh.syslog_level=debug
+uci delete fastd.ffmesh.method || true #delete old list-entrys while reconfiguring
 uci add_list fastd.ffmesh.method=salsa2012+gmac
 uci set fastd.ffmesh.mode=tap
 uci set fastd.ffmesh.interface=vpn-ffmesh
@@ -24,12 +25,16 @@ unset ap_ssid2 ap_ssid5 bssid channel2 channel5 local_ip community_sshkeys
 
 no_of_server=$(echo $fastd_servers | tr ";" "\n" | wc | awk '{print $1}')
 
+tmpLastServer=""
 for i in `seq $no_of_server` ; do
   server=$(echo $fastd_servers | tr ";" " " | awk -v i="$i" '{print $i}')
   key=$(echo $fastd_keys | tr ";" " " | awk -v i="$i" '{print $i}')
   remotevier=$(echo $fastd_remotes4 | tr ";" " " | awk -v i="$i" '{print $i}')
   remotesechs=$(echo $fastd_remotes6 | tr ";" " " | awk -v i="$i" '{print $i}')
   
+  if [ "$server" != "$tmpLastServer" ] ; then #delete old list-entrys if reconfiguring
+    uci delete fastd.bb_$server.remote || true
+  fi
   uci set fastd.bb_$server=peer
   uci set fastd.bb_$server.enabled=1
   uci set fastd.bb_$server.net=ffmesh
