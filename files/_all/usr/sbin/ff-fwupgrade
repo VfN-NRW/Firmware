@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#check if autoupgrade is disabled
+if [ "$(uci -q get freifunk.fw.autoupgrade)" == "0" ] ; then
+  exit 0
+fi
+
 FWFILE=$(uci get freifunk.fw.filename)
 DISTRIBUTION=$(uci get freifunk.fw.distribution)
 
