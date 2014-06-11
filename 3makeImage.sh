@@ -25,7 +25,7 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGBASE='-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini fastd kmod-batman-adv ip curl ecdsautils ppp-mod-pppoe socat nano'
+CFGBASE='-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini fastd kmod-batman-adv ip curl ecdsautils ppp-mod-pppoe socat nano kmod-ath tc kmod-sched-core kmod-sched'
 CFGHOTSPOT='hostapd'
 
 echo $BUILD > files/_all/build
