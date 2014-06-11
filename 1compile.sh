@@ -52,6 +52,7 @@ buildOwrt() {
     setConfig ATH_USER_REGD y
     setConfig PACKAGE_tc m
     setConfig PACKAGE_kmod-sched-core m
+    setConfig PACKAGE_kmod-sched m
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
