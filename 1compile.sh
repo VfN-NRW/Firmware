@@ -49,7 +49,6 @@ buildOwrt() {
     setConfig PACKAGE_nano m
     setConfig PACKAGE_socat m
     setConfig PACKAGE_kmod-ath m
-    setConfig ATH_USER_REGD y
     setConfig PACKAGE_tc m
     setConfig PACKAGE_kmod-sched-core m
     setConfig PACKAGE_kmod-sched m
@@ -59,6 +58,8 @@ buildOwrt() {
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
     setConfig PACKAGE_hostapd-utils m
+    setConfig ATH_USER_REGD y
+    setConfig PACKAGE_ATH_DFS y
     make defconfig || exit 1
 
     make download || exit 1
