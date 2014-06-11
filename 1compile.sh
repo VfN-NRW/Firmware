@@ -48,6 +48,8 @@ buildOwrt() {
     setConfig PACKAGE_haveged m
     setConfig PACKAGE_nano m
     setConfig PACKAGE_socat m
+    setConfig PACKAGE_kmod-ath m
+    setConfig ATH_USER_REGD y
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
