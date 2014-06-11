@@ -21,7 +21,6 @@ buildOwrt() {
     scripts/feeds update
     scripts/feeds install kmod-batman-adv
     scripts/feeds install fastd
-    scripts/feeds install curl
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
     scripts/feeds install nano
