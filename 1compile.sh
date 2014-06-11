@@ -50,6 +50,8 @@ buildOwrt() {
     setConfig PACKAGE_socat m
     setConfig PACKAGE_kmod-ath m
     setConfig ATH_USER_REGD y
+    setConfig PACKAGE_tc m
+    setConfig PACKAGE_kmod-sched-core m
     make defconfig || exit 1
 
     setConfig PACKAGE_kmod-ebtables-ipv4 m
