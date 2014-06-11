@@ -21,7 +21,6 @@ buildOwrt() {
     scripts/feeds update
     scripts/feeds install kmod-batman-adv
     scripts/feeds install fastd
-    scripts/feeds install curl
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
     scripts/feeds install nano
@@ -40,7 +39,6 @@ buildOwrt() {
     setConfig PACKAGE_iptables m
     setConfig PACKAGE_ip m
     setConfig PACKAGE_fastd m
-    setConfig PACKAGE_6relayd n
     setConfig PACKAGE_odhcp6c n
     setConfig PACKAGE_hostapd m
     setConfig PACKAGE_ppp m
