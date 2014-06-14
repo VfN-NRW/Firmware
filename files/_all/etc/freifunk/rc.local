@@ -5,12 +5,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set system.@system[0].hostname=$NAME
   echo $NAME > /proc/sys/kernel/hostname
   uci delete dhcp.@dnsmasq[0]
-
-  IPV61=`echo -n $NAME|head -c4`
-  IPV62=`echo -n $NAME|head -c8|tail -c4`
-  IPV63=`echo -n $NAME|tail -c4`
-  IPV6="fda0:747e:ab29:4859:ffff:$IPV61:$IPV62:$IPV63/64"
-
+  
   ## setup lan
   sh /etc/freifunk/init.lan
   /etc/init.d/network restart
@@ -29,6 +24,15 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   echo $community_sshkeys >> /etc/dropbear/authorized_keys
   
   unset community_sshkeys
+  
+  uci del system.ntp.server
+  uci set system.ntp.server="$mesh_ip_prefix::c02"
+  uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
+
+  IPV61=`echo -n $NAME|head -c4`
+  IPV62=`echo -n $NAME|head -c8|tail -c4`
+  IPV63=`echo -n $NAME|tail -c4`
+  IPV6="$mesh_ip_prefix:ffff:$IPV61:$IPV62:$IPV63/64"
   
   uci set network.l2mesh='interface'
   uci set network.l2mesh.type='bridge'
@@ -53,6 +57,9 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   /etc/init.d/fastd enable
   /etc/init.d/fastd restart
 
+  /etc/init.d/sysntpd enable
+  /etc/init.d/sysntpd restart
+
 fi
 
 #load community-profile
@@ -64,13 +71,6 @@ unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys f
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
-
-uci del system.ntp.server
-uci set system.ntp.server="$mesh_ip_prefix::c02"
-uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
-uci commit system
-/etc/init.d/sysntpd restart
-
 
 #Fix Bufferbloat
 ifconfig vpn-ffmesh txqueuelen 10
