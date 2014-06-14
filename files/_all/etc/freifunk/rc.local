@@ -28,6 +28,8 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci del system.ntp.server
   uci set system.ntp.server="$mesh_ip_prefix::c02"
   uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
+  
+  uci commit system
 
   IPV61=`echo -n $NAME|head -c4`
   IPV62=`echo -n $NAME|head -c8|tail -c4`
@@ -40,9 +42,13 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2mesh.ifname='bat0'
   uci set network.l2mesh.ip6addr="$IPV6"
   uci set network.l2mesh.ipaddr="$local_ip"
+  
+  uci commit network
+  /etc/init.d/network restart&sleep 2
 
   uci set batman-adv.bat0.fragmentation=1
   uci set batman-adv.bat0.orig_interval=5000
+  uci commit batman-adv
 
   sh /etc/freifunk/init.fastd
 
