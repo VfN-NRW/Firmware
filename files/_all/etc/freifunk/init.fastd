@@ -56,6 +56,6 @@ uci set fastd.g_backbone.enabled=1
 uci set fastd.g_backbone.net=ffmesh
 uci set fastd.g_backbone.peer_limit=2
 
-uci commit
+uci commit fastd
 
 ff-stats
