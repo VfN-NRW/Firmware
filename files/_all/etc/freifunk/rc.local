@@ -3,7 +3,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   passwd -d root
 
   uci set system.@system[0].hostname=$NAME
-  uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
   echo $NAME > /proc/sys/kernel/hostname
   uci delete dhcp.@dnsmasq[0]
 
@@ -68,6 +67,8 @@ ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local service
 
 uci del system.ntp.server
 uci set system.ntp.server="$mesh_ip_prefix::c02"
+uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
+uci commit system
 /etc/init.d/sysntpd restart
 
 
