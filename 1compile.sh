@@ -20,6 +20,7 @@ buildOwrt() {
 
     scripts/feeds update
     scripts/feeds install kmod-batman-adv
+    scripts/feeds install batctl
     scripts/feeds install fastd
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
