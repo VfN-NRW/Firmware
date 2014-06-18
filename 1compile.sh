@@ -24,7 +24,6 @@ buildOwrt() {
     scripts/feeds install fastd
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
-    scripts/feeds install nano
     scripts/feeds install socat
 
     echo CONFIG_TARGET_$1=y > .config || exit1
@@ -45,7 +44,6 @@ buildOwrt() {
     setConfig PACKAGE_ppp m
     setConfig PACKAGE_ecdsautils m
     setConfig PACKAGE_haveged m
-    setConfig PACKAGE_nano m
     setConfig PACKAGE_socat m
     setConfig PACKAGE_kmod-ath m
     setConfig PACKAGE_tc m
