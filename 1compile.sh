@@ -53,6 +53,7 @@ buildOwrt() {
     setConfig PACKAGE_kmod-sched m
     make defconfig || exit 1
 
+    setConfig PACKAGE_batctl m
     setConfig PACKAGE_kmod-ebtables-ipv4 m
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
