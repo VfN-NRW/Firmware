@@ -14,7 +14,6 @@ buildOwrt() {
     TARGET=$1
     cd openwrt || exit 1
     git clean -fdX || exit 1
-    ln -s ../dl
     cp feeds.conf.default feeds.conf
     echo src-git fastd git://git.metameute.de/lff/pkg_fastd >> feeds.conf
     echo src-link custom `pwd`/../custom-feed >> feeds.conf
@@ -26,6 +25,8 @@ buildOwrt() {
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
     scripts/feeds install socat
+    scripts/feeds install nacl
+
 
     echo CONFIG_TARGET_$TARGET=y > .config || exit1
     make defconfig || exit 1
