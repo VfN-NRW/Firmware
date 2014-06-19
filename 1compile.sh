@@ -32,7 +32,7 @@ buildOwrt() {
     make defconfig || exit 1
 
     setConfig IB y
-    setConfig TARGET_ROOTFS_SQUASHFS n
+    #setConfig TARGET_ROOTFS_SQUASHFS n
     setConfig PACKAGE_kmod-batman-adv m
     setConfig PACKAGE_kmod-bridge m
     setConfig PACKAGE_curl m
