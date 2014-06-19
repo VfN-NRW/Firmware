@@ -46,7 +46,7 @@ buildOwrt() {
     setConfig PACKAGE_ecdsautils m
     setConfig PACKAGE_haveged m
     setConfig PACKAGE_socat m
-    [ $TARGET == "ar71xx" ] && setConfig PACKAGE_kmod-ath m
+    #[ $TARGET == "ar71xx" ] && setConfig PACKAGE_kmod-ath m
     setConfig PACKAGE_tc m
     setConfig PACKAGE_kmod-sched-core m
     setConfig PACKAGE_kmod-sched m
@@ -57,8 +57,8 @@ buildOwrt() {
     setConfig PACKAGE_kmod-ebtables-ipv6 m
     setConfig PACKAGE_ebtables-utils m
     setConfig PACKAGE_hostapd-utils m
-    [ $TARGET == "ar71xx" ] && setConfig ATH_USER_REGD y
-    [ $TARGET == "ar71xx" ] && setConfig PACKAGE_ATH_DFS y
+    #[ $TARGET == "ar71xx" ] && setConfig ATH_USER_REGD y
+    #[ $TARGET == "ar71xx" ] && setConfig PACKAGE_ATH_DFS y
     make defconfig || exit 1
 
     make download || exit 1
