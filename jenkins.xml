@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="name-of-project" default="FF-NRW Firmware">
+  <target name="submodule-update" depends="clean" description="Prepare for build">
+    <apply executable="git" failonerror="true">
+    <arg value="submodule" />
+    <arg value="update" />
+    <arg value="--init" />
+  </target>
+</project>
+
