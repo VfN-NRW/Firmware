@@ -72,5 +72,5 @@ buildOwrt() {
 }
 
 buildOwrt ar71xx 
-#buildOwrt x86_64
+buildOwrt x86_64
 
