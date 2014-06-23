@@ -1,3 +1,4 @@
+#!/bin/bash
 function makeimage {
   packages="$1"
   target=$2
