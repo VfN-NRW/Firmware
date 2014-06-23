@@ -19,6 +19,13 @@
     </exec>
   </target>
 
+  <target name="makeimage" description="create images">
+    <exec executable="./3makeImage.sh" failonerror="true">
+    </exec>
+  </target>
+
+
+
 
 </project>
 
