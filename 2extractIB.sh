@@ -9,6 +9,6 @@ tar xvjf imagebuilder/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-x86_64.tar.b
 
 rm -rf OpenWrt-ImageBuilder-x86_64-for-linux-x86_64
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-x86_64-for-linux-x86_64.tar.bz2
-cp -R ./openwrt/staging_dir/host/lib/ OpenWrt-ImageBuilder-x86_kvm_guest-for-linux-x86_64/staging_dir/host/
+cp -R ./openwrt/staging_dir/host/lib/ OpenWrt-ImageBuilder-x86_64-for-linux-x86_64/staging_dir/host/
 
 sed -i 's/# CONFIG_TARGET_ROOTFS_SQUASHFS is not set/CONFIG_TARGET_ROOTFS_SQUASHFS=y/' OpenWrt-ImageBuilder-*/.config 
