@@ -7,8 +7,8 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci delete dhcp.@dnsmasq[0]
   
   ## setup lan
-  sh /etc/freifunk/init.lan
-  /etc/init.d/network restart
+  #sh /etc/freifunk/init.lan
+  #/etc/init.d/network restart
 
   # setup wireless and determine the community here
   sh /etc/freifunk/init.wireless
