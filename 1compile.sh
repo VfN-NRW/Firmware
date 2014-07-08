@@ -51,6 +51,8 @@ buildOwrt() {
     setConfig PACKAGE_tc m
     setConfig PACKAGE_kmod-sched-core m
     setConfig PACKAGE_kmod-sched m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-block2mtd m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-core m
     make defconfig || exit 1
 
     setConfig PACKAGE_batctl m
@@ -60,6 +62,7 @@ buildOwrt() {
     setConfig PACKAGE_hostapd-utils m
     [ $TARGET == "ar71xx" ] && setConfig ATH_USER_REGD y
     [ $TARGET == "ar71xx" ] && setConfig PACKAGE_ATH_DFS y
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic m
     make defconfig || exit 1
 
     make download || exit 1
