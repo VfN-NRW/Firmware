@@ -55,6 +55,6 @@ makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet
 
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'WZRHPAG300H' ar71xx-generic-wzr-hp-ag300h-squashfs-factory.bin ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGx86" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
+makeimage "$CFGBASE $CFGx86" x86_64 '' x86_64-combined-squashfs.img x86_64-combined-squashfs.img
 
 rename.ul openwrt- ff-nrw- images/*
