@@ -28,6 +28,7 @@ echo $BUILD > build.txt
 
 CFGBASE='-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini fastd kmod-batman-adv ip curl ecdsautils ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched'
 CFGHOTSPOT='hostapd kmod-ath'
+CFGx86='kmod-ide-core kmod-ide-generic kmod-block2mtd'
 
 echo $BUILD > files/_all/build
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
@@ -54,6 +55,6 @@ makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet
 
 makeimage "$CFGBASE $CFGHOTSPOT" ar71xx_generic 'WZRHPAG300H' ar71xx-generic-wzr-hp-ag300h-squashfs-factory.bin ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
+makeimage "$CFGBASE $CFGx86" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
 
 rename.ul openwrt- ff-nrw- images/*
