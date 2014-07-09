@@ -74,6 +74,7 @@ buildOwrt() {
   ) || exit 1
 }
 
-buildOwrt ar71xx 
+buildOwrt ar71xx
+buildOwrt atheros
 buildOwrt x86_64
 
