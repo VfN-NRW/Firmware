@@ -88,6 +88,7 @@ ifconfig wlan1-1 txqueuelen 50
 ifconfig wlan0-1 txqueuelen 50
 
 echo 0 > /sys/class/net/bat0/mesh/multicast_mode
+echo "client" > /sys/class/net/bat0/mesh/gw_mode
 
 sleep 60 
 (
