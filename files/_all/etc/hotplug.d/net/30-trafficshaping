@@ -39,9 +39,9 @@ tc_interface() {
 
 	[ "$INTERFACE" = "$ifname" ] || return
 
-	config_get_bool enabled "$iface" rate_limit_enabled 0
+	config_get_bool rate_limit_enabled "$iface" rate_limit_enabled 0
 
-	[ "$enabled" -eq 1 ] || return
+	[ "$rate_limit_enabled" -eq 1 ] || return
 
 	insmod sch_ingress
 	insmod sch_tbf
