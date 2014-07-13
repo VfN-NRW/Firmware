@@ -52,6 +52,12 @@ uci del wireless.@wifi-iface[0]
 uci del wireless.@wifi-iface[0] 
 uci del wireless.@wifi-iface[0] 
 uci del wireless.@wifi-iface[0] 
+uci del wireless.privap5
+uci del wireless.privap2
+uci del wireless.mesh2
+uci del wireless.mesh5
+uci del wireless.wifi2
+uci del wireless.wifi5
 
 RADIO2=""
 RADIO5=""
@@ -68,12 +74,12 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   uci set wireless.$RADIO2.basic_rate='6000 9000 12000 18000 24000 36000 48000 54000'
 
   if [ "$(uci -q get freifunk.wlanmesh)" != "0" ] ; then
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO2"
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh11
-    uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
-    uci set wireless.@wifi-iface[-1].bssid="$bssid"
+    uci add wireless wifi-iface=mesh2
+    uci set wireless.mesh2.device="$RADIO2"
+    uci set wireless.mesh2.mode='adhoc'
+    uci set wireless.mesh2.network=wlanmesh11
+    uci set wireless.mesh2.ssid='mesh-v15'
+    uci set wireless.mesh2.bssid="$bssid"
     uci set network.wlanmesh11=interface
     uci set network.wlanmesh11.proto=batadv
     uci set network.wlanmesh11.mesh=bat0
@@ -81,12 +87,12 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   fi
 
   if [ "$(uci -q get freifunk.wlanap)" != "0" ] ; then
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO2"
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid2"
+    uci add wireless wifi-iface=wifi2
+    uci set wireless.wifi2.device="$RADIO2"
+    uci set wireless.wifi2.mode='ap'
+    uci set wireless.wifi2.encryption='none'
+    uci set wireless.wifi2.network='l2mesh'
+    uci set wireless.wifi2.ssid="$ap_ssid2"
   fi
 )
 
@@ -97,12 +103,12 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   uci set wireless.$RADIO5.hwmode=11na
 
   if [ "$(uci -q get freifunk.wlanmesh)" != "0" ] ; then
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO5"
-    uci set wireless.@wifi-iface[-1].mode='adhoc'
-    uci set wireless.@wifi-iface[-1].network=wlanmesh12
-    uci set wireless.@wifi-iface[-1].ssid='mesh-v15'
-    uci set wireless.@wifi-iface[-1].bssid="$bssid"
+    uci add wireless wifi-iface=mesh5
+    uci set wireless.mesh5.device="$RADIO5"
+    uci set wireless.mesh5.mode='adhoc'
+    uci set wireless.mesh5.network=wlanmesh12
+    uci set wireless.mesh5.ssid='mesh-v15'
+    uci set wireless.mesh5.bssid="$bssid"
     uci set network.wlanmesh12=interface
     uci set network.wlanmesh12.proto=batadv
     uci set network.wlanmesh12.mesh=bat0
@@ -110,12 +116,12 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   fi
 
   if [ "$(uci -q get freifunk.wlanap)" != "0" ] ; then
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO5"
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].encryption='none'
-    uci set wireless.@wifi-iface[-1].network='l2mesh'
-    uci set wireless.@wifi-iface[-1].ssid="$ap_ssid5"
+    uci add wireless wifi-iface=wifi5
+    uci set wireless.wifi5.device="$RADIO5"
+    uci set wireless.wifi5.mode='ap'
+    uci set wireless.wifi5.encryption='none'
+    uci set wireless.wifi5.network='l2mesh'
+    uci set wireless.wifi5.ssid="$ap_ssid5"
   fi
 )
 
@@ -127,23 +133,23 @@ PRIVATE_SSID5=$(uci -q get freifunk.private.ssid5)
 PRIVATE_KEY=$(uci -q get freifunk.private.key)
 
 [ ! -z "$PRIVATE_SSID2" -a ! -z "$RADIO2" ] && (
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO2"
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].network=lan
-    uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID2"
-    uci set wireless.@wifi-iface[-1].encryption="psk2"
-    uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
+    uci add wireless wifi-iface=privap2
+    uci set wireless.privap2.device="$RADIO2"
+    uci set wireless.privap2.mode='ap'
+    uci set wireless.privap2.network=lan
+    uci set wireless.privap2.ssid="$PRIVATE_SSID2"
+    uci set wireless.privap2.encryption="psk2"
+    uci set wireless.privap2.key="$PRIVATE_KEY"
 )
 
 [ ! -z "$PRIVATE_SSID5" -a ! -z "$RADIO5" ] && (
-    uci add wireless wifi-iface
-    uci set wireless.@wifi-iface[-1].device="$RADIO5"
-    uci set wireless.@wifi-iface[-1].mode='ap'
-    uci set wireless.@wifi-iface[-1].network=lan
-    uci set wireless.@wifi-iface[-1].ssid="$PRIVATE_SSID5"
-    uci set wireless.@wifi-iface[-1].encryption="psk2"
-    uci set wireless.@wifi-iface[-1].key="$PRIVATE_KEY"
+    uci add wireless wifi-iface=privap5
+    uci set wireless.privap5.device="$RADIO5"
+    uci set wireless.privap5.mode='ap'
+    uci set wireless.privap5.network=lan
+    uci set wireless.privap5.ssid="$PRIVATE_SSID5"
+    uci set wireless.privap5.encryption="psk2"
+    uci set wireless.privap5.key="$PRIVATE_KEY"
 )
 
 uci commit wireless
