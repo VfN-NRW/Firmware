@@ -6,6 +6,44 @@
 
 #This script expect that an temporary SSID is set on boot. The Script will read ssid_online and set it when node is online.
 
+RUNTIME=60 #default runtime in seconds
+
+#Parameter Checking
+if ! [ $# -eq 1 -o "$1" -eq "$1" ] 2>/dev/null; then
+	echo "Error: Please define a runtime in seconds" && exit 2 
+else
+	RUNTIME=$1
+	echo "Debug: Runtime will be $RUNTIME seconds, please restart me after this time"
+fi
+
+START=`cat /proc/uptime | cut -d"." -f1`
+END=$(( $START + $RUNTIME ))
+END=$(( $END - 1 ))
+
+#running-pid
+OWNPID=$$
+PIDFILE='/tmp/ff-offline-ssid.pid'
+
+if [ ! -f "$PIDFILE" -a -f "$PIDFILE"_"STOP"]; then
+	sleep 1 #fix possible race-conditions
+fi
+
+if [ ! -f "$PIDFILE" ]; then
+	echo $OWNPID > $PIDFILE
+else
+	#If already a pid and a stopfile exists, were exiting now.
+	if ! kill -0 $(cat "$PIDFILE") > /dev/null 2>&1; then
+		echo $OWNPID > $PIDFILE
+		[ -f "$PIDFILE"_"STOP" ] && rm "$PIDFILE"_"STOP" #cleanup
+	else
+		[ -f "$PIDFILE"_"STOP" ] && logger "Warning: offline-ssid exiting because pid-file (pid running!) and stopfile already exist."; exit 1
+		touch "$PIDFILE"_"STOP"
+		while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
+			[ ! -f $PIDFILE ] && echo $OWNPID > $PIDFILE; rm "$PIDFILE"_"STOP"; break
+			sleep 1
+		done
+	fi
+
 #Options
 SLEEP=2 # wait time in seconds before rechecking
 ACTIVE_CHECK=1 # do pinging selected gateway via L2-ping, if last-seen is to high
@@ -20,7 +58,6 @@ OGM_INT_MULT=2 #Tolerable missing OGMs, before pinging (if ACTIVE_CHECK=1): 1 fo
 LED_STATUS=1
 
 #vars
-RUNTIME=60 #default runtime in seconds
 MODE=1
 END=0
 GWQ=0
@@ -38,10 +75,6 @@ SSID_0_OFFLINE=""
 SSID_1_BOOT=""
 SSID_1_ONLINE=""
 SSID_1_OFFLINE=""
-DEVICE=`cat /proc/sys/kernel/hostname`
-if [ ${#DEVICE} -gt 16 ]; then #cut device-name
-	DEVICE="${DEVICE:0:13}..."
-fi
 CHANGED=0
 FORCE_CHANGE=0
 
@@ -50,13 +83,7 @@ if [ $ACTIVE_CHECK -eq 1 ]; then
 	batctl -v >/dev/null 2>&1 || { echo >&2 "batctl is required for Active-Checking, but it's not installed.  Aborting."; exit 1; }
 fi
 
-#Parameter Checking
-if ! [ $# -eq 1 -o "$1" -eq "$1" ] 2>/dev/null; then
-	echo "Error: Please define a runtime in seconds" && exit 2 
-else
-	RUNTIME=$1
-	echo "Debug: Runtime will be $RUNTIME seconds, please restart me after this time"
-fi
+
 
 #Checking Files and Options
 if [ ! -f $HOSTAPD_PHY0 ]; then 
@@ -93,12 +120,13 @@ if [ $LED_STATUS -eq 1 ]; then
 	get_status_led
 fi
 
-START=`cat /proc/uptime | cut -d"." -f1`
-END=$(( $START + $RUNTIME ))
-END=$(( $END - 1 ))
+DEVICE=`cat /proc/sys/kernel/hostname`
+if [ ${#DEVICE} -gt 16 ]; then #cut device-name
+	DEVICE="${DEVICE:0:13}..."
+fi
 
-while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]
-do
+while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
+	[ -f "$PIDFILE"_"STOP" ] && echo "were exiting now, because were requested to."; rm $PIDFILE; exit 42
 	case $MODE in
 	1) #check: batman knows an gateway
 		GWQ=`cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1`
