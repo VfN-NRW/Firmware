@@ -83,8 +83,6 @@ if [ $ACTIVE_CHECK -eq 1 ]; then
 	batctl -v >/dev/null 2>&1 || { echo >&2 "batctl is required for Active-Checking, but it's not installed.  Aborting."; exit 1; }
 fi
 
-
-
 #Checking Files and Options
 if [ ! -f $HOSTAPD_PHY0 ]; then 
 	echo "Error: PHY0 Hostapd-File not found" && exit 2
