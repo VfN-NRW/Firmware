@@ -1,6 +1,6 @@
 #!/bin/sh
 ## please use /ect/rc.custom
 ## this file may be overwritten by time
-[ -f /etc/freifunk/rc.local ] && sh /etc/freifunk/rc.local &
+[ -f /etc/freifunk/rc.local ] && sh /etc/freifunk/rc.local
 [ -f /etc/rc.custom ] && sh /etc/rc.custom
 exit 0
