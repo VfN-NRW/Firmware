@@ -1,9 +1,9 @@
-NAME="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
 if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   passwd -d root
-
-  uci set system.@system[0].hostname=$NAME
-  echo $NAME > /proc/sys/kernel/hostname
+  
+  hwid="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
+  uci set system.@system[0].hostname=$hwid
+  echo $hwid > /proc/sys/kernel/hostname
   uci delete dhcp.@dnsmasq[0]
   
   ## setup lan
@@ -31,9 +31,9 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   
   uci commit system
 
-  IPV61=`echo -n $NAME|head -c4`
-  IPV62=`echo -n $NAME|head -c8|tail -c4`
-  IPV63=`echo -n $NAME|tail -c4`
+  IPV61=`echo -n $hwid|head -c4`
+  IPV62=`echo -n $hwid|head -c8|tail -c4`
+  IPV63=`echo -n $hwid|tail -c4`
   IPV6="$mesh_ip_prefix:ffff:$IPV61:$IPV62:$IPV63/64"
   
   uci set network.l2mesh='interface'
