@@ -1,5 +1,5 @@
 #!/bin/sh
-# fnetstat by RubenKelevra 2013 - cyrond@gmail.com
+# ff-offline-ssid by RubenKelevra 2013-2014 - cyrond@gmail.com
 # Lizenz: AGPL 3.0 
 
 #Warning: This script will immediately set the ssid configured in uci if its changed.
