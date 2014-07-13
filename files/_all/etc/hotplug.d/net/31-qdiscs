@@ -47,16 +47,16 @@ tc_interface() {
 	fi
 	
 	config_get tc "$iface" tc
-  config_get_bool rate_limit_enabled "$iface" rate_limit_enabled 0
+	config_get_bool rate_limit_enabled "$iface" rate_limit_enabled 0
 
 	if [ "$rate_limit_enabled" -eq 1 -a "$tc" != "pfifo" -a ! -z "$tc" ]; then 
-    #fixme
-    #when ratelimit is on, and tc is set, but not only to "pfifo": we have to add this to a sublist of the root-qdisc
-    logger "the tc-options for $INTERFACE could not be applied: currently not supported while running trafficshaping on this interface"
-  fi
-  if [ "$rate_limit_enabled" -eq 0 -a ! -z "$tc" ]; then
-    tc qdisc replace dev "$INTERFACE" root "$tc"
-  fi
+		#fixme
+		#when ratelimit is on, and tc is set, but not only to "pfifo": we have to add this to a sublist of the root-qdisc
+		logger "the tc-options for $INTERFACE could not be applied: currently not supported while running trafficshaping on this interface"
+	fi
+	if [ "$rate_limit_enabled" -eq 0 -a ! -z "$tc" ]; then
+		tc qdisc replace dev "$INTERFACE" root "$tc"
+	fi
 }
 
 config_foreach tc_interface 'interface'
