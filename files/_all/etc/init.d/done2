@@ -4,7 +4,7 @@
 START=99
 boot() {
 	# process user commands
-	sh /usr/sbin/ff-offline-ssid 3672&sleep 60
+	sh /usr/sbin/ff-offline-ssid 3672& sleep 60
 	[ -f /etc/freifunk/start.batctl ]    && sh /etc/freifunk/start.batctl
 	[ -f /etc/freifunk/start.ebtables ]  && sh /etc/freifunk/start.ebtables
 	[ -f /etc/freifunk/start.wifi-scan ] && sh /etc/freifunk/start.wifi-scan
