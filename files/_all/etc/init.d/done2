@@ -7,6 +7,5 @@ boot() {
 	sleep 60
 	[ -f /etc/freifunk/start.batctl ]    && sh /etc/freifunk/start.batctl
 	[ -f /etc/freifunk/start.ebtables ]  && sh /etc/freifunk/start.ebtables
-	[ -f /etc/freifunk/start.qdisc ]     && sh /etc/freifunk/start.qdisc
 	[ -f /etc/freifunk/start.wifi-scan ] && sh /etc/freifunk/start.wifi-scan
 }
