@@ -68,8 +68,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
 
 fi
 
-#load community-profile
-COMMUNITY=$(uci -q get freifunk.community)
-source /etc/freifunk/profiles/$COMMUNITY
+## load community-profile
+#COMMUNITY=$(uci -q get freifunk.community)
+#source /etc/freifunk/profiles/$COMMUNITY
 
-unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6 community_sshkeys
