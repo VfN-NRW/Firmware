@@ -74,24 +74,23 @@ source /etc/freifunk/profiles/$COMMUNITY
 
 unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6 community_sshkeys
 
-ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
-ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
-ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
-
-#Fix Bufferbloat
-ifconfig vpn-ffmesh txqueuelen 10
-ifconfig eth1 txqueuelen 10
-ifconfig eth0 txqueuelen 10
-ifconfig wlan0 txqueuelen 50
-ifconfig wlan1 txqueuelen 50
-ifconfig wlan1-1 txqueuelen 50
-ifconfig wlan0-1 txqueuelen 50
-
-echo 0 > /sys/class/net/bat0/mesh/multicast_mode
-echo "client" > /sys/class/net/bat0/mesh/gw_mode
-
 sleep 60 
 (
+  #Fix Bufferbloat
+  ifconfig eth1 txqueuelen 10
+  ifconfig eth0 txqueuelen 10
+  ifconfig wlan0 txqueuelen 50
+  ifconfig wlan1 txqueuelen 50
+  ifconfig wlan1-1 txqueuelen 50
+  ifconfig wlan0-1 txqueuelen 50
+  
+  ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
+  ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
+  ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
+
+  echo 0 > /sys/class/net/bat0/mesh/multicast_mode
+  echo "client" > /sys/class/net/bat0/mesh/gw_mode
+  
   sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
   ff-curl boot/$(cat /proc/sys/kernel/hostname) | sh
 )&
