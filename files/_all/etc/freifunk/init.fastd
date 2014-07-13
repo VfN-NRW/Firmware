@@ -1,4 +1,7 @@
 # fastd config
+vpnmac="$1"
+fastd_ifname="vpn-ffmesh"
+
 uci delete fastd.sample_config
 uci delete fastd.sample_peer
 uci delete fastd.sample_group
@@ -10,7 +13,7 @@ uci set fastd.ffmesh.syslog_level=debug
 uci delete fastd.ffmesh.method || true #delete old list-entrys while reconfiguring
 uci add_list fastd.ffmesh.method=salsa2012+gmac
 uci set fastd.ffmesh.mode=tap
-uci set fastd.ffmesh.interface=vpn-ffmesh
+uci set fastd.ffmesh.interface="$fastd_ifname"
 uci set fastd.ffmesh.mtu=1426
 uci set fastd.ffmesh.forward=0
 uci set fastd.ffmesh.secret=generate
@@ -57,5 +60,13 @@ uci set fastd.g_backbone.net=ffmesh
 uci set fastd.g_backbone.peer_limit=2
 
 uci commit fastd
+
+#create network-device
+uci set network.mesh_vpn='interface'
+uci set network.mesh_vpn.ifname="$fastd_ifname"
+uci set network.mesh_vpn.proto='batadv'
+uci set network.mesh_vpn.mesh='bat0'
+uci set network.mesh_vpn.mesh_no_rebroadcast=1
+uci set network.mesh_vpn.macaddr="$vpnmac"
 
 ff-stats
