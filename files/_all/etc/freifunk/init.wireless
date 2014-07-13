@@ -92,7 +92,8 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
     uci set wireless.wifi2.mode='ap'
     uci set wireless.wifi2.encryption='none'
     uci set wireless.wifi2.network='l2mesh'
-    uci set wireless.wifi2.ssid="$ap_ssid2"
+    uci set wireless.wifi2.ssid='Freifunk-Gerät startet...'
+    uci set wireless.wifi2.ssid_online="$ap_ssid2"
   fi
 )
 
@@ -121,7 +122,8 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
     uci set wireless.wifi5.mode='ap'
     uci set wireless.wifi5.encryption='none'
     uci set wireless.wifi5.network='l2mesh'
-    uci set wireless.wifi5.ssid="$ap_ssid5"
+    uci set wireless.wifi5.ssid='Freifunk-Gerät startet...'
+    uci set wireless.wifi5.ssid_online="$ap_ssid5"
   fi
 )
 
