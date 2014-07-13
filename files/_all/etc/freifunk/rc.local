@@ -63,7 +63,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set batman-adv.bat0.orig_interval=5000
   uci commit batman-adv
 
-  sh /etc/freifunk/init.fastd
+  sh /etc/freifunk/init.fastd "$vpnmac"
 
   uci set freifunk.fw.confver=1
   uci commit
