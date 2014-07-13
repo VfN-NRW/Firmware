@@ -13,8 +13,7 @@ config firmware 'fw'
 	option autoupgrade '1'
 
 config interface 'vpn'             
-       option rate_limit_enabled '0'   
-       option ifname 'vpn-ffmesh'    
-       option limit_out_rate '500'                  
-       option limit_in_rate '2000'
-
+	option rate_limit_enabled '0'   
+	option ifname 'vpn-ffmesh'    
+	option limit_out_rate '500'                  
+	option limit_in_rate '2000'
