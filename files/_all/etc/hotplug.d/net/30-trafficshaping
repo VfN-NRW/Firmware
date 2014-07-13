@@ -39,7 +39,7 @@ tc_interface() {
 
 	[ "$INTERFACE" = "$ifname" ] || return
 
-	config_get_bool enabled "$iface" enabled 0
+	config_get_bool enabled "$iface" rate_limit_enabled 0
 
 	[ "$enabled" -eq 1 ] || return
 
