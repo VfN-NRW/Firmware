@@ -14,6 +14,6 @@ config firmware 'fw'
 
 config interface 'vpn'             
        option enabled '0'   
-       option if 'vpn-ffmesh'    
+       option ifname 'vpn-ffmesh'    
        option limit_out_rate '500'                  
        option limit_in_rate '2000'
