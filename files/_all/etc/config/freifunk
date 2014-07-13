@@ -12,3 +12,8 @@ config firmware 'fw'
 	option distribution 'stable'
 	option autoupgrade '1'
 
+config interface 'vpn'             
+       option enabled '0'   
+       option if 'vpn-ffmesh'    
+       option limit_out '500'                  
+       option limit_in '2000'
