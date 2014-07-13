@@ -41,12 +41,5 @@ config interface 'wlan1mesh'
 	option txqueuelen '20'
 	option tc 'pfifo'
 	
-config interface 'eth0'
-	option ifname 'eth0'
-	option txqueuelen '1000'
-	option tc 'fq_codel limit 1000 quantum 300 noecn'
-
-config interface 'eth1'
-	option ifname 'eth1'
-	option txqueuelen '10'
-	option tc 'pfifo'
+#ethX interfaces cant be influenced here atm. see issue 486:
+#http://bug.freifunk.net/issues/486
