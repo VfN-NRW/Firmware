@@ -93,4 +93,4 @@ sleep 60
   
   sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
   ff-curl boot/$(cat /proc/sys/kernel/hostname) | sh
-)&
+)
