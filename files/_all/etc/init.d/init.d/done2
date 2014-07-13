@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+
+START=99
+boot() {
+	# process user commands
+	sleep 60
+	[ -f /etc/freifunk/ebtables.start ]  && sh /etc/freifunk/ebtables.start
+	[ -f /etc/freifunk/qdisc.start ]     && sh /etc/freifunk/qdisc.start
+	[ -f /etc/freifunk/wifi-scan.start ] && sh /etc/freifunk/wifi-scan.start
+}
