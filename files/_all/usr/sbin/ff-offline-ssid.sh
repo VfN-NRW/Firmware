@@ -9,11 +9,11 @@
 #Options
 SLEEP=4 # wait time in seconds before rechecking
 ACTIVE_CHECK=1 # do pinging selected gateway via L2-ping, if last-seen is to high
-SSID_PHY0="wireless.wifi_freifunk.ssid_online"
-SSID_PHY0_BOOT="wireless.wifi_freifunk.ssid"
+SSID_PHY0="wireless.wifi2.ssid_online"
+SSID_PHY0_BOOT="wireless.wifi2.ssid"
 HOSTAPD_PHY0="/var/run/hostapd-phy0.conf"
-SSID_PHY1="wireless.wifi_freifunk5.ssid_online" #if phy1.conf is not found, this will be not used
-SSID_PHY1_BOOT="wireless.wifi_freifunk5.ssid"
+SSID_PHY1="wireless.wifi5.ssid_online" #if phy1.conf is not found, this will be not used
+SSID_PHY1_BOOT="wireless.wifi5.ssid"
 HOSTAPD_PHY1="/var/run/hostapd-phy1.conf" 
 PING_CNT=3 #Ping-Packets for ACTIVE_CHECK: 3 is recommented, 5-10 for lossy connections
 OGM_INT_MULT=2 #Tolerable missing OGMs, before pinging (if ACTIVE_CHECK=1): 1 for fast responsive, 2 for slower reactions, 3-4 for lossy connections
