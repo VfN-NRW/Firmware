@@ -13,7 +13,7 @@ function makeimage {
     mkdir myfiles
     cp ../files/_all/* myfiles/ -r -v
     tmp_str=${sysupgrade}
-    sed -i -e "s/#xxxFILENAMExxx/ff-nrw-$tmp_str/" myfiles/etc/config/freifunk
+    sed -i -e "s/#xxxFILENAMExxx/option filename 'ff-nrw-$tmp_str'/" myfiles/etc/config/freifunk
     make image FILES="./myfiles/" PROFILE="${profile}" PACKAGES="$packages"
     cp bin/*/openwrt-${sysupgrade} ../images
     cp bin/*/openwrt-${factory} ../images
