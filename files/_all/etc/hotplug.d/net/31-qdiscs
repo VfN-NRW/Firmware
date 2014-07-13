@@ -1,0 +1,62 @@
+#forked from: https://github.com/freifunk-gluon/packages/blob/master/gluon/gluon-simple-tc/files/etc/hotplug.d/net/50-gluon-simple-tc              
+#copyright: NeoRaider
+#
+#The code of Project Gluon may be distributed under the following terms, unless
+#noted otherwise in indiviual files or subtrees.
+#
+#Copyright (c) 2013, Project Gluon
+#All rights reserved.
+#
+#Redistribution and use in source and binary forms, with or without
+#modification, are permitted provided that the following conditions are met:
+#
+#  1. Redistributions of source code must retain the above copyright notice,
+#     this list of conditions and the following disclaimer.
+#  2. Redistributions in binary form must reproduce the above copyright notice,
+#     this list of conditions and the following disclaimer in the documentation
+#     and/or other materials provided with the distribution.
+#
+#THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+#AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+#IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+#FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+#DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+#SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+#CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+#OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+[ "$ACTION" = 'add' ] || exit 0
+
+config_load freifunk
+
+
+tc_interface() {
+	local iface="$1"
+
+	config_get ifname "$iface" ifname
+
+	[ "$INTERFACE" = "$ifname" ] || return
+
+
+	config_get txqueuelen "$iface" txqueuelen
+	
+	if [ "$txqueuelen" ]; then
+		ifconfig "$INTERFACE" txqueuelen "$txqueuelen"
+	fi
+	
+	config_get tc "$iface" tc
+  config_get_bool rate_limit_enabled "$iface" rate_limit_enabled 0
+
+	if [ "$rate_limit_enabled" -eq 1 -a "$tc" != "pfifo" -a ! -z "$tc" ]; then 
+    #fixme
+    #when ratelimit is on, and tc is set, but not only to "pfifo": we have to add this to a sublist of the root-qdisc
+    logger "the tc-options for $INTERFACE could not be applied: currently not supported while running trafficshaping on this interface"
+  fi
+  if [ "$rate_limit_enabled" -eq 0 -a ! -z "$tc" ]; then
+    tc qdisc replace dev "$INTERFACE" root "$tc"
+  fi
+}
+
+config_foreach tc_interface 'interface'
