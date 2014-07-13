@@ -1,5 +1,5 @@
 #load community-profile
-COMMUNITY=$(uci -q get freifunk.community)
+COMMUNITY=$(uci -q get freifunk.hotspot.community)
 [ -z $COMMUNITY ] && exit 1
 source /etc/freifunk/profiles/$COMMUNITY
 

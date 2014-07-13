@@ -14,7 +14,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   sh /etc/freifunk/init.wireless
   
   #load community-profile
-  COMMUNITY=$(uci -q get freifunk.community)
+  COMMUNITY=$(uci -q get freifunk.hotspot.community)
   source /etc/freifunk/profiles/$COMMUNITY
   
   #remove unneeded vars
@@ -69,6 +69,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
 fi
 
 ## load community-profile
-#COMMUNITY=$(uci -q get freifunk.community)
+#COMMUNITY=$(uci -q get freifunk.hotspot.community)
 #source /etc/freifunk/profiles/$COMMUNITY
 

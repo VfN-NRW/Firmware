@@ -1,6 +1,6 @@
 MAX_COMMUNITY_SCANS=30
 
-COMMUNITY=$(uci -q get freifunk.community)
+COMMUNITY=$(uci -q get freifunk.hotspot.community)
 
 COMMUNITY_SCANS=0
 while [ -z "$COMMUNITY" ] ; do
@@ -26,11 +26,11 @@ while [ -z "$COMMUNITY" ] ; do
   
   rm /tmp/detectcommunity
   if [ ! -z "$COMMUNITY" ] ; then
-    uci set freifunk.community="$COMMUNITY"
+    uci set freifunk.hotspot.community="$COMMUNITY"
   else
     if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
       COMMUNITY="fallback"
-      uci set freifunk.community="$COMMUNITY"
+      uci set freifunk.hotspot.community="$COMMUNITY"
     fi
   fi
   COMMUNITY_SCANS=$(expr $COMMUNITY_SCANS + 1)

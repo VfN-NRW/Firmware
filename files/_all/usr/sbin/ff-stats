@@ -39,7 +39,7 @@ echo -n ///fastd=
 [ $(uci get fastd.ffmesh.secret) != 'generate' ] &&  echo $(/etc/init.d/fastd show_key ffmesh)
 
 echo -n ///community=
-echo $(uci get freifunk.community)
+echo $(uci get freifunk.hotspot.community)
 
 echo ///neighborhoods
 batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'

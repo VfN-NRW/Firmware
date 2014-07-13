@@ -17,7 +17,7 @@ uci set fastd.ffmesh.secret=generate
 uci set fastd.ffmesh.up='ip link set dev vpn-ffmesh up ; echo bat0 > /sys/devices/virtual/net/vpn-ffmesh/batman_adv/mesh_iface'
 
 #load community-profile
-COMMUNITY=$(uci -q get freifunk.community)
+COMMUNITY=$(uci -q get freifunk.hotspot.community)
 source /etc/freifunk/profiles/$COMMUNITY
 
 #cleanup unneeded vars
