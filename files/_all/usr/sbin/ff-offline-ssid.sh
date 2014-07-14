@@ -7,6 +7,7 @@
 #This script expect that an temporary SSID is set on boot. The Script will read ssid_online and set it when node is online.
 
 RUNTIME=60 #default runtime in seconds
+END=0
 
 #Parameter Checking
 if ! [ $# -eq 1 -o "$1" -eq "$1" ] 2>/dev/null; then
@@ -60,7 +61,6 @@ LED_STATUS=1
 
 #vars
 MODE=1
-END=0
 GWQ=0
 GWM=""
 GWLS=0
