@@ -43,6 +43,7 @@ else
 			sleep 1
 		done
 	fi
+fi
 
 #Options
 SLEEP=2 # wait time in seconds before rechecking
