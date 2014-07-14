@@ -6,7 +6,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   echo $hwid > /proc/sys/kernel/hostname
   
   #generate brmac and vpnmac
-  mainmac=$hwid
+  mainmac="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2`"
   oIFS="$IFS"; IFS=":"; set -- $mainmac; IFS="$oIFS"
   b2mask=0x02
 
