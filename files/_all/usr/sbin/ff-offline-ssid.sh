@@ -24,7 +24,7 @@ END=$(( $END - 1 ))
 OWNPID=$$
 PIDFILE='/tmp/ff-offline-ssid.pid'
 
-if [ ! -f "$PIDFILE" -a -f "$PIDFILE"_"STOP"]; then
+if [ ! -f "$PIDFILE" -a -f "$PIDFILE"_"STOP" ]; then
 	sleep 1 #fix possible race-conditions
 fi
 
