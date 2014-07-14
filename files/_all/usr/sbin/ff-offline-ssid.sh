@@ -38,7 +38,10 @@ else
 		echo $OWNPID > $PIDFILE
 		[ -f "$PIDFILE"_"STOP" ] && rm "$PIDFILE"_"STOP" #cleanup
 	else
-		[ -f "$PIDFILE"_"STOP" ] && { logger "Warning: offline-ssid exiting because pid-file (pid running!) and stopfile already exist."; exit 1 }
+		if [ -f "$PIDFILE"_"STOP" ]; then
+			logger "Warning: offline-ssid exiting because pid-file (pid running!) and stopfile already exist."
+			exit 1
+		fi
 		touch "$PIDFILE"_"STOP"
 		while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 			[ ! -f $PIDFILE ] && echo $OWNPID > $PIDFILE; rm "$PIDFILE"_"STOP"; break
@@ -126,7 +129,12 @@ if [ ${#DEVICE} -gt 16 ]; then #cut device-name
 fi
 
 while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
-	[ -f "$PIDFILE"_"STOP" ] && { echo "were exiting now, because were requested to."; rm $PIDFILE; exit 42 }
+	if [ -f "$PIDFILE"_"STOP" ]; then
+		echo "were exiting now, because were requested to."
+		rm $PIDFILE
+		exit 42
+	fi
+	
 	case $MODE in
 	1) #check: batman knows an gateway
 		GWQ=`cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1`
