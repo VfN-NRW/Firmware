@@ -31,6 +31,7 @@ fi
 
 if [ ! -f "$PIDFILE" ]; then
 	echo $OWNPID > $PIDFILE
+	[ -f "$PIDFILE"_"STOP" ] && rm "$PIDFILE"_"STOP" #cleanup
 else
 	#If already a pid and a stopfile exists, were exiting now.
 	if ! kill -0 $(cat "$PIDFILE") > /dev/null 2>&1; then
