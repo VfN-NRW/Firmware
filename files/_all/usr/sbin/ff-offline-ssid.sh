@@ -51,7 +51,7 @@ else
 fi
 
 #Options
-SLEEP=2 # wait time in seconds before rechecking
+SLEEP=4 # wait time in seconds before rechecking
 ACTIVE_CHECK=1 # do pinging selected gateway via L2-ping, if last-seen is to high
 SSID_PHY0="wireless.wifi2.ssid_online"
 SSID_PHY0_BOOT="wireless.wifi2.ssid"
