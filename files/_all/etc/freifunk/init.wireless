@@ -74,7 +74,7 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   uci set wireless.$RADIO2.basic_rate='6000 9000 12000 18000 24000 36000 48000 54000'
 
   if [ "$(uci -q get freifunk.wlanmesh)" != "0" ] ; then
-    uci add wireless wifi-iface=mesh2
+    uci set wireless.mesh2='wifi-iface'
     uci set wireless.mesh2.device="$RADIO2"
     uci set wireless.mesh2.mode='adhoc'
     uci set wireless.mesh2.network=wlanmesh11
@@ -87,7 +87,7 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   fi
 
   if [ "$(uci -q get freifunk.wlanap)" != "0" ] ; then
-    uci add wireless wifi-iface=wifi2
+    uci set wireless.wifi2='wifi-iface'
     uci set wireless.wifi2.device="$RADIO2"
     uci set wireless.wifi2.mode='ap'
     uci set wireless.wifi2.encryption='none'
@@ -104,7 +104,7 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   uci set wireless.$RADIO5.hwmode=11na
 
   if [ "$(uci -q get freifunk.wlanmesh)" != "0" ] ; then
-    uci add wireless wifi-iface=mesh5
+    uci set wireless.mesh5='wifi-iface'
     uci set wireless.mesh5.device="$RADIO5"
     uci set wireless.mesh5.mode='adhoc'
     uci set wireless.mesh5.network=wlanmesh12
@@ -117,7 +117,7 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
   fi
 
   if [ "$(uci -q get freifunk.wlanap)" != "0" ] ; then
-    uci add wireless wifi-iface=wifi5
+    uci set wireless.wifi5='wifi-iface'
     uci set wireless.wifi5.device="$RADIO5"
     uci set wireless.wifi5.mode='ap'
     uci set wireless.wifi5.encryption='none'
@@ -135,7 +135,7 @@ PRIVATE_SSID5=$(uci -q get freifunk.private.ssid5)
 PRIVATE_KEY=$(uci -q get freifunk.private.key)
 
 [ ! -z "$PRIVATE_SSID2" -a ! -z "$RADIO2" ] && (
-    uci add wireless wifi-iface=privap2
+    uci set wireless.privap2='wifi-iface'
     uci set wireless.privap2.device="$RADIO2"
     uci set wireless.privap2.mode='ap'
     uci set wireless.privap2.network=lan
@@ -145,7 +145,7 @@ PRIVATE_KEY=$(uci -q get freifunk.private.key)
 )
 
 [ ! -z "$PRIVATE_SSID5" -a ! -z "$RADIO5" ] && (
-    uci add wireless wifi-iface=privap5
+    uci set wireless.privap5='wifi-iface'
     uci set wireless.privap5.device="$RADIO5"
     uci set wireless.privap5.mode='ap'
     uci set wireless.privap5.network=lan
