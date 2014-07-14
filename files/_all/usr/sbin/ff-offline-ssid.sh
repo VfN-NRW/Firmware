@@ -396,3 +396,4 @@ while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 		echo "done."
 	fi
 done
+[ -f "$PIDFILE" ] && rm "$PIDFILE" #cleanup
