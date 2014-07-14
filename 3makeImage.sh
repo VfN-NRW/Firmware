@@ -27,10 +27,11 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGBASE='-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv batctl ebtables ip curl ecdsautils ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched'
-CFGHOTSPOT='hostapd kmod-ath'
-CFGVPN='fastd'
-CFGx86='kmod-ide-core kmod-ide-generic'
+CFGMINI="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv batctl ebtables ip curl ecdsautils"
+CFGBASE="$CFGMINI ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
+CFGHOTSPOT="hostapd kmod-ath"
+CFGVPN="fastd"
+CFGx86="kmod-ide-core kmod-ide-generic"
 
 echo $BUILD > files/_all/build
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
