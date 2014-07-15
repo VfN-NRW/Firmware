@@ -33,6 +33,7 @@ buildOwrt() {
 
     setConfig IB y
     setConfig TARGET_ROOTFS_SQUASHFS y
+    [ $TARGET == "atheros" ] && setConfig TARGET_ROOTFS_JFFS2 y
     setConfig PACKAGE_kmod-batman-adv m
     setConfig PACKAGE_kmod-bridge m
     setConfig PACKAGE_curl m
