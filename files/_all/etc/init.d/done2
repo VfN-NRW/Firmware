@@ -8,5 +8,5 @@ boot() {
 	[ -f /etc/freifunk/start.batctl ]    && sh /etc/freifunk/start.batctl
 	[ -f /etc/freifunk/start.ebtables ]  && sh /etc/freifunk/start.ebtables
 	[ -f /etc/freifunk/start.wifi-scan ] && sh /etc/freifunk/start.wifi-scan
-	sh /usr/sbin/ff-offline-ssid.sh 3612
+	sh /usr/sbin/ff-offline-ssid.sh 60
 }
