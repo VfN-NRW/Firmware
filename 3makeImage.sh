@@ -12,6 +12,7 @@ function makeimage {
     rm -rf myfiles/
 
     mkdir myfiles
+    cp ../files/_all/* myfiles/ -r -v
     cp ../files/$files/* myfiles/ -r -v
     tmp_str=${sysupgrade}
     sed -i -e "s/#xxxFILENAMExxx/option filename 'ff-nrw-$tmp_str'/" myfiles/etc/config/freifunk
@@ -35,42 +36,42 @@ CFGVPN="fastd"
 CFGx86="kmod-ide-core kmod-ide-generic"
 
 echo $BUILD > files/_all/build
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841nd-v5-squashfs-factory.bin ar71xx-generic-tl-wr841nd-v5-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841n-v8-squashfs-factory.bin ar71xx-generic-tl-wr841n-v8-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841n-v9-squashfs-factory.bin ar71xx-generic-tl-wr841n-v9-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841nd-v7-squashfs-factory.bin ar71xx-generic-tl-wr841nd-v7-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841nd-v5-squashfs-factory.bin ar71xx-generic-tl-wr841nd-v5-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841n-v8-squashfs-factory.bin ar71xx-generic-tl-wr841n-v8-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841n-v9-squashfs-factory.bin ar71xx-generic-tl-wr841n-v9-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR841' ar71xx-generic-tl-wr841nd-v7-squashfs-factory.bin ar71xx-generic-tl-wr841nd-v7-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR842' ar71xx-generic-tl-wr842n-v1-squashfs-factory.bin ar71xx-generic-tl-wr842n-v1-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR842' ar71xx-generic-tl-wr842n-v2-squashfs-factory.bin ar71xx-generic-tl-wr842n-v2-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR842' ar71xx-generic-tl-wr842n-v1-squashfs-factory.bin ar71xx-generic-tl-wr842n-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR842' ar71xx-generic-tl-wr842n-v2-squashfs-factory.bin ar71xx-generic-tl-wr842n-v2-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR941' ar71xx-generic-tl-wr941nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr941n-v4-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR941' ar71xx-generic-tl-wr941nd-v6-squashfs-factory.bin ar71xx-generic-tl-wr941n-v6-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR941' ar71xx-generic-tl-wr941nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr941n-v4-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR941' ar71xx-generic-tl-wr941nd-v6-squashfs-factory.bin ar71xx-generic-tl-wr941n-v6-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1043nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr1043nd-v2-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1043nd-v1-squashfs-factory.bin ar71xx-generic-tl-wr1043nd-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1043nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr1043nd-v2-squashfs-sysupgrade.bin
 
 
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
-#makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
+#makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr3600-v1-squashfs-factory.bin ar71xx-generic-tl-wdr3600-v1-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr4300-v1-squashfs-factory.bin ar71xx-generic-tl-wdr4300-v1-squashfs-sysupgrade.bin
-#makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" mpc85xx_generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr3600-v1-squashfs-factory.bin ar71xx-generic-tl-wdr3600-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr4300-v1-squashfs-factory.bin ar71xx-generic-tl-wdr4300-v1-squashfs-sysupgrade.bin
+#makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" mpc85xx_generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'MYNETN600' ar71xx-generic-mynet-n600-squashfs-factory.bin ar71xx-generic-mynet-n600-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet-n750-squashfs-factory.bin ar71xx-generic-mynet-n750-squashfs-sysupgrade.bin 
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'MYNETN600' ar71xx-generic-mynet-n600-squashfs-factory.bin ar71xx-generic-mynet-n600-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'MYNETN750' ar71xx-generic-mynet-n750-squashfs-factory.bin ar71xx-generic-mynet-n750-squashfs-sysupgrade.bin 
 
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "_all" ar71xx_generic 'WZRHPAG300H' ar71xx-generic-wzr-hp-ag300h-squashfs-factory.bin ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'WZRHPAG300H' ar71xx-generic-wzr-hp-ag300h-squashfs-factory.bin ar71xx-generic-wzr-hp-ag300h-squashfs-sysupgrade.bin
 
-makeimage "$CFGBASE $CFGVPN $CFGx86" "_all" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
+makeimage "$CFGBASE $CFGVPN $CFGx86" "default" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
 gzip -dk images/openwrt-x86_64-combined-ext4.img.gz && qemu-img convert -f raw -O vmdk images/openwrt-x86_64-combined-ext4.img images/openwrt-x86_64-combined-squashfs.vmdk && rm images/openwrt-x86_64-combined-ext4.img
 
-makeimage "$CFGMINI $CFGHOTSPOT" "_satellite" atheros '' atheros-ubnt2-squashfs.bin atheros-ubnt2-squashfs.bin 
+makeimage "$CFGMINI $CFGHOTSPOT" "satellite" atheros '' atheros-ubnt2-squashfs.bin atheros-ubnt2-squashfs.bin 
 
 rename.ul openwrt- ff-nrw- images/*
 
