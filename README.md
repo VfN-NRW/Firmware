@@ -14,6 +14,7 @@ Deps:
 apt-get install build-essential libncurses-dev libncurses5-dev zlib1g-dev gawk qemu-utils
 
 `git clone https://github.com/FF-NRW/Firmware.git`  
+`cd Firmware`  
 `git submodule update --init`  
 `./1compile.sh`  
 
