@@ -40,6 +40,7 @@ buildOwrt() {
     setConfig PACKAGE_ebtables m
     setConfig PACKAGE_ip6tables m
     setConfig PACKAGE_iptables m
+    setConfig PACKAGE_iptables-mod-ipopt m
     setConfig PACKAGE_ip m
     setConfig PACKAGE_fastd m
     setConfig PACKAGE_odhcp6c n
