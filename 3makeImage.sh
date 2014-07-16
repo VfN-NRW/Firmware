@@ -31,7 +31,7 @@ echo $BUILD > build.txt
 
 CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv batctl ip"
 CFGMINI="$CFGMICRO curl ecdsautils"
-CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched iptables-mod-ipopt"
+CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
 CFGVPN="fastd"
 CFGx86="kmod-ide-core kmod-ide-generic"
