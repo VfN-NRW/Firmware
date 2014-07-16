@@ -69,6 +69,8 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
 
   uci set batman-adv.bat0.fragmentation=1
   uci set batman-adv.bat0.orig_interval=5000
+  uci set batman-adv.bat0.multicast_mode=0
+  uci set batman-adv.bat0.gw_mode='client'
   uci commit batman-adv
 
   sh /etc/freifunk/init.fastd "$vpnmac"
