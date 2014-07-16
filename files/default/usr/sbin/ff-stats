@@ -59,11 +59,7 @@ sleep `awk "BEGIN{srand(); print(int(rand()*20));}"` #no ddos ;)
 
 #////// bad stuff ;)
 
-NAME="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
-IPV61=`echo -n $NAME|head -c4`
-IPV62=`echo -n $NAME|head -c8|tail -c4`
-IPV63=`echo -n $NAME|tail -c4`
-IPV6="fda0:747e:ab29:4859:ffff:$IPV61:$IPV62:$IPV63"
+IPV6=$(uci get network.l2mesh.ip6addr | cut -d '/' -f 1)
 
 for i in /tmp/ff-stats/*; do 
   ff-curl api/collect.php?ip="$IPV6" -v -X POST --data "`cat $i`" > /tmp/ff-stats-result && rm $i || exit
