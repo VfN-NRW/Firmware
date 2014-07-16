@@ -4,5 +4,5 @@ COMMUNITY=$(uci -q get freifunk.hotspot.community)
 source /etc/freifunk/profiles/$COMMUNITY
 
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 192.168.0.0/16 -j DROP 
-ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
+#ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst 224.0.0.0/4 -j DROP
 ebtables -A FORWARD -o bat0 -p ipv4 --ip-dst $local_ip/32 -j DROP #local services
