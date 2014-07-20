@@ -55,7 +55,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2mesh.ip6addr="$IPV6"
   uci set network.l2mesh.ipaddr="$local_ip"
   uci set network.l2mesh.macaddr="$brmac"
-  uci set network.l2mesh.ip6gw="$mesh_ip_prefix::c02"
   
   #add routing
   uci set network.l2meshroute='l2meshroute'
