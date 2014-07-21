@@ -29,8 +29,8 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip curl"
-CFGMINI="$CFGMICRO ecdsautils batctl"
+CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall ^Cnsmasq -ppp -ip6tables -swconfig -opkg kmod-batman-adv hostapd curl ecdsautils"
+CFGMINI="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip curl ecdsautils batctl"
 CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
 CFGVPN="fastd"
@@ -72,7 +72,7 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'WZRHPAG300H' 
 makeimage "$CFGBASE $CFGVPN $CFGx86" "default" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
 gzip -dk images/openwrt-x86_64-combined-ext4.img.gz && qemu-img convert -f raw -O vmdk images/openwrt-x86_64-combined-ext4.img images/openwrt-x86_64-combined-squashfs.vmdk && rm images/openwrt-x86_64-combined-ext4.img
 
-makeimage "$CFGMINI $CFGHOTSPOT" "micro" atheros '' atheros-ubnt2-squashfs.bin atheros-ubnt2-squashfs.bin 
+makeimage "$CFGMICRO" "micro" atheros '' atheros-ubnt2-squashfs.bin atheros-ubnt2-squashfs.bin 
 
 rename.ul openwrt- ff-nrw- images/*
 
