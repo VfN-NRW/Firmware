@@ -29,8 +29,8 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv batctl ip"
-CFGMINI="$CFGMICRO curl ecdsautils"
+CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip"
+CFGMINI="$CFGMICRO curl ecdsautils batctl"
 CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
 CFGVPN="fastd"
