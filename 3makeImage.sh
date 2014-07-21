@@ -29,7 +29,7 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall -dnsmasq -ppp -ip6tables -swconfig -opkg kmod-batman-adv hostapd curl ecdsautils"
+CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall -dnsmasq -ppp -ip6tables -swconfig -opkg kmod-batman-adv hostapd ecdsautils"
 CFGMINI="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip curl ecdsautils batctl"
 CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
@@ -59,7 +59,7 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar7
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
-
+
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr3600-v1-squashfs-factory.bin ar71xx-generic-tl-wdr3600-v1-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr4300-v1-squashfs-factory.bin ar71xx-generic-tl-wdr4300-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" mpc85xx_generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
