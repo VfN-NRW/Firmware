@@ -1,0 +1,55 @@
+mesh_ip_prefix="fda0:747e:ab29:4859"
+
+cat /etc/dropbear/authorized_keys.default > /etc/dropbear/authorized_keys
+passwd -d root
+
+hwid="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
+echo $hwid > /proc/sys/kernel/hostname
+
+uci del system.ntp.server
+uci set system.ntp.server="$mesh_ip_prefix::c02"
+uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
+
+IPV61=`echo -n $hwid|head -c4`
+IPV62=`echo -n $hwid|head -c8|tail -c4`
+IPV63=`echo -n $hwid|tail -c4`
+IPV6="$mesh_ip_prefix:ffff:$IPV61:$IPV62:$IPV63/64"
+
+uci set network.l2mesh='interface'
+uci set network.l2mesh.type='bridge'
+uci set network.l2mesh.proto='static'
+uci set network.l2mesh.ifname='bat0'
+uci set network.l2mesh.auto='1'
+uci set network.l2mesh.accept_ra='1'
+uci set network.l2mesh.ip6addr="$IPV6"
+
+uci set wireless.radio0.disabled=0
+uci set wireless.radio0.channel=5
+uci set wireless.radio0.country=DE
+
+uci del wireless.@wifi-iface[0]
+uci del wireless.@wifi-iface[0]
+uci add wireless wifi-iface
+uci add wireless wifi-iface
+
+uci set wireless.@wifi-iface[0]=wifi-iface
+uci set wireless.@wifi-iface[0].device=radio0
+uci set wireless.@wifi-iface[0].mode=ap
+uci set wireless.@wifi-iface[0].encryption=none
+uci set wireless.@wifi-iface[0].network=mesh
+uci set wireless.@wifi-iface[0].ssid=g.freifunk.net
+uci set wireless.@wifi-iface[0].encryption=none
+uci set wireless.@wifi-iface[1]=wifi-iface
+uci set wireless.@wifi-iface[1].device=radio0
+uci set wireless.@wifi-iface[1].mode=adhoc
+uci set wireless.@wifi-iface[1].network=l2bridge
+uci set wireless.@wifi-iface[1].ssid=mesh-v15
+uci set wireless.@wifi-iface[1].bssid=02:CA:FE:15:25:62
+uci set wireless.@wifi-iface[1].encryption=none
+
+uci set batman-adv.bat0.fragmentation=1
+uci set batman-adv.bat0.orig_interval=5000
+uci set batman-adv.bat0.multicast_mode=0
+uci set batman-adv.bat0.gw_mode='client'
+
+/etc/init.d/network restart
