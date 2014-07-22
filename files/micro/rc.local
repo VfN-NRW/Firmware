@@ -20,8 +20,13 @@ uci set network.l2mesh.type='bridge'
 uci set network.l2mesh.proto='static'
 uci set network.l2mesh.ifname='bat0'
 uci set network.l2mesh.auto='1'
-uci set network.l2mesh.accept_ra='1'
+uci set network.l2mesh.accept_ra='0'
 uci set network.l2mesh.ip6addr="$IPV6"
+
+uci set network.wlanmesh='interface'
+uci set network.wlanmesh.proto='batadv'
+uci set network.wlanmesh.mesh='bat0'
+uci set network.wlanmesh.mtu=1532
 
 uci set wireless.radio0.disabled=0
 uci set wireless.radio0.channel=5
@@ -36,13 +41,13 @@ uci set wireless.@wifi-iface[0]=wifi-iface
 uci set wireless.@wifi-iface[0].device=radio0
 uci set wireless.@wifi-iface[0].mode=ap
 uci set wireless.@wifi-iface[0].encryption=none
-uci set wireless.@wifi-iface[0].network=mesh
+uci set wireless.@wifi-iface[0].network=l2bridge
 uci set wireless.@wifi-iface[0].ssid=g.freifunk.net
 uci set wireless.@wifi-iface[0].encryption=none
 uci set wireless.@wifi-iface[1]=wifi-iface
 uci set wireless.@wifi-iface[1].device=radio0
 uci set wireless.@wifi-iface[1].mode=adhoc
-uci set wireless.@wifi-iface[1].network=l2bridge
+uci set wireless.@wifi-iface[1].network=wlanmesh
 uci set wireless.@wifi-iface[1].ssid=mesh-v15
 uci set wireless.@wifi-iface[1].bssid=02:CA:FE:15:25:62
 uci set wireless.@wifi-iface[1].encryption=none
@@ -52,4 +57,6 @@ uci set batman-adv.bat0.orig_interval=5000
 uci set batman-adv.bat0.multicast_mode=0
 uci set batman-adv.bat0.gw_mode='client'
 
-/etc/init.d/network restart
+## we dont commit this stuff
+wifi up
+ifup l2mesh
