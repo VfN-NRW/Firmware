@@ -52,7 +52,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2mesh.proto='static'
   uci set network.l2mesh.ifname='bat0'
   uci set network.l2mesh.auto='1'
-  uci set network.l2mesh.accept_ra='1'
+  uci set network.l2mesh.accept_ra='0'
   uci set network.l2mesh.ip6addr="$IPV6"
   uci set network.l2mesh.ipaddr="$local_ip"
   uci set network.l2mesh.macaddr="$brmac"
