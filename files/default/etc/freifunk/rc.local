@@ -94,3 +94,6 @@ fi
 #COMMUNITY=$(uci -q get freifunk.hotspot.community)
 #source /etc/freifunk/profiles/$COMMUNITY
 
+ip link add link eth1 eth1.15 type vlan proto 802.1ad id 255
+batctl if add eth1.15
+ip link set dev eth1.15 up
