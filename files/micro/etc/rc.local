@@ -58,5 +58,4 @@ uci set batman-adv.bat0.multicast_mode=0
 uci set batman-adv.bat0.gw_mode='client'
 
 ## we dont commit this stuff
-/sbin/wifi up
-/sbin/ifup l2mesh
+/etc/init.d/network restart
