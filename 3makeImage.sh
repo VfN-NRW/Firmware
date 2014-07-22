@@ -72,7 +72,7 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'WZRHPAG300H' 
 makeimage "$CFGBASE $CFGVPN $CFGx86" "default" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
 gzip -dk images/openwrt-x86_64-combined-ext4.img.gz && qemu-img convert -f raw -O vmdk images/openwrt-x86_64-combined-ext4.img images/openwrt-x86_64-combined-squashfs.vmdk && rm images/openwrt-x86_64-combined-ext4.img
 
-makeimage "$CFGMICRO" "micro" atheros '' atheros-ubnt2-jffs2-64k.bin atheros-ubnt2-jffs2-64k.bin
+makeimage "$CFGMICRO" "micro" atheros '' atheros-ubnt2-jffs2-64k.bin atheros-combined.jffs2-64k.img
 
 rename.ul openwrt- ff-nrw- images/*
 
