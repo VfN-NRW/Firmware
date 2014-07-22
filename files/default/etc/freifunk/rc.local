@@ -69,22 +69,22 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
     logger "warning: mesh-vlan over wan could not be added: No wan-if is configured!"
   else
     if [ "$wanif" == "eth0" -o "$wanif" == "eth1" ]; then #this is an ethif
-      network.@mesh_vlan15[0]=mesh_vlan15
-      network.@mesh_vlan15[0].device="$wanif"
-      network.@mesh_vlan15[0].vlan=255
-      network.@mesh_vlan15[0].vid=15
-      network.mesh_vlan=interface
-      network.mesh_vlan.ifname="$wanif.15"
-      network.mesh_vlan.proto=batadv
-      network.mesh_vlan.mesh=bat0
-      network.mesh_vlan.mesh_no_rebroadcast=1
-      network.mesh_vlan.macaddr="$vlanmac"
+      uci set network.wan_mesh_vlan=mesh_vlan15
+      uci set network.wan_mesh_vlan.device="$wanif"
+      uci set network.wan_mesh_vlan.vlan=255
+      uci set network.wan_mesh_vlan.vid=15
+      uci set network.mesh_vlan=interface
+      uci set network.mesh_vlan.ifname="$wanif.15"
+      uci set network.mesh_vlan.proto=batadv
+      uci set network.mesh_vlan.mesh=bat0
+      uci set network.mesh_vlan.mesh_no_rebroadcast=1
+      uci set network.mesh_vlan.macaddr="$vlanmac"
     else
       #FIXME: implement handling of switched wan-ifs
       logger "warning: mesh-vlan over wan could not be added: Switched wan-if handling is not implemented yet."
     fi
+fi
 
-  
   unset wanif
   
   uci commit network
