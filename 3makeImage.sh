@@ -29,8 +29,8 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip"
-CFGMINI="$CFGMICRO curl ecdsautils batctl"
+CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall -dnsmasq -ppp -ip6tables -swconfig kmod-ipv6 kmod-batman-adv hostapd ecdsautils ip"
+CFGMINI="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip curl ecdsautils batctl"
 CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
 CFGVPN="fastd"
@@ -59,7 +59,7 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar7
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
-
+
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr3600-v1-squashfs-factory.bin ar71xx-generic-tl-wdr3600-v1-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWDR4300' ar71xx-generic-tl-wdr4300-v1-squashfs-factory.bin ar71xx-generic-tl-wdr4300-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" mpc85xx_generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
@@ -72,7 +72,7 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'WZRHPAG300H' 
 makeimage "$CFGBASE $CFGVPN $CFGx86" "default" x86_64 '' x86_64-combined-ext4.img.gz x86_64-combined-ext4.img.gz
 gzip -dk images/openwrt-x86_64-combined-ext4.img.gz && qemu-img convert -f raw -O vmdk images/openwrt-x86_64-combined-ext4.img images/openwrt-x86_64-combined-squashfs.vmdk && rm images/openwrt-x86_64-combined-ext4.img
 
-makeimage "$CFGMINI $CFGHOTSPOT" "satellite" atheros '' atheros-ubnt2-squashfs.bin atheros-ubnt2-squashfs.bin 
+makeimage "$CFGMICRO" "micro" atheros '' atheros-ubnt2-jffs2-64k.bin atheros-ubnt2-jffs2-64k.bin
 
 rename.ul openwrt- ff-nrw- images/*
 

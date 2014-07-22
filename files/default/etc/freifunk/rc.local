@@ -11,6 +11,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   b2mask=0x02
 
   vpnmac=$(printf "%02x:%s:%s:%02x:%s:%s" $(( 0x$1 | $b2mask )) $2 $3 $(( (0x$4 + 1) % 0x100 )) $5 $6)
+  vlanmac=$(printf "%02x:%s:%02x:%02x:%s:%s" $(( 0x$1 | $b2mask )) $2 $(( (0x$3 + 1) % 0x100 )) $(( (0x$4 + 1) % 0x100 )) $5 $6)
   brmac=$(printf "%02x:%s:%s:%s:%s:%s" $(( 0x$1 | $b2mask )) $2 $3 $4 $5 $6)
   unset mainmac
 
@@ -51,7 +52,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2mesh.proto='static'
   uci set network.l2mesh.ifname='bat0'
   uci set network.l2mesh.auto='1'
-  uci set network.l2mesh.accept_ra='1'
+  uci set network.l2mesh.accept_ra='0'
   uci set network.l2mesh.ip6addr="$IPV6"
   uci set network.l2mesh.ipaddr="$local_ip"
   uci set network.l2mesh.macaddr="$brmac"
@@ -62,6 +63,29 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2meshroute.target='fda0:747e:ab29::/48'
   uci set network.l2meshroute.gateway="$mesh_ip_prefix::c02"
 
+  wanif=$(uci -q get network.wan.ifname)
+  if [ -z "$wanif" ]; then
+    #skip this step.
+    logger "warning: mesh-vlan over wan could not be added: No wan-if is configured!"
+  else
+    if [ "$wanif" == "eth0" -o "$wanif" == "eth1" ]; then #this is an ethif
+      uci set network.wan_mesh_vlan=mesh_vlan15
+      uci set network.wan_mesh_vlan.device="$wanif"
+      uci set network.wan_mesh_vlan.vlan=255
+      uci set network.wan_mesh_vlan.vid=15
+      uci set network.mesh_vlan=interface
+      uci set network.mesh_vlan.ifname="$wanif.15"
+      uci set network.mesh_vlan.proto=batadv
+      uci set network.mesh_vlan.mesh=bat0
+      uci set network.mesh_vlan.mesh_no_rebroadcast=1
+      uci set network.mesh_vlan.macaddr="$vlanmac"
+    else
+      #FIXME: implement handling of switched wan-ifs
+      logger "warning: mesh-vlan over wan could not be added: Switched wan-if handling is not implemented yet."
+    fi
+fi
+
+  unset wanif
   
   uci commit network
   /etc/init.d/network restart&sleep 2
@@ -93,4 +117,3 @@ fi
 ## load community-profile
 #COMMUNITY=$(uci -q get freifunk.hotspot.community)
 #source /etc/freifunk/profiles/$COMMUNITY
-
