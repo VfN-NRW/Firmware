@@ -40,6 +40,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
   
   uci commit system
+  /etc/init.d/system reload
 
   IPV61=`echo -n $hwid|head -c4`
   IPV62=`echo -n $hwid|head -c8|tail -c4`
