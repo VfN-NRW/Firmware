@@ -37,6 +37,9 @@ CFGVPN="fastd"
 CFGx86="kmod-ide-core kmod-ide-generic"
 
 echo $BUILD > files/_all/build
+
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'UBNT' ar71xx-generic-ubnt-nano-m-squashfs-factory.bin ar71xx-generic-ubnt-nano-m-squashfs-sysupgrade.bin
+
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR741' ar71xx-generic-tl-wr741nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin
