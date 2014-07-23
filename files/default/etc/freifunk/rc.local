@@ -83,7 +83,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
       #FIXME: implement handling of switched wan-ifs
       logger "warning: mesh-vlan over wan could not be added: Switched wan-if handling is not implemented yet."
     fi
-fi
+  fi
 
   unset wanif
   
