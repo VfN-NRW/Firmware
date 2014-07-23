@@ -101,5 +101,7 @@ fi
 #COMMUNITY=$(uci -q get freifunk.hotspot.community)
 #source /etc/freifunk/profiles/$COMMUNITY
 
-#Submit immediately stats to our servers
+#do a wifi-scan
+sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
+#submit immediately stats to our servers
 ff-stats
