@@ -91,7 +91,8 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci commit
   
   /etc/init.d/boot restart
-
+  /etc/init.d/dnsmasq reload
+  
   /etc/init.d/fastd enable
   /etc/init.d/fastd restart
 
