@@ -86,7 +86,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci commit
   
   /etc/init.d/boot restart
-  /etc/init.d/network restart
 
   /etc/init.d/haveged enable
   /etc/init.d/haveged restart
