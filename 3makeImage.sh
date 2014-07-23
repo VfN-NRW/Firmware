@@ -29,7 +29,7 @@ BUILD=$(($BUILD+1))
 echo $BUILD > build.txt
 
 
-CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall -dnsmasq -ppp -ip6tables -swconfig kmod-ipv6 kmod-batman-adv hostapd ecdsautils ip"
+CFGMICRO="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini -ppp-mod-pppoe -firewall -dnsmasq -ppp -iptables -kmod-ipt-nat -kmod-ipt-nathelper -ip6tables -swconfig -opkg kmod-ipv6 kmod-batman-adv hostapd ecdsautils ip"
 CFGMINI="-6relayd -kmod-wpad -odhcp6c -odhcpd -wpad-mini kmod-batman-adv ip curl ecdsautils batctl"
 CFGBASE="$CFGMINI ebtables ppp-mod-pppoe haveged socat tc kmod-sched-core kmod-sched"
 CFGHOTSPOT="hostapd kmod-ath"
