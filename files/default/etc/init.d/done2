@@ -8,5 +8,4 @@ boot() {
 	[ -f /etc/freifunk/start.ebtables ]  && sh /etc/freifunk/start.ebtables
 	[ -f /etc/freifunk/start.backdoor ]  && sh /etc/freifunk/start.backdoor
 	sh /usr/sbin/ff-offline-ssid.sh 60
-	/etc/init.d/dnsmasq stop #we dont need it currently
 }
