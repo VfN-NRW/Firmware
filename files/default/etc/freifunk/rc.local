@@ -2,6 +2,9 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   passwd -d root
   cat /etc/dropbear/authorized_keys.default > /etc/dropbear/authorized_keys
   
+  /etc/init.d/haveged enable
+  /etc/init.d/haveged restart
+  
   hwid="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
   uci set system.@system[0].hostname=$hwid
   echo $hwid > /proc/sys/kernel/hostname
