@@ -104,4 +104,4 @@ fi
 #do a wifi-scan
 sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
 #submit immediately stats to our servers
-ff-stats
+/usr/sbin/ff-stats
