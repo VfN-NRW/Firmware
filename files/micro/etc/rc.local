@@ -23,11 +23,11 @@ uci set network.l2mesh.auto='1'
 uci set network.l2mesh.accept_ra='0'
 uci set network.l2mesh.ip6addr="$IPV6"
 
-network.mesh_lan=interface
-network.mesh_lan.ifname=eth0
-network.mesh_lan.proto=batadv
-network.mesh_lan.mesh=bat0
-network.mesh_lan.mesh_no_rebroadcast=1
+uci set network.mesh_lan=interface
+uci set network.mesh_lan.ifname=eth0
+uci set network.mesh_lan.proto=batadv
+uci set network.mesh_lan.mesh=bat0
+uci set network.mesh_lan.mesh_no_rebroadcast=1
 
 uci set network.wlanmesh='interface'
 uci set network.wlanmesh.proto='batadv'
