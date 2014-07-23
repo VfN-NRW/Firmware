@@ -68,5 +68,3 @@ uci set network.mesh_vpn.proto='batadv'
 uci set network.mesh_vpn.mesh='bat0'
 uci set network.mesh_vpn.mesh_no_rebroadcast=1
 uci set network.mesh_vpn.macaddr="$vpnmac"
-
-ff-stats
