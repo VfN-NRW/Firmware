@@ -1,30 +1,17 @@
-#!/bin/sh
-
-#check if autoupgrade is disabled
-if [ "$(uci -q get freifunk.fw.autoupgrade)" == "0" ] ; then
-  echo "autoupgrade is disabled"
-  exit 0
-fi
-
-FWFILE=$(uci get freifunk.fw.filename)
-DISTRIBUTION=$(uci get freifunk.fw.distribution)
-
-LOCALBUILD=$(cat /build)
-REMOTEBUILD=$(ff-curl firmware2/$DISTRIBUTION/build)
-
-if [ "0$REMOTEBUILD" -gt "0$LOCALBUILD" ] ; then
-  cd /tmp || exit 1
-  
-  echo 3 > /proc/sys/vm/drop_caches
-  
-  ff-curl firmware2/$DISTRIBUTION/"$FWFILE".sig -o firmware.sig || exit 1
-  ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin || exit 1
-
-  echo 3 > /proc/sys/vm/drop_caches
-
-  PARAMpubkeys=$(cat /etc/freifunk/fwupgrade/nightly  | awk '{if ($1 != "") print "-p " $1}' | sed ':a;N;$!ba;s/\n/ /g')
-  PARAMsignatures=$(cat firmware.sig | awk '{if ($1 != "") print "-s " $1}' | sed ':a;N;$!ba;s/\n/ /g')
-  ecdsaverify $PARAMsignatures $PARAMpubkeys firmware.bin || exit 1
-
-  sysupgrade $@ firmware.bin
-fi
+/etc/init.d/sysntpd stop
+/etc/init.d/log stop
+/etc/init.d/cron stop
+/etc/init.d/dropbear stop
+cd /tmp
+echo 3 > /proc/sys/vm/drop_caches
+wifi down
+rmmod ath5k
+rmmod ath
+rmmod mac80211
+rmmod cfg80211
+rmmod compat
+wget http://fda0:747e:ab29:4859::c03/firmware2/nightly/ff-nrw-atheros-combined.jffs2-64k.img
+rmmod batman_adv
+rmmod crc16
+echo 3 > /proc/sys/vm/drop_caches
+sysupgrade -n ff-nrw-atheros-combined.jffs2-64k.img
