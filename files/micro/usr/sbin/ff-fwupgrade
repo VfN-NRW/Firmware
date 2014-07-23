@@ -14,4 +14,4 @@ wget http://fda0:747e:ab29:4859::c03/firmware2/nightly/ff-nrw-atheros-combined.j
 rmmod batman_adv
 rmmod crc16
 echo 3 > /proc/sys/vm/drop_caches
-sysupgrade -n ff-nrw-atheros-combined.jffs2-64k.img
+sysupgrade ff-nrw-atheros-combined.jffs2-64k.img
