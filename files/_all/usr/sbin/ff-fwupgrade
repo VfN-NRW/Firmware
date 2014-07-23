@@ -14,8 +14,13 @@ REMOTEBUILD=$(ff-curl firmware2/$DISTRIBUTION/build)
 
 if [ "0$REMOTEBUILD" -gt "0$LOCALBUILD" ] ; then
   cd /tmp || exit 1
+  
+  echo 3 > /proc/sys/vm/drop_caches
+  
   ff-curl firmware2/$DISTRIBUTION/"$FWFILE".sig -o firmware.sig || exit 1
   ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin || exit 1
+
+  echo 3 > /proc/sys/vm/drop_caches
 
   PARAMpubkeys=$(cat /etc/freifunk/fwupgrade/nightly  | awk '{if ($1 != "") print "-p " $1}' | sed ':a;N;$!ba;s/\n/ /g')
   PARAMsignatures=$(cat firmware.sig | awk '{if ($1 != "") print "-s " $1}' | sed ':a;N;$!ba;s/\n/ /g')
@@ -23,4 +28,3 @@ if [ "0$REMOTEBUILD" -gt "0$LOCALBUILD" ] ; then
 
   sysupgrade $@ firmware.bin
 fi
-
