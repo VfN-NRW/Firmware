@@ -1,4 +1,4 @@
-*/5  * * * * sh /usr/sbin/ff-stats
-0    4 * * * sh /usr/sbin/ff-fwupgrade
-*/15 * * * * sh /usr/sbin/ff-rebootIfNoGw
-*/1  * * * * sh /usr/sbin/ff-offline-ssid.sh 120
+*/5  * * * * /usr/sbin/ff-stats
+0    4 * * * /usr/sbin/ff-fwupgrade
+*/15 * * * * /usr/sbin/ff-rebootIfNoGw
+*/1  * * * * /usr/sbin/ff-offline-ssid.sh 120
