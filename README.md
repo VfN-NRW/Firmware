@@ -1,5 +1,5 @@
 
-## This is just a piece of alpha software, DO NOT USE it for anything except testing purposes.
+## This is just a piece of alpha software, DO NOT USE it without advice for anything except testing purposes.
 
 # Bugtracker
 
