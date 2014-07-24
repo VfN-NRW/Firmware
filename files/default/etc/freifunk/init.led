@@ -6,8 +6,8 @@ if [ "${tmp:22:10}" == 'tl-wdr3600' -o "${tmp:22:10}" == 'tl-wdr4300']; then
   uci set system.led_wan=led
   uci set system.led_wan.name=WAN
   uci set system.led_wan.sysfs='tp-link:blue:wan'
-	uci set system.led_wan.trigger=netdev
-	uci set system.led_wan.dev="$(uci -q get network.wan.ifname)"
+  uci set system.led_wan.trigger=netdev
+  uci set system.led_wan.dev="$(uci -q get network.wan.ifname)"
   uci set system.led_wan.mode=link
   
   uci set system.led_wlan5g='led'
