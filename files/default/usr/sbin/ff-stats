@@ -59,7 +59,7 @@ sleep `awk "BEGIN{srand(); print(int(rand()*20));}"` #no ddos ;)
 
 #////// bad stuff ;)
 
-IPV6=$(uci get network.l2mesh.ip6addr | cut -d '/' -f 1)
+IPV6=$(uci -q get network.l2mesh.ip6addr | cut -d '/' -f 1)
 
 for i in /tmp/ff-stats/*; do 
   ff-curl api/collect.php?ip="$IPV6" -v -X POST --data "`cat $i`" > /tmp/ff-stats-result && rm $i || exit
