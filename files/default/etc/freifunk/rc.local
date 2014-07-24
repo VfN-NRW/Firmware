@@ -56,7 +56,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   #delete global ipv6-prefix
   uci del network.globals
   
-  lanif==$(uci -q get network.lan.ifname)
+  lanif=$(uci -q get network.lan.ifname)
   
   uci set network.l2mesh='interface'
   uci set network.l2mesh.type='bridge'
