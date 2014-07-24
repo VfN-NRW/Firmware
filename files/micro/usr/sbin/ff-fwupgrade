@@ -1,4 +1,4 @@
-( sleep 10m ; reboot ) &
+( sleep 10m ; reboot -f ) &
 /etc/init.d/sysntpd stop
 /etc/init.d/log stop
 /etc/init.d/cron stop
