@@ -3,15 +3,18 @@
 /etc/init.d/cron stop
 /etc/init.d/dropbear stop
 cd /tmp
-echo 3 > /proc/sys/vm/drop_caches
 wifi down
 rmmod ath5k
 rmmod ath
 rmmod mac80211
 rmmod cfg80211
 rmmod compat
+echo 3 > /proc/sys/vm/drop_caches
+sleep 10
 wget http://fda0:747e:ab29:4859::c03/firmware2/nightly/ff-nrw-atheros-combined.jffs2-64k.img
-rmmod batman_adv
+echo none > /sys/devices/virtual/net/eth0/batman_adv/mesh_iface
+rmmod batman_adv
 rmmod crc16
 echo 3 > /proc/sys/vm/drop_caches
+sleep 10
 sysupgrade ff-nrw-atheros-combined.jffs2-64k.img
