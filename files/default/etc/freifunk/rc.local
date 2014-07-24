@@ -64,9 +64,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   IPV63=`echo -n $hwid|tail -c4`
   IPV6="$mesh_ip_prefix:ffff:$IPV61:$IPV62:$IPV63/64"
   
-  #delete global ipv6-prefix
-  uci del network.globals
-  
   lanif=$(uci -q get network.lan.ifname)
   
   uci set network.l2mesh='interface'
