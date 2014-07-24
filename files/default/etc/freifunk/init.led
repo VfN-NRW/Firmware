@@ -3,6 +3,8 @@ if [ "$(uci -q get system.led_wan)" == 'led' ]; then
   uci set system.led_wan.mode='link'
 fi
 
+#fixme working with more than one phy interface.
+
 if [ "$(uci -q get system.led_wlan)" == 'led' ]; then
   tmp=$(uci -q get system.led_wlan.trigger)
   if [ "${tmp:0:4}" == 'phy0' ]; then
