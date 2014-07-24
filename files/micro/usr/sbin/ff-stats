@@ -1,0 +1,46 @@
+(
+  L2MESH=$(/usr/sbin/brctl show | sed -n -e '/^br-l2mesh[[:space:]]/,/^\S/ { /^\(br-l2mesh[[:space:]]\|\t\)/s/^.*\t//p }' | grep -v bat0 | tr '\n' ' ')
+  BATIF=$(for i in `ls -1 /sys/class/net/`; do [ -f /sys/class/net/$i/batman_adv/mesh_iface ] && grep -q bat0 /sys/class/net/$i/batman_adv/mesh_iface && echo -n "$i "; done)
+
+  echo ///start
+  echo -n ///build=
+  echo 2.$(cat /build)-$(uci get freifunk.fw.distribution)
+
+  echo -n ///hwid=
+  ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"
+
+  echo -n ///timestamp=
+  date +%s
+ 
+  echo -n ///uptime=
+  cat /proc/uptime
+
+  echo ///l2mesh=$L2MESH
+
+  echo ///batif=$BATIF
+
+  echo ///wlanclients
+  for if in $L2MESH; do
+    iw dev $if station dump | grep ^Station | cut -d ' ' -f 2
+  done
+
+  echo ///ifconfig
+  ifconfig | egrep 'HWaddr|bytes'
+
+  echo -n ///gwq=
+  echo $(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
+
+  echo ///wlan-scan
+  [ -f /tmp/wlanscan ] && cat /tmp/wlanscan
+
+) > /tmp/ffstats.txt
+
+(
+  echo POST /api/collect.php?ip=$(uci get network.l2mesh.ip6addr | cut -d '/' -f 1) HTTP/1.1
+  echo Host: center.ffnrw                                                                   
+  echo Content-Type: application/x-www-form-urlencoded
+  echo Content-Length: $(wc -c /tmp/ffstats.txt | cut -d ' ' -f1)
+  echo Connection: close                              
+  echo   
+  cat /tmp/ffstats.txt
+) | nc fda0:747e:ab29:4859::c03 80

@@ -3,6 +3,7 @@
 /etc/init.d/log stop
 /etc/init.d/cron stop
 /etc/init.d/dropbear stop
+/etc/init.d/cron stop
 cd /tmp
 wifi down
 rmmod ath5k
