@@ -105,7 +105,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   /etc/init.d/dnsmasq reload
   
   /etc/init.d/fastd enable
-  /etc/init.d/fastd restart
 
   /etc/init.d/sysntpd enable
   /etc/init.d/sysntpd restart
