@@ -2,17 +2,24 @@
 
 #fix basic config:
 tmp=$(uci -q get freifunk.fw.filename)
-if [ "${tmp:22:13}" == 'tl-wdr3600-v1' ]; then
+if [ "${tmp:22:13}" == 'tl-wdr3600-v1' -o "${tmp:22:13}" == 'tl-wdr4300-v1' ]; then
   uci set system.led_wan=led
   uci set system.led_wan.name=WAN
   uci set system.led_wan.sysfs='tp-link:blue:wan'
   uci set system.led_wan.trigger=netdev
   uci set system.led_wan.dev="$(uci -q get network.wan.ifname)"
   uci set system.led_wan.mode=link
+  
+  uci set system.led_wlan5g='led'
+  uci set system.led_wlan5g.name='WLAN5'
+	uci set system.led_wlan5g.sysfs='ath9k-phy1'
+	uci set system.led_wlan5g.trigger='netdev'
+  uci set system.led_wlan5g.dev='wlan1-1'
+	uci set system.led_wlan5g.mode='link'
 fi
 
 #configuration
-wifi_if_names="wlan;wlan2g"
+wifi_if_names="wlan;wlan2g;wlan5g"
 
 if [ "$(uci -q get system.led_wan)" == 'led' ]; then
   uci set system.led_wan.mode='link'
