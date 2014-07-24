@@ -7,6 +7,17 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   /etc/init.d/haveged disable #to remove start=98 entry
   /etc/init.d/haveged enable
   /etc/init.d/haveged restart
+  
+  #fix sysctl.conf
+  sysctl -w net.ipv4.tcp_ecn=1
+  sysctl -w net.ipv4.ip_forward=0
+  sysctl -w net.ipv6.conf.default.forwarding=0
+  sysctl -w net.ipv6.conf.all.forwarding=0
+  #making changes permanent
+  sed -i -e "s/net.ipv4.tcp_ecn=0/net.ipv4.tcp_ecn=1/" /etc/sysctl.conf
+  sed -i -e "s/net.ipv4.ip_forward=1/net.ipv4.ip_forward=0/" /etc/sysctl.conf
+  sed -i -e "s/net.ipv6.conf.default.forwarding=1/net.ipv6.conf.default.forwarding=0/" /etc/sysctl.conf
+  sed -i -e "s/net.ipv6.conf.default.forwarding=1/net.ipv6.conf.all.forwarding=0/" /etc/sysctl.conf
 
   hwid="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
   uci set system.@system[0].hostname=$hwid
