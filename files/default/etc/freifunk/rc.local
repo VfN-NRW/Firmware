@@ -8,7 +8,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   /etc/init.d/haveged enable
   /etc/init.d/haveged restart
 
-  
   hwid="`ip link show eth0 | grep "link/ether" | sed "s/^[ ]*//" | cut -d' ' -f2 | sed "s/://g"`"
   uci set system.@system[0].hostname=$hwid
   echo $hwid > /proc/sys/kernel/hostname
@@ -46,7 +45,10 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set system.ntp.server="$mesh_ip_prefix::c02"
   uci set system.@system[0].timezone="CET-1CEST,M3.5.0,M10.5.0/3"
   #led config
-  uci set system.led_wan.mode='link'
+  if [ "$(uci -q get system.led_wan)" == 'led' ]; then
+    uci set system.led_wan.mode='link'
+  fi
+  
   uci commit system
 
   IPV61=`echo -n $hwid|head -c4`
