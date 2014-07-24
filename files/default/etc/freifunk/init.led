@@ -1,20 +1,39 @@
-#led config
+#set wlan / wan led to constant on, if device is in use
+
+#fix basic config:
+tmp=$(uci -q get freifunk.fw.filename)
+if [ "${tmp:22:13}" == 'tl-wdr3600-v1' ]; then
+  uci set system.led_wan=led
+  uci set system.led_wan.name=WAN
+  uci set system.led_wan.sysfs='tp-link:blue:wan'
+  uci set system.led_wan.trigger=netdev
+  uci set system.led_wan.dev="$(uci -q get network.wan.ifname)"
+  uci set system.led_wan.mode=link
+fi
+
+#configuration
+wifi_if_names="wlan;wlan2g"
+
 if [ "$(uci -q get system.led_wan)" == 'led' ]; then
   uci set system.led_wan.mode='link'
 fi
 
-#fixme working with more than one phy interface.
+no_of_wifi_names=$(echo $wifi_if_names | tr ";" "\n" | wc | awk '{print $1}')
 
-if [ "$(uci -q get system.led_wlan)" == 'led' ]; then
-  tmp=$(uci -q get system.led_wlan.trigger)
-  if [ "${tmp:0:4}" == 'phy0' ]; then
-    uci set system.led_wlan.trigger=netdev
-    uci set system.led_wlan.dev=wlan0-1
-    uci set system.led_wlan.mode=link
+for i in `seq $no_of_wifi_names` ; do
+  wifi=$(echo $wifi_if_names | tr ";" " " | awk -v i="$i" '{print $i}')
+  
+  if [ "$(uci -q get system.led_$wifi)" == 'led' ]; then
+    tmp=$(uci -q get system.led_$wifi.trigger)
+    if [ "${tmp:0:4}" == 'phy0' ]; then
+      uci set system.led_$wifi.trigger=netdev
+      uci set system.led_$wifi.dev=wlan0-1
+      uci set system.led_$wifi.mode=link
+    fi
+    if [ "${tmp:0:4}" == 'phy1' ]; then
+      uci set system.led_$wifi.trigger=netdev
+      uci set system.led_$wifi.dev=wlan1-1
+      uci set system.led_$wifi.mode=link
+    fi
   fi
-  if [ "${tmp:0:4}" == 'phy1' ]; then
-    uci set system.led_wlan.trigger=netdev
-    uci set system.led_wlan.dev=wlan1-1
-    uci set system.led_wlan.mode=link
-  fi
-fi
+done
