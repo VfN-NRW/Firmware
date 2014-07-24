@@ -1,0 +1,18 @@
+#led config
+if [ "$(uci -q get system.led_wan)" == 'led' ]; then
+  uci set system.led_wan.mode='link'
+fi
+
+if [ "$(uci -q get system.led_wlan)" == 'led' ]; then
+  tmp=$(uci -q get system.led_wlan.trigger)
+  if [ "${tmp:0:4}" == 'phy0' ]; then
+    uci set system.led_wlan.trigger=netdev
+    uci set system.led_wlan.dev=wlan0-1
+    uci set system.led_wlan.mode=link
+  fi
+  if [ "${tmp:0:4}" == 'phy1' ]; then
+    uci set system.led_wlan.trigger=netdev
+    uci set system.led_wlan.dev=wlan1-1
+    uci set system.led_wlan.mode=link
+  fi
+fi
