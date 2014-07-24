@@ -1,0 +1,4 @@
+#!/bin/sh
+cat /sys/kernel/debug/batman_adv/bat0/originators
+echo
+echo Sorry, there is no batctl on micro. But i gave you "batctl o" ;)
