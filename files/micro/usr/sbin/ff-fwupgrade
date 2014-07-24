@@ -1,3 +1,4 @@
+( sleep 10m ; reboot ) &
 /etc/init.d/sysntpd stop
 /etc/init.d/log stop
 /etc/init.d/cron stop
@@ -10,10 +11,10 @@ rmmod mac80211
 rmmod cfg80211
 rmmod compat
 echo 3 > /proc/sys/vm/drop_caches
-sleep 10
+ping6 fda0:747e:ab29:4859::c03 -c 30
 wget http://fda0:747e:ab29:4859::c03/firmware2/nightly/ff-nrw-atheros-combined.jffs2-64k.img
 echo none > /sys/devices/virtual/net/eth0/batman_adv/mesh_iface
-rmmod batman_adv
+rmmod batman_adv
 rmmod crc16
 echo 3 > /proc/sys/vm/drop_caches
 sleep 10
