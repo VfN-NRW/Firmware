@@ -81,7 +81,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci del network.lan
   
   #add routing
-  uci set network.l2meshroute='l2meshroute'
+  uci set network.l2meshroute='route6'
   uci set network.l2meshroute.interface='l2mesh'
   uci set network.l2meshroute.target='fda0:747e:ab29::/48'
   uci set network.l2meshroute.gateway="$mesh_ip_prefix::c02"
