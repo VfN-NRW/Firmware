@@ -1,6 +1,15 @@
 MAX_COMMUNITY_SCANS=30
+hwid=$(uci -q get system.@system[0].hostname)
 
 COMMUNITY=$(uci -q get freifunk.hotspot.community)
+
+#Get the configured community from database
+[ -z "$COMMUNITY" ] && COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+#if its not fallback, use it.
+[ "$COMMUNITY" == 'fallback' ] && COMMUNITY=''
+[ ! -z "$COMMUNITY" ] && uci set freifunk.hotspot.community="$COMMUNITY"
+#if community is zero, create an entry in database
+[ -z "$COMMUNITY" ] && sh /usr/sbin/ff-stats
 
 COMMUNITY_SCANS=0
 while [ -z "$COMMUNITY" ] ; do
@@ -25,11 +34,18 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q lf.freifunk.net /tmp/detectcommunity && COMMUNITY='langenfeld'
   
   rm /tmp/detectcommunity
+  
+  #recheck if db-entry now exist.
+  [ -z "$COMMUNITY" ] && COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+  #if its not fallback, use it.
+  [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=''
+  
   if [ ! -z "$COMMUNITY" ] ; then
     uci set freifunk.hotspot.community="$COMMUNITY"
   else
     if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
-      COMMUNITY="fallback"
+      COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+      [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
       uci set freifunk.hotspot.community="$COMMUNITY"
     fi
   fi
