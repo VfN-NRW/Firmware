@@ -116,6 +116,25 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   
   /etc/init.d/fastd enable
   /etc/init.d/sysntpd enable
+else #only when configured at boot
+  COMMUNITY=$(uci -q get freifunk.hotspot.community)
+  
+  if [ -z "$COMMUNITY" ]; then
+    #something went completly wrong here ...
+    
+    #ask database for community
+    COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+    #when database got no entry, reconfigure as fallback:
+    logger "CRITICAL ERROR: no community was configured, fetched community-info from database: '$COMMUNITY'"
+    [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
+    uci set freifunk.fw.confver=0
+    uci commit
+    logger "CRITICAL ERROR: rebooting in 600 seconds and reconfiguring than to community '$COMMUNITY'"
+    sleep 600 #give us a chance to debug this.
+    reboot
+    exit #do not process this further.
+  fi
+  
 fi
 
 ## load community-profile
