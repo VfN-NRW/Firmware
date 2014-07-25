@@ -127,6 +127,7 @@ else #only when configured at boot
     logger "CRITICAL ERROR: no community was configured, fetched community-info from database: '$COMMUNITY'"
     #when database got no entry, reconfigure as fallback:
     [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
+    uci set freifunk.hotspot.community="$COMMUNITY"
     uci set freifunk.fw.confver=0
     uci commit
     logger "CRITICAL ERROR: rebooting in 600 seconds and reconfiguring than to community '$COMMUNITY'"
@@ -134,7 +135,18 @@ else #only when configured at boot
     reboot
     exit #do not process this further.
   fi
+  [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+  #if there is no database-entry, use fallback.
+  [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
   
+  if [ "$COMMUNITY" != 'fallback']; then
+    logger "fallback-community was configured at boot-time, fetched community-info from database: '$COMMUNITY', reconfiguring at reboot in 60 seconds"
+    uci set freifunk.fw.confver=0
+    uci commit
+    sleep 60
+    reboot
+    exit #do not process this further.
+  fi
 fi
 
 ## load community-profile
