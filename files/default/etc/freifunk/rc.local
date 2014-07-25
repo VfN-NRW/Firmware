@@ -124,8 +124,8 @@ else #only when configured at boot
     
     #ask database for community
     COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
-    #when database got no entry, reconfigure as fallback:
     logger "CRITICAL ERROR: no community was configured, fetched community-info from database: '$COMMUNITY'"
+    #when database got no entry, reconfigure as fallback:
     [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
     uci set freifunk.fw.confver=0
     uci commit
