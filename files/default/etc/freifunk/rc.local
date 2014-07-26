@@ -123,7 +123,7 @@ else #only when configured at boot
     #something went completly wrong here ...
     
     #ask database for community
-    COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+    COMMUNITY=$(ff-curl /api/community.php?hwid=$hwid)
     logger "CRITICAL ERROR: no community was configured, fetched community-info from database: '$COMMUNITY'"
     #when database got no entry, reconfigure as fallback:
     [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
@@ -135,7 +135,7 @@ else #only when configured at boot
     reboot
     exit #do not process this further.
   fi
-  [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=$(curl -sS http://freifunk.liztv.net/api/community.php?hwid=$hwid)
+  [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=$(ff-curl /api/community.php?hwid=$hwid)
   #if there is no database-entry, use fallback.
   [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
   
