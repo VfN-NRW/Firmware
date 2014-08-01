@@ -5,3 +5,6 @@
 1-59/2 * * * * sh /usr/sbin/ff-offline-ssid.sh 60
 */2    * * * * sh /usr/sbin/ff-fixbat0br
 1-59/2 * * * * sh /usr/sbin/ff-fixbat0br
+*/2    * * * * sh /usr/sbin/ath9k-workaround
+1-59/2 * * * * sh /usr/sbin/ath9k-workaround
+
