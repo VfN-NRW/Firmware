@@ -1,6 +1,7 @@
 #!/bin/sh
 
 #Source: https://raw.githubusercontent.com/freifunk-gluon/packages/master/gluon/gluon-ath9k-workaround/files/usr/sbin/ath9k-workaround
+#License: https://github.com/freifunk-gluon/gluon/blob/master/LICENSE
 
 check_stopped_queue(){
   local device=$1
