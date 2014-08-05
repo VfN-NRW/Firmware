@@ -1,0 +1,28 @@
+wifi0='/tmp/wifi_wlan0_mesh'
+wifi0gone='/tmp/wifi_wlan0_mesh_gone'
+wifi1='/tmp/wifi_wlan1_mesh'
+wifi1gone='/tmp/wifi_wlan1_mesh_gone'
+
+batctl o | grep -q "wlan0"
+if [ $? == 0 ] ; then
+  #found wifi-mesh on wlan0*
+  touch $wifi0
+  [ -f $wifi0gone ] && rm $wifi0gone
+else
+  if [ -f $wifi0 ]; then
+    [ -f $wifi0gone ] && reboot; exit
+    touch $wifi0gone
+  fi
+fi
+
+batctl o | grep -q "wlan1"
+if [ $? == 0 ] ; then
+  #found wifi-mesh on wlan1*
+  touch $wifi1
+  [ -f $wifi1gone ] && rm $wifi1gone
+else
+  if [ -f $wifi1 ]; then
+    [ -f $wifi1gone ] && reboot; exit
+    touch $wifi1gone
+  fi
+fi
