@@ -59,6 +59,9 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar7
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWR1043' ar71xx-generic-tl-wr1043nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr1043nd-v2-squashfs-sysupgrade.bin
 
 
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLWA901' openwrt-ar71xx-generic-tl-wa901nd-v2-squashfs-factory.bin ar71xx-generic-tl-wa901nd-v2-squashfs-sysupgrade.bin
+
+
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3020' ar71xx-generic-tl-mr3020-v1-squashfs-factory.bin ar71xx-generic-tl-mr3020-v1-squashfs-sysupgrade.bin
 #makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx_generic 'TLMR3040' ar71xx-generic-tl-mr3040-v1-squashfs-factory.bin ar71xx-generic-tl-mr3040-v1-squashfs-sysupgrade.bin
