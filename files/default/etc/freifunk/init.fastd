@@ -16,7 +16,7 @@ uci set fastd.ffmesh.mode=tap
 uci set fastd.ffmesh.interface="$fastd_ifname"
 uci set fastd.ffmesh.mtu=1426
 uci set fastd.ffmesh.forward=0
-uci set fastd.ffmesh.secret=generate
+[ -z "$(uci -q get fastd.ffmesh.secret)" ] && uci set fastd.ffmesh.secret=generate
 uci set fastd.ffmesh.up='ip link set dev vpn-ffmesh up ; echo bat0 > /sys/devices/virtual/net/vpn-ffmesh/batman_adv/mesh_iface'
 
 #load community-profile
