@@ -265,7 +265,7 @@ while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 		continue
 	fi
 	
-	echo -n "Debug: Hostap gave us SSID_0='$SSID_0', "
+	echo -n "Debug: Hostapd gave us SSID_0='$SSID_0', "
 
 	if [ "$SSID_0" == "$SSID_0_ONLINE" ]; then
 		ISOFFLINE=0
