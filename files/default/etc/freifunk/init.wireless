@@ -36,7 +36,7 @@ while [ -z "$COMMUNITY" ] ; do
   rm /tmp/detectcommunity
   
   #recheck if db-entry now exist.
-  [ -z "$COMMUNITY" ] && COMMUNITY=$($(ff-curl api/community.php?hwid=$hwid))
+  [ -z "$COMMUNITY" ] && COMMUNITY=$(ff-curl api/community.php?hwid=$hwid)
   #if its not fallback, use it.
   [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=''
   
@@ -44,7 +44,7 @@ while [ -z "$COMMUNITY" ] ; do
     uci set freifunk.hotspot.community="$COMMUNITY"
   else
     if [ $COMMUNITY_SCANS -eq $MAX_COMMUNITY_SCANS ] ; then
-      COMMUNITY=$($(ff-curl api/community.php?hwid=$hwid))
+      COMMUNITY=$(ff-curl api/community.php?hwid=$hwid)
       [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
       uci set freifunk.hotspot.community="$COMMUNITY"
     fi
