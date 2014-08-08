@@ -86,13 +86,16 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2meshroute.target='fda0:747e:ab29::/48'
   uci set network.l2meshroute.gateway="$mesh_ip_prefix::c02"
 
-  wanif=$(uci -q get network.wan.ifname)
+  #create a wan-bridge
+  uci set network.wan.type=bridge
+  uci set network.wan.auto=1
+  
+  #add wan-bridge as mesh-interface
   uci set network.mesh_wan=interface
-  uci set network.mesh_wan.ifname="$wanif"
+  uci set network.mesh_wan.ifname="br-wan"
   uci set network.mesh_wan.proto=batadv
   uci set network.mesh_wan.mesh=bat0
   uci set network.mesh_wan.mesh_no_rebroadcast=1
-  unset wanif
   
   uci commit network
   /etc/init.d/network restart&sleep 2
