@@ -2,7 +2,7 @@
 # ff-offline-ssid by RubenKelevra 2013-2014 - cyrond@gmail.com
 # Lizenz: AGPL 3.0 
 
-#Warning: This script will immediately set the ssid configured in uci if its changed.
+#Warning: If SSID was changed in UCI, which belongs to freifunk, you need to run "wifi" before you rerun this script again.
 
 #This script expect that an temporary SSID is set on boot. The Script will read ssid_online and set it when node is online.
 
@@ -374,18 +374,16 @@ while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 			continue
 		fi	
 		
-		rm /tmp/hostapd-phy0.conf.temp 2>/dev/null
-		cat /var/run/hostapd-phy0.conf | grep -v "^ssid=" > /tmp/hostapd-phy0.conf.temp
-		echo "$SSID_0" >> /tmp/hostapd-phy0.conf.temp
-		mv /tmp/hostapd-phy0.conf.temp /var/run/hostapd-phy0.conf
+		[ ! -z "$SSID_0_ONLINE" ] && sed -i -e "s/^ssid=$SSID_0_ONLINE/$SSID_0/" /var/run/hostapd-phy0.conf
+		[ ! -z "$SSID_0_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_0_OFFLINE/$SSID_0/" /var/run/hostapd-phy0.conf
+		[ ! -z "$SSID_0_BOOT" ] && sed -i -e "s/^ssid=$SSID_0_BOOT/$SSID_0/" /var/run/hostapd-phy0.conf
 		
 		if [ $RADIOONE -eq 1 ]; then
 		
 			if [ -f $HOSTAPD_PHY1 ]; then
-				rm /tmp/hostapd-phy1.conf.temp 2>/dev/null
-				cat /var/run/hostapd-phy1.conf | grep -v "^ssid=" > /tmp/hostapd-phy1.conf.temp
-				echo "$SSID_1" >> /tmp/hostapd-phy1.conf.temp
-				mv /tmp/hostapd-phy1.conf.temp /var/run/hostapd-phy1.conf
+				[ ! -z "$SSID_1_ONLINE" ] && sed -i -e "s/^ssid=$SSID_1_ONLINE/$SSID_1/" /var/run/hostapd-phy1.conf
+				[ ! -z "$SSID_1_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_1_OFFLINE/$SSID_1/" /var/run/hostapd-phy1.conf
+				[ ! -z "$SSID_1_BOOT" ] && sed -i -e "s/^ssid=$SSID_1_BOOT/$SSID_1/" /var/run/hostapd-phy1.conf
 			else
 				echo "Error: hostapd-phy1.conf is gone ... we cant process the SSID-Change for Radio1"
 			fi
