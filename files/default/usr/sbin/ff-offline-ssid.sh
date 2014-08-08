@@ -376,16 +376,16 @@ while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 			continue
 		fi	
 		
-		[ ! -z "$SSID_0_ONLINE" ] && sed -i -e "s/^ssid=$SSID_0_ONLINE/$SSID_0/" /var/run/hostapd-phy0.conf
-		[ ! -z "$SSID_0_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_0_OFFLINE/$SSID_0/" /var/run/hostapd-phy0.conf
-		[ ! -z "$SSID_0_BOOT" ] && sed -i -e "s/^ssid=$SSID_0_BOOT/$SSID_0/" /var/run/hostapd-phy0.conf
+		[ ! -z "$SSID_0_ONLINE" ] && sed -i -e "s/^ssid=$SSID_0_ONLINE/$SSID_0/" "$HOSTAPD_PHY0"
+		[ ! -z "$SSID_0_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_0_OFFLINE/$SSID_0/" "$HOSTAPD_PHY0"
+		[ ! -z "$SSID_0_BOOT" ] && sed -i -e "s/^ssid=$SSID_0_BOOT/$SSID_0/" "$HOSTAPD_PHY0"
 		
 		if [ $RADIOONE -eq 1 ]; then
 		
 			if [ -f $HOSTAPD_PHY1 ]; then
-				[ ! -z "$SSID_1_ONLINE" ] && sed -i -e "s/^ssid=$SSID_1_ONLINE/$SSID_1/" /var/run/hostapd-phy1.conf
-				[ ! -z "$SSID_1_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_1_OFFLINE/$SSID_1/" /var/run/hostapd-phy1.conf
-				[ ! -z "$SSID_1_BOOT" ] && sed -i -e "s/^ssid=$SSID_1_BOOT/$SSID_1/" /var/run/hostapd-phy1.conf
+				[ ! -z "$SSID_1_ONLINE" ] && sed -i -e "s/^ssid=$SSID_1_ONLINE/$SSID_1/" "$HOSTAPD_PHY1"
+				[ ! -z "$SSID_1_OFFLINE" ] && sed -i -e "s/^ssid=$SSID_1_OFFLINE/$SSID_1/" "$HOSTAPD_PHY1"
+				[ ! -z "$SSID_1_BOOT" ] && sed -i -e "s/^ssid=$SSID_1_BOOT/$SSID_1/" "$HOSTAPD_PHY1"
 			else
 				echo "Error: hostapd-phy1.conf is gone ... we cant process the SSID-Change for Radio1"
 			fi
