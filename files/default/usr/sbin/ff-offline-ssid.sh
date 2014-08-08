@@ -298,7 +298,9 @@ while [ `cat /proc/uptime | cut -d"." -f1` -lt $END ]; do
 		fi
 		SSID_1_OFFLINE="Offline-$SSID_1_OFFLINE-$DEVICE"
 
-		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid="`
+		SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid=$SSID_1_ONLINE"`
+		[ -z "$SSID_1" ] && SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid=$SSID_1_OFFLINE"`
+		[ -z "$SSID_1" ] && SSID_1=`cat $HOSTAPD_PHY1 | grep "^ssid=$SSID_1_BOOT"`
 		SSID_1=${SSID_1:5} #rm ssid=
 	
 #		echo "Debug: RADIO1:"
