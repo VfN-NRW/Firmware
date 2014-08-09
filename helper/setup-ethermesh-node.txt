@@ -1,0 +1,72 @@
+# setup master-node for ethermesh
+uci del network.eth0
+uci del network.lan
+
+uci del network.@switch_vlan[0]
+uci del network.@switch_vlan[0]
+uci del network.@switch_vlan[0]
+uci del network.@switch_vlan[0]
+uci add network switch_vlan
+uci add network switch_vlan
+uci add network switch_vlan
+uci add network switch_vlan
+
+uci set network.@switch[0]=switch
+uci set network.@switch[0].name=switch0
+uci set network.@switch[0].reset=1
+uci set network.@switch[0].enable_vlan=1
+uci set network.@switch_vlan[0]=switch_vlan
+uci set network.@switch_vlan[0].device=switch0
+uci set network.@switch_vlan[0].vlan=11
+uci set network.@switch_vlan[0].ports="0t 1"
+uci set network.@switch_vlan[1]=switch_vlan
+uci set network.@switch_vlan[1].device=switch0
+uci set network.@switch_vlan[1].vlan=12
+uci set network.@switch_vlan[1].ports="0t 2"
+uci set network.@switch_vlan[2]=switch_vlan
+uci set network.@switch_vlan[2].device=switch0
+uci set network.@switch_vlan[2].vlan=13
+uci set network.@switch_vlan[2].ports="0t 3"
+uci set network.@switch_vlan[3]=switch_vlan
+uci set network.@switch_vlan[3].device=switch0
+uci set network.@switch_vlan[3].vlan=14
+uci set network.@switch_vlan[3].ports="0t 4"
+
+uci del network.@switch_port[0]
+uci del network.@switch_port[0]
+uci del network.@switch_port[0]
+uci del network.@switch_port[0]
+uci add network switch_port
+uci add network switch_port
+uci add network switch_port
+uci add network switch_port
+
+uci set network.@switch_port[0].port=1
+uci set network.@switch_port[0].pvid=11
+uci set network.@switch_port[1].port=2
+uci set network.@switch_port[1].pvid=12
+uci set network.@switch_port[2].port=3
+uci set network.@switch_port[2].pvid=13
+uci set network.@switch_port[3].port=4
+uci set network.@switch_port[3].pvid=14
+
+uci set network.port1mesh=interface
+uci set network.port1mesh.ifname=eth0.11
+uci set network.port1mesh.proto=batadv
+uci set network.port1mesh.mesh=bat0
+
+uci set network.port2mesh=interface
+uci set network.port2mesh.ifname=eth0.12
+uci set network.port2mesh.proto=batadv
+uci set network.port2mesh.mesh=bat0
+
+uci set network.port3mesh=interface
+uci set network.port3mesh.ifname=eth0.13
+uci set network.port3mesh.proto=batadv
+uci set network.port3mesh.mesh=bat0
+
+uci set network.port4mesh=interface
+uci set network.port4mesh.ifname=eth0.14
+uci set network.port4mesh.proto=batadv
+uci set network.port4mesh.mesh=bat0
+
