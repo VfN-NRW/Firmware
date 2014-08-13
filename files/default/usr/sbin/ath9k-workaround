@@ -33,7 +33,7 @@ check_ath9k_bug() {
         echo "Model:" 
         cat /tmp/sysinfo/model
         echo "Release:"
-        cat /lib/gluon/release
+        cat /build
         echo "Uptime:"
         uptime
         echo "Batctl Neighbours:"
