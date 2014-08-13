@@ -37,7 +37,7 @@ check_ath9k_bug() {
         echo "Uptime:"
         uptime
         echo "Batctl Neighbours:"
-        batctl o | grep wlan0-1
+        batctl o | grep wlan
         echo "Queues:"
         cat $device/queues
         echo "Reset:"
