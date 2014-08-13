@@ -48,7 +48,7 @@ check_ath9k_bug() {
         echo "------------ Interupts #2 ---------------------------------------------------"
         cat $device/interrupt
         echo "Batctl Neighbours:"
-        batctl o | grep wlan0-1
+        batctl o | grep wlan
 
         #BE queue hangs
         inc_fatal
