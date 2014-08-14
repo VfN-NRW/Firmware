@@ -153,8 +153,14 @@ else #only when configured at boot
 fi
 
 ## load community-profile
-#COMMUNITY=$(uci -q get freifunk.hotspot.community)
-#source /etc/freifunk/profiles/$COMMUNITY
+COMMUNITY=$(uci -q get freifunk.hotspot.community)
+source /etc/freifunk/profiles/$COMMUNITY
+
+if [ ! -f /etc/dropbear/authorized_keys ]; then
+  cat /etc/dropbear/authorized_keys.default > /etc/dropbear/authorized_keys
+  echo $community_sshkeys >> /etc/dropbear/authorized_keys
+  unset community_sshkeys
+fi
 
 #do a wifi-scan
 sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
