@@ -41,6 +41,36 @@ echo -n ///fastd=
 echo -n ///community=
 echo $(uci get freifunk.hotspot.community)
 
+#produce one line output, might be broken in feature!!!
+airtime_input=$(iw dev wlan0 survey dump | grep -A5 "\[in use\]")
+if [ ! -z airtime_input ]; then
+  airtime_wlan0_noise=$(echo $airtime_input | cut -d" " -f7)
+  airtime_wlan0_active=$(echo $airtime_input | cut -d" " -f12)
+  airtime_wlan0_busy=$(echo $airtime_input | cut -d" " -f17)
+  airtime_wlan0_rx=$(echo $airtime_input | cut -d" " -f22)
+  airtime_wlan0_tx=$(echo $airtime_input | cut -d" " -f27)
+  iw phy0 info | grep -q '2412 MHz' && airtime_wlan0_freq="24"
+  iw phy0 info | grep -q '5180 MHz' && airtime_wlan0_freq="50"
+fi
+airtime_input=$(iw dev wlan1 survey dump | grep -A5 "\[in use\]")
+if [ ! -z airtime_input ]; then
+  airtime_wlan1_noise=$(echo $airtime_input | cut -d" " -f7)
+  airtime_wlan1_active=$(echo $airtime_input | cut -d" " -f12)
+  airtime_wlan1_busy=$(echo $airtime_input | cut -d" " -f17)
+  airtime_wlan1_rx=$(echo $airtime_input | cut -d" " -f22)
+  airtime_wlan1_tx=$(echo $airtime_input | cut -d" " -f27)
+  iw phy1 info | grep -q '2412 MHz' && airtime_wlan1_freq="24"
+  iw phy1 info | grep -q '5180 MHz' && airtime_wlan1_freq="50"
+fi
+unset airtime_input
+
+[ ! -z $airtime_wlan0_freq ] && (
+  echo -n "///airtime_stats_wlan0=$airtime_wlan0_freq,$airtime_wlan0_noise,$airtime_wlan0_active,$airtime_wlan0_busy,$airtime_wlan0_rx,$airtime_wlan0_tx"
+)
+[ ! -z $airtime_wlan1_freq ] && (
+  echo -n "///airtime_stats_wlan1=$airtime_wlan1_freq,$airtime_wlan1_noise,$airtime_wlan1_active,$airtime_wlan1_busy,$airtime_wlan1_rx,$airtime_wlan1_tx"
+)
+
 echo ///neighborhoods
 batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'
 
