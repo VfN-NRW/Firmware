@@ -41,6 +41,44 @@ echo -n ///fastd=
 echo -n ///community=
 echo $(uci get freifunk.hotspot.community)
 
+tmp=""
+
+iw dev wlan0 scan > /dev/null #blind scan to update noise-to-signal values!
+freq=""
+noise=""
+for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d':' -f2 | cut -d' ' -f1); do
+  if [ ! -z $noise ]; then
+    tmp="$tmp,"; unset noise
+  fi
+  if [ -z $freq ]; then
+    freq=$e ; continue
+  fi
+  if [ -z $noise ]; then
+    noise=$e; tmp="$tmp$freq=$noise"; unset freq
+  fi
+done
+
+iw dev wlan1 scan > /dev/null 2>&1 #blind scan to update noise-to-signal values!
+if test $? -eq 0; then
+  [ ! -z $tmp ] && tmp="$tmp,"
+fi
+
+freq=""
+noise=""
+for e in $(iw dev wlan1 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d':' -f2 | cut -d' ' -f1); do
+  if [ ! -z $noise ]; then
+    tmp="$tmp,"; unset noise
+  fi
+  if [ -z $freq ]; then
+    freq=$e ; continue
+  fi
+  if [ -z $noise ]; then
+    noise=$e; tmp="$tmp$freq=$noise"; unset freq
+  fi
+done
+
+[ ! -z $tmp ] && echo "///noise=$tmp"
+
 airtime_input=$(iw dev wlan0 survey dump | grep -A5 "\[in use\]")
 if [ ! -z airtime_input ]; then
   airtime_wlan0_active=$(echo $airtime_input | cut -d" " -f12)
