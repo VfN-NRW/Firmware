@@ -1,0 +1,36 @@
+#!/bin/sh
+. /lib/functions.sh
+. /lib/functions/network.sh
+
+# Disable legacy 2.4GHz low bitrates
+if [ ifup = "$ACTION" ]; then
+  case "$DEVICE" in
+    wlan*)
+      phynr=`iw "$DEVICE" info | grep "wiphy" |  cut -d" " -f2`
+      iw phy$phynr info | grep -q '2412 MHz' && (
+        bitmask=$(uci -q get wireless.radio$phynr.basic_rate | sed "s/000//g")
+        [ ! -z bitmask ] && (
+          logger setting bitrate-mask for device "$DEVICE" on interface "$INTERFACE"
+          iw "$DEVICE" set bitrates legacy-2.4 "$bitmask"
+        )
+      )
+      ;;
+    br-*)
+      #Bridged interfage, check if any wifi interface is member
+      for i in $(ls /sys/class/net/$DEVICE/brif); do
+        case "$i" in
+          wlan*)
+            phynr=`iw "$i" info | grep "wiphy" |  cut -d" " -f2`
+            iw phy$phynr info | grep -q '2412 MHz' && (
+              bitmask=$(uci -q get wireless.radio$phynr.basic_rate | sed "s/000//g")
+              [ ! -z bitmask ] && (
+                logger setting bitrate-mask for device "$i" on interface "$INTERFACE"
+                iw "$i" set bitrates legacy-2.4 "$bitmask"
+              )
+            )
+            ;;
+        esac
+      done
+      ;;
+  esac
+fi
