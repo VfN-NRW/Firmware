@@ -65,10 +65,10 @@ fi
 unset airtime_input
 
 [ ! -z $airtime_wlan0_freq ] && (
-  echo -n "///airtime_stats_wlan0=$airtime_wlan0_freq,$airtime_wlan0_noise,$airtime_wlan0_active,$airtime_wlan0_busy,$airtime_wlan0_rx,$airtime_wlan0_tx"
+  echo "///airtime_stats_wlan0=$airtime_wlan0_freq,$airtime_wlan0_noise,$airtime_wlan0_active,$airtime_wlan0_busy,$airtime_wlan0_rx,$airtime_wlan0_tx"
 )
 [ ! -z $airtime_wlan1_freq ] && (
-  echo -n "///airtime_stats_wlan1=$airtime_wlan1_freq,$airtime_wlan1_noise,$airtime_wlan1_active,$airtime_wlan1_busy,$airtime_wlan1_rx,$airtime_wlan1_tx"
+  echo "///airtime_stats_wlan1=$airtime_wlan1_freq,$airtime_wlan1_noise,$airtime_wlan1_active,$airtime_wlan1_busy,$airtime_wlan1_rx,$airtime_wlan1_tx"
 )
 
 echo ///neighborhoods
