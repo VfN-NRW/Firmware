@@ -81,7 +81,7 @@ for bat in $bats; do
     tmp_str=""
     tmp_str2=""
     #get interface for link
-    if [ $(batctl o | cut -d ']' -f 1 | grep "^00:90:a9:af:37:50" | cut -d '[' -f 2 | sed "s/^[ ]*//") == "br-wan" ]; then
+    if [ $(batctl o | cut -d ']' -f 1 | grep "^$bat_mac" | cut -d '[' -f 2 | sed "s/^[ ]*//") == "br-wan" ]; then
       for br_if in $(ls /sys/class/net/br-wan/brif); do
         case "$br_if" in
           eth*)
