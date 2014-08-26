@@ -82,27 +82,30 @@ for bat in $bats; do
     tmp_str2=""
     #get interface for link
     if [ $(batctl o | cut -d ']' -f 1 | grep "^$bat_mac" | cut -d '[' -f 2 | sed "s/^[ ]*//") == "br-wan" ]; then
-      for br_if in $(ls /sys/class/net/br-wan/brif); do
-        case "$br_if" in
-          eth*)
-            #add speed of interface if its readable
-            tmp_str2=$(cat /sys/class/net/$br_if/speed)
-            [ ! -z $tmp_str2 ] && tmp_str="$tmp_str,$tmp_str2"
-            ;;
-        esac
-        if [ -z $tmp_str ]; then
-          bat_txrate=0
-        else #there are one or more values
-          for e in $(echo $tmp_str | sed "s/,/\n/g"); do
-            [ -z $e ] && continue
-            [ "$e" -lt "$min_brwan_speed" ] && min_brwan_speed=$e
-          done
-          
-          #fix value if its still the invalid start value
-          [ "$min_brwan_speed" -eq "999999" ] && min_brwan_speed=0
-          bat_txrate=$min_brwan_speed
-        fi
-      done
+      if [ -z $br_wan_speed ]; then
+        for br_if in $(ls /sys/class/net/br-wan/brif); do
+          case "$br_if" in
+            eth*)
+              #add speed of interface if its readable
+              tmp_str2=$(cat /sys/class/net/$br_if/speed)
+              [ ! -z $tmp_str2 ] && tmp_str="$tmp_str,$tmp_str2"
+              ;;
+          esac
+          if [ -z $tmp_str ]; then
+            bat_txrate=0
+          else #there are one or more values
+            for e in $(echo $tmp_str | sed "s/,/\n/g"); do
+              [ -z $e ] && continue
+              [ "$e" -lt "$min_brwan_speed" ] && min_brwan_speed=$e
+            done
+            
+            #fix value if its still the invalid start value
+            [ "$min_brwan_speed" -eq "999999" ] && min_brwan_speed=0
+            br_wan_speed=$min_brwan_speed
+          fi
+        done
+      fi
+      bat_txrate=$br_wan_speed
     else
       bat_txrate=0
     fi
