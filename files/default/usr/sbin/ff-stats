@@ -43,7 +43,6 @@ echo $(uci get freifunk.hotspot.community)
 
 tmp=""
 
-iw dev wlan0 scan > /dev/null #blind scan to update noise-to-signal values!
 freq=""
 noise=""
 for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d':' -f2 | cut -d' ' -f1); do
@@ -58,7 +57,7 @@ for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//
   fi
 done
 
-iw dev wlan1 scan > /dev/null 2>&1 #blind scan to update noise-to-signal values!
+iw dev wlan1 info > /dev/null 2>&1 
 if test $? -eq 0; then
   [ ! -z $tmp ] && tmp="$tmp,"
 fi
