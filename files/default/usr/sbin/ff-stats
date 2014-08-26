@@ -20,6 +20,9 @@ cat /proc/uptime
 echo -n ///load=
 cat /proc/loadavg | awk '{ print $1 }'
 
+echo -n ///cpu_stats=
+top -bn1 | grep ^CPU | awk '{ print $2,$4,$6,$8,$10,$12,$14 }' | sed 's/% /,/g' | sed 's/%//'
+
 echo ///l2mesh=$L2MESH
 
 echo ///batif=$BATIF
