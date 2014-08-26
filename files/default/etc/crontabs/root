@@ -8,4 +8,5 @@
 1-59/2 * * * * sh /usr/sbin/ff-fixbat0br
 */2    * * * * sh /usr/sbin/ath9k-workaround
 1-59/2 * * * * sh /usr/sbin/ath9k-workaround
-
+0     14 * * * sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
+0      2 * * * sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan

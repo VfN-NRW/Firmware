@@ -162,6 +162,8 @@ if [ ! -f /etc/dropbear/authorized_keys ]; then
   unset community_sshkeys
 fi
 
+sleep 15
+
 #do a wifi-scan
 sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
 #submit immediately stats to our servers
