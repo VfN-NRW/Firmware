@@ -48,38 +48,46 @@ tmp=""
 
 freq=""
 noise=""
-for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d':' -f2 | cut -d' ' -f1); do
-  if [ ! -z $noise ]; then
-    tmp="$tmp,"; unset noise
-  fi
-  if [ -z $freq ]; then
-    freq=$e ; continue
-  fi
-  if [ -z $noise ]; then
-    noise=$e; tmp="$tmp$freq=$noise"; unset freq
-  fi
+for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d' ' -f1 | sed 's/frequency/frequ/g'); do
+  case "${e:0:5}" in
+    frequ)
+      if [ ! -z $freq ]; then
+        tmp="$tmp$freq:,"
+      fi
+      freq=${e:6}
+      ;;
+    noise)
+      noise=${e:6}
+      tmp="$tmp$freq:$noise,"
+      unset noise freq
+      ;;
+  esac
 done
 
 iw dev wlan1 info > /dev/null 2>&1 
-if test $? -eq 0; then
-  [ ! -z $tmp ] && tmp="$tmp,"
+if test $? -ne 0; then
+  [ ! -z $tmp ] && tmp="${tmp%?}" #delete last char
 fi
 
 freq=""
 noise=""
-for e in $(iw dev wlan1 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d':' -f2 | cut -d' ' -f1); do
-  if [ ! -z $noise ]; then
-    tmp="$tmp,"; unset noise
-  fi
-  if [ -z $freq ]; then
-    freq=$e ; continue
-  fi
-  if [ -z $noise ]; then
-    noise=$e; tmp="$tmp$freq=$noise"; unset freq
-  fi
+for e in $(iw dev wlan1 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d' ' -f1 | sed 's/frequency/frequ/g'); do
+  case "${e:0:5}" in
+    frequ)
+      if [ ! -z $freq ]; then
+        tmp="$tmp$freq:,"
+      fi
+      freq=${e:6}
+      ;;
+    noise)
+      noise=${e:6}
+      tmp="$tmp$freq:$noise,"
+      unset noise freq
+      ;;
+  esac
 done
 
-[ ! -z $tmp ] && echo "///noise=$tmp"
+[ ! -z $tmp ] && echo "///noise=${tmp%?}"
 
 airtime_input=$(iw dev wlan0 survey dump | grep -A5 "\[in use\]")
 if [ ! -z airtime_input ]; then
