@@ -17,6 +17,9 @@ date +%s
 echo -n ///uptime=
 cat /proc/uptime
 
+echo -n ///load=
+cat /proc/loadavg | awk '{ print $1 }'
+
 echo ///l2mesh=$L2MESH
 
 echo ///batif=$BATIF
