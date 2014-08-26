@@ -105,8 +105,47 @@ unset airtime_input
   echo "///airtime_stats_wlan1=$airtime_wlan1_freq,$airtime_wlan1_active,$airtime_wlan1_busy,$airtime_wlan1_rx,$airtime_wlan1_tx"
 )
 
-echo ///neighborhoods
-batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'
+echo ///bathoods
+bats=$(batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}')
+for bat in $bats; do
+  bat_mac=$(echo $bat | cut -d '=' -f 1)
+  bat_txrate=$(iw dev wlan0 station dump | grep -E "^Station|tx bitrate" | grep -A1 "$bat_mac" | grep "tx bitrate" | cut -d ' ' -f 2 | cut -d$'\t' -f 2)
+  if [ -z $bat_txrate ]; then #seems to be a lan/vpn
+    min_brwan_speed=999999
+    tmp_str=""
+    tmp_str2=""
+    #get interface for link
+    if [ $(batctl o | cut -d ']' -f 1 | grep "^$bat_mac" | cut -d '[' -f 2 | sed "s/^[ ]*//") == "br-wan" ]; then
+      if [ -z $br_wan_speed ]; then
+        for br_if in $(ls /sys/class/net/br-wan/brif); do
+          case "$br_if" in
+            eth*)
+              #add speed of interface if its readable
+              tmp_str2=$(cat /sys/class/net/$br_if/speed)
+              [ ! -z $tmp_str2 ] && tmp_str="$tmp_str,$tmp_str2"
+              ;;
+          esac
+          if [ -z $tmp_str ]; then
+            bat_txrate=0
+          else #there are one or more values
+            for e in $(echo $tmp_str | sed "s/,/\n/g"); do
+              [ -z $e ] && continue
+              [ "$e" -lt "$min_brwan_speed" ] && min_brwan_speed=$e
+            done
+            
+            #fix value if its still the invalid start value
+            [ "$min_brwan_speed" -eq "999999" ] && min_brwan_speed=0
+            br_wan_speed=$min_brwan_speed
+          fi
+        done
+      fi
+      bat_txrate=$br_wan_speed
+    else
+      bat_txrate=0
+    fi
+  fi
+  echo "$bat,$bat_txrate"
+done
 
 echo ///wlan-scan
 [ -f /tmp/wlanscan ] && cat /tmp/wlanscan
