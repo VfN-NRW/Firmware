@@ -38,6 +38,21 @@ ifconfig | egrep 'HWaddr|bytes'
 echo -n ///vpnactive=
 cat /sys/kernel/debug/batman_adv/bat0/originators | grep -q \\[vpn-ffmesh\\] && echo 1 || echo 0
 
+echo -n ///ipv4_connectivity=
+ping -q -I br-wan 8.8.8.8 -c 4 -W 5 >/dev/null 2>&1
+if test $? -eq 0; then
+  echo 1
+else
+  echo 0
+fi
+echo -n ///ipv6_connectivity=
+ping -q -I br-wan 2001:4860:4860::8888 -c 4 -W 5 >/dev/null 2>&1
+if test $? -eq 0; then
+  echo 1
+else
+  echo 0
+fi
+
 echo -n ///gwq=
 echo $(cat /sys/kernel/debug/batman_adv/bat0/gateways | egrep ' \([\ 0-9]+\) ' | cut -d\( -f2 | cut -d\) -f1 | sort -n | tail -n1)
 
