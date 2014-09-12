@@ -35,7 +35,8 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q straelen.freifunk.net /tmp/detectcommunity && COMMUNITY='straelen'
   grep -q ems.freifunk.net /tmp/detectcommunity && COMMUNITY='emsdetten'
   grep -q hw.freifunk.net /tmp/detectcommunity && COMMUNITY='hueckeswagen'
-
+  grep -q hstl.freifunk.net /tmp/detectcommunity && COMMUNITY='hoerstel'
+  
   rm /tmp/detectcommunity
   
   #recheck if db-entry now exist.
