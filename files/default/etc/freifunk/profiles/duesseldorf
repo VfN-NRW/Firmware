@@ -1,0 +1,12 @@
+ap_ssid2='dus.freifunk.net'
+ap_ssid5='dus.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:02:11'
+channel2=5
+channel5=44
+mesh_ip_prefix="fda0:747e:ab29:211"
+fastd_servers="bragi"
+fastd_keys="2d47f65f017fc56f2588e465618f300549046118d1436ba9b63ad1ebce5fa52c"
+fastd_remotes4="46.38.232.72:15147"
+fastd_remotes6="[2a03:4000:2:453::2]:15147"
+local_ip="10.147.0.1"
+community_sshkeys=""
