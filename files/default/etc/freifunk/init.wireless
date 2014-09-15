@@ -88,7 +88,7 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
 [ ! -z "$RADIO2" ] && (
   uci set wireless.$RADIO2.disabled=0
   #force correct channel-layout!
-  if [ $channel2 -eq 1 -o $channel2 -eq 5 -o $channel2 -eq 9 -o $channel2 -eq 13 ]; then
+  if [ "$channel2" -eq 1 -o "$channel2" -eq 5 -o "$channel2" -eq 9 -o "$channel2" -eq 13 ]; then
     uci set wireless.$RADIO2.channel="$channel2"
   else
     uci set wireless.$RADIO2.channel="5"
