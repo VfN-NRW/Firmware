@@ -1,5 +1,5 @@
 */5    * * * * sh /usr/sbin/ff-stats
-0      4 * * * sh /usr/sbin/ff-fwupgrade
+0      4 * * * sh /usr/sbin/ff-fwupgrade 2>&1 > /tmp/last-fwupgrade
 */15   * * * * sh /usr/sbin/ff-rebootIfNoGw
 */15   * * * * sh /usr/sbin/ff-rebootIfNoWifiMeshAnymore
 */2    * * * * sh /usr/sbin/ff-offline-ssid.sh 60
