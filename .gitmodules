@@ -10,3 +10,6 @@
 [submodule "feeds/management"]
 	path = feeds/management
 	url = git@github.com:openwrt-management/packages.git
+[submodule "feeds/fastd"]
+	path = feeds/fastd
+	url = git://git.metameute.de/lff/pkg_fastd

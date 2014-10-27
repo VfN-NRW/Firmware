@@ -14,9 +14,7 @@ buildOwrt() {
     TARGET=$1
     cd openwrt || exit 1
     git clean -fdX || exit 1
-    cp feeds.conf.default feeds.conf
-    echo src-git fastd git://git.metameute.de/lff/pkg_fastd >> feeds.conf
-    echo src-link custom `pwd`/../custom-feed >> feeds.conf
+    cp ../feeds/feeds.conf feeds.conf
 
     scripts/feeds update
     scripts/feeds install kmod-batman-adv
