@@ -1,3 +1,12 @@
 [submodule "openwrt"]
 	path = openwrt
 	url = git://git.openwrt.org/openwrt.git
+[submodule "feeds/packages"]
+	path = feeds/packages
+	url = git@github.com:openwrt/packages.git
+[submodule "feeds/routing"]
+	path = feeds/routing
+	url = git@github.com:openwrt-routing/packages.git
+[submodule "feeds/management"]
+	path = feeds/management
+	url = git@github.com:openwrt-management/packages.git
