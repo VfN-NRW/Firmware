@@ -13,3 +13,6 @@
 [submodule "feeds/fastd"]
 	path = feeds/fastd
 	url = git://git.metameute.de/lff/pkg_fastd
+[submodule "feeds/kolbrich"]
+	path = feeds/kolbrich
+	url = https://github.com/kevin-olbrich/openwrt-feed.git
