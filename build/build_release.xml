@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="name-of-project" default="FF-NRW Firmware">
+
+  <target name="submodule-update" description="update or download openwrt">
+    <exec executable="git" failonerror="true">
+      <arg value="submodule" />
+      <arg value="update" />
+      <arg value="--init" />
+    </exec>
+  </target>
+
+  <target name="compile" description="compile imagebuilders">
+    <exec executable="./1compile.sh" failonerror="true">
+    </exec>
+  </target>
+
+  <target name="extractib" description="extract imagebuilders">
+    <exec executable="./2extractIB.sh" failonerror="true">
+    </exec>
+  </target>
+
+  <target name="makeimage" description="create images">
+    <exec executable="./3makeImage.sh" failonerror="true">
+    </exec>
+  </target>
+
+
+
+
+</project>
+
