@@ -1,21 +1,28 @@
 [submodule "openwrt"]
 	path = openwrt
 	url = git://git.openwrt.org/openwrt.git
+	ignore = dirty
 [submodule "feeds/packages"]
 	path = feeds/packages
 	url = https://github.com/openwrt/packages.git
+	ignore = dirty
 [submodule "feeds/routing"]
 	path = feeds/routing
 	url = https://github.com/openwrt-routing/packages.git
+	ignore = dirty
 [submodule "feeds/management"]
 	path = feeds/management
 	url = https://github.com/openwrt-management/packages.git
+	ignore = dirty
 [submodule "feeds/fastd"]
 	path = feeds/fastd
 	url = git://git.metameute.de/lff/pkg_fastd
+	ignore = dirty
 [submodule "feeds/kolbrich"]
 	path = feeds/kolbrich
 	url = https://github.com/kevin-olbrich/openwrt-feed.git
+	ignore = dirty
 [submodule "feeds/ff-nrw"]
 	path = feeds/ff-nrw
 	url = https://github.com/FF-NRW/openwrt-feed.git
+	ignore = dirty
