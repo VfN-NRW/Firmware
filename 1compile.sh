@@ -75,6 +75,7 @@ buildOwrt() {
 }
 
 buildOwrt ar71xx
+buildOwrt mpc85xx
 buildOwrt atheros
 buildOwrt x86_64
 
