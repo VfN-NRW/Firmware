@@ -7,8 +7,6 @@ tar xvjf imagebuilder/OpenWrt-ImageBuilder-atheros-for-linux-x86_64.tar.bz2
 
 rm -rf OpenWrt-ImageBuilder-mpc85xx_generic-for-linux-x86_64/
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-mpc85xx_generic-for-linux-x86_64.tar.bz2
-#cp ./openwrt/build_dir/target-powerpc_*/linux-mpc85xx_generic/linux-*/scripts/ OpenWrt-ImageBuilder-mpc85xx_generic-for-linux-x86_64/build_dir/target-powerpc_*/linux-mpc85xx_generic/linux-*/ -r
-#cp ./openwrt/build_dir/target-powerpc_*/linux-mpc85xx_generic/linux-*/arch/ OpenWrt-ImageBuilder-mpc85xx_generic-for-linux-x86_64/build_dir/target-powerpc_*/linux-mpc85xx_generic/linux-*/ -r
 
 rm -rf OpenWrt-ImageBuilder-x86_64-for-linux-x86_64
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-x86_64-for-linux-x86_64.tar.bz2
