@@ -62,6 +62,7 @@ buildOwrt() {
     [ $TARGET == "ar71xx" ] && setConfig ATH_USER_REGD y
     [ $TARGET == "ar71xx" ] && setConfig PACKAGE_ATH_DFS y
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic m
+    [ $TARGET == "ramips" ] && setConfig TARGET_ramips_rt3883 y
     make defconfig || exit 1
 
     make download || exit 1
