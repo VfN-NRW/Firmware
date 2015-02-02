@@ -68,7 +68,7 @@ buildOwrt() {
     make download || exit 1
     make defconfig || exit 1
 
-    make || exit 1
+    make V=s || exit 1
     cp bin/*/OpenWrt-ImageBuilder* ../imagebuilder/ || exit 1
 
   ) || exit 1
