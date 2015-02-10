@@ -11,10 +11,11 @@ uci set fastd.ffmesh.enabled=1
 #uci set fastd.ffmesh.syslog_level=info
 uci set fastd.ffmesh.syslog_level=debug
 uci delete fastd.ffmesh.method || true #delete old list-entrys while reconfiguring
+uci add_list fastd.ffmesh.method=salsa2012+umac
 uci add_list fastd.ffmesh.method=salsa2012+gmac
 uci set fastd.ffmesh.mode=tap
 uci set fastd.ffmesh.interface="$fastd_ifname"
-uci set fastd.ffmesh.mtu=1426
+uci set fastd.ffmesh.mtu=1312
 uci set fastd.ffmesh.forward=0
 [ -z "$(uci -q get fastd.ffmesh.secret)" ] && uci set fastd.ffmesh.secret=generate
 uci set fastd.ffmesh.up='ip link set dev vpn-ffmesh up ; echo bat0 > /sys/devices/virtual/net/vpn-ffmesh/batman_adv/mesh_iface'
