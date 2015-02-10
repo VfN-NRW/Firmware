@@ -1,0 +1,12 @@
+ap_ssid2='st.freifunk.net'
+ap_ssid5='st.freifunk.net (5 GHz)'
+bssid='02:CA:FE:15:25:52'
+channel2=5
+channel5=44
+mesh_ip_prefix="fda0:747e:ab29:2552"
+fastd_servers="bragi"
+fastd_keys="e58f032f9391dd10e6b5d835eedc88bb9fc77b6cbec03f74610748745ef79b29"
+fastd_remotes4="46.38.232.72:15221"
+fastd_remotes6="[2a03:4000:2:453::2]:15221"
+local_ip="10.221.0.1"
+community_sshkeys="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAyvJWlIDh2h+eXPwY7cOlKZgBPzjo+CrLPgz7FHJPYkZbaSjnw8uyraqJVqmXhqagRqSct1dLi2+W17IMSWW9m1HiyJVO28LY/7jNL9UjjIPVX5xuFWmoCABEQC80JHDmR1IkKGGbIZsoh6INtblyZ5gUYJ24dk2Wiqn/Zkm/H/G7E5yQILj4A2sv9+dmMpeA1e2Du2fA+mb28K0hXhrvuNDbmKKDJ8my5BigSYyrrkkj5m9r5j9JGEaFqAY9mNjpu1Yk0N2Sm4SuY1Qtb1sj+Ob/fSM+vb9+icAiVCrcFCazC7/+zlqfabmKSwZQLTuMaHd1Y4DLhrqZfeDBl7B4qQ== timo_maintain_emsdettenonly"
