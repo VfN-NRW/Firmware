@@ -16,7 +16,7 @@
 	ignore = dirty
 [submodule "feeds/fastd"]
 	path = feeds/fastd
-	url = git://git.metameute.de/lff/pkg_fastd
+	url = git://git.universe-factory.net/fastd
 	ignore = dirty
 [submodule "feeds/kolbrich"]
 	path = feeds/kolbrich
