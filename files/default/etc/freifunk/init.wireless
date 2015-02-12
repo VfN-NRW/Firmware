@@ -23,6 +23,7 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q gronau.freifunk.net /tmp/detectcommunity && COMMUNITY='gronau'
   grep -q wk.freifunk.net /tmp/detectcommunity && COMMUNITY='wermelskirchen'
   grep -q rs.freifunk.net /tmp/detectcommunity && COMMUNITY='remscheid'
+  grep -q burscheid.freifunk.net /tmp/detectcommunity && COMMUNITY='burscheid'
   grep -q lev.freifunk.net /tmp/detectcommunity && COMMUNITY='leverkusen'
   grep -q ob.freifunk.net /tmp/detectcommunity && COMMUNITY='oberhausen'
   grep -q ge.freifunk.net /tmp/detectcommunity && COMMUNITY='gelsenkirchen'
