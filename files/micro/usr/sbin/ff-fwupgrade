@@ -19,4 +19,4 @@ rmmod batman_adv
 rmmod crc16
 echo 3 > /proc/sys/vm/drop_caches
 sleep 10
-sysupgrade ff-nrw-atheros-combined.jffs2-64k.img
+sysupgrade -F ff-nrw-atheros-combined.jffs2-64k.img

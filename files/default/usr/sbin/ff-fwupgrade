@@ -26,5 +26,5 @@ if [ "0$REMOTEBUILD" -gt "0$LOCALBUILD" ] ; then
   PARAMsignatures=$(cat firmware.sig | awk '{if ($1 != "") print "-s " $1}' | sed ':a;N;$!ba;s/\n/ /g')
   ecdsaverify $PARAMsignatures $PARAMpubkeys firmware.bin || exit 1
 
-  sysupgrade $@ firmware.bin
+  sysupgrade -F $@ firmware.bin
 fi
