@@ -67,6 +67,7 @@ buildOwrt() {
 
     make download || exit 1
     make defconfig || exit 1
+
     cp .config ".config_$TARGET"
     make -j 1 V=s
     if [ $? -ne 0 ]; then
