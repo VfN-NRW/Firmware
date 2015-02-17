@@ -1,6 +1,6 @@
 #!./runByLine
 rm -rf OpenWrt-ImageBuilder-ar71xx_generic.linux-x86_64/
-tar xvjf imagebuilder/OpenWrt-ImageBuilder-ar71xx_generic.Linux-x86_64.tar.bz2
+tar xvjf imagebuilder/OpenWrt-ImageBuilder-ar71xx-generic.Linux-x86_64.tar.bz2
 
 rm -rf OpenWrt-ImageBuilder-atheros.linux-x86_64/
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-atheros.Linux-x86_64.tar.bz2
