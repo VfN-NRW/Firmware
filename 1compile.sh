@@ -1,5 +1,22 @@
 #!/bin/bash
 
+mt_kf='files/_all/etc/dropbear/authorized_keys.FFNRW_maintain'
+mt_comm_switch='files/_all/etc/NO_COMMUNITY_MAINTAIN_KEYS'
+
+if [ "$1" = "with_FFNRW_maintainkeys" ]; then
+  cp authorized_keys.default "$mt_kf"
+  echo "Building image with FFNRW-Maintainkeys"
+  if [ -f "$mt_comm_switch" ]; then
+    rm "$mt_comm_switch"
+  fi
+else
+  if [ -f "$mt_kf" ]; then
+    rm "$mt_kf"
+  fi
+  touch "$mt_comm_switch"
+  echo "Building image without FFNRW-Maintainkeys"
+fi
+
 setConfig () {
   key=$1
   value=$2

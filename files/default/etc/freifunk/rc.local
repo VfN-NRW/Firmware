@@ -1,6 +1,8 @@
 if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   passwd -d root
-  cat /etc/dropbear/authorized_keys.default > /etc/dropbear/authorized_keys
+  if [ -f '/etc/dropbear/authorized_keys.FFNRW_maintain' ]; then
+    cat /etc/dropbear/authorized_keys.FFNRW_maintain > /etc/dropbear/authorized_keys
+  fi
   
   #patch haveged to get started just after root-partition appears
   sed -i -e "s/START=98/START=11/" /etc/init.d/haveged
@@ -48,7 +50,9 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   #remove unneeded vars
   unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6
   
-  echo $community_sshkeys >> /etc/dropbear/authorized_keys
+  if [ ! -f '/etc/NO_COMMUNITY_MAINTAIN_KEYS' ]; then
+    echo $community_sshkeys >> /etc/dropbear/authorized_keys
+  fi
   
   unset community_sshkeys
   
