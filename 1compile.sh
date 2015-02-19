@@ -1,5 +1,17 @@
 #!/bin/bash
 
+mt_kf='/files/_all/etc/dropbear/authorized_keys.FFNRW_maintain'
+
+if [ "$1" = "with_FFNRW_maintainkeys" ]; then
+  cp authorized_keys.default "$mt_kf"
+  echo "Building image with FFNRW-Maintainkeys"
+else
+  if [ -f "$mt_kf" ]; then
+    rm "$mt_kf"
+  fi
+  echo "Building image without FFNRW-Maintainkeys"
+fi
+
 setConfig () {
   key=$1
   value=$2
