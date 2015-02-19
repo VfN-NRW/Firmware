@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mt_comm_switch='files/_all/etc/NO_COMMUNITY_MAINTAIN_KEYS'
+mt_comm_switch='/etc/NO_COMMUNITY_MAINTAIN_KEYS'
 
 #check if autoupgrade is disabled
 if [ "$(uci -q get freifunk.fw.autoupgrade)" == "0" ] ; then
