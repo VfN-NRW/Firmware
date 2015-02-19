@@ -6,5 +6,4 @@ boot() {
 	# process user commands
 	/usr/sbin/ff-offline-ssid.sh 60 > /dev/null
 	[ -f /etc/freifunk/start.ebtables ]  && sh /etc/freifunk/start.ebtables
-	[ -f /etc/freifunk/start.backdoor ]  && sh /etc/freifunk/start.backdoor
 }
