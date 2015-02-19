@@ -53,6 +53,11 @@ buildOwrt() {
     setConfig PACKAGE_kmod-sched m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-block2mtd m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-core m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-aec62xx m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic-old m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-it821x m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-pdc202xx m
     make defconfig || exit 1
 
     setConfig PACKAGE_batctl m
