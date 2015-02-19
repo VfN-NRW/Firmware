@@ -1,5 +1,5 @@
 ap_ssid2='ha.freifunk.net'
-ap_ssid5='ha.freifunk.net (5 GHz)'
+ap_ssid5='ha.freifunk.net'
 bssid='02:CA:FE:15:23:31'
 channel2=5
 channel5=44
