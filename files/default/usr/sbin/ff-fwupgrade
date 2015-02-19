@@ -18,7 +18,7 @@ if [ "0$REMOTEBUILD" -gt "0$LOCALBUILD" ] ; then
   cd /tmp || exit 1
   
   echo 3 > /proc/sys/vm/drop_caches
-  if [ ! -f '$mt_comm_switch' ]; then
+  if [ ! -f "$mt_comm_switch" ]; then
     ff-curl firmware2/$DISTRIBUTION/"$FWFILE".sig -o firmware.sig || exit 1
     ff-curl firmware2/$DISTRIBUTION/"$FWFILE" -o firmware.bin || exit 1
   else #fetch new firmware without maintain-keys
