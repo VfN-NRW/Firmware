@@ -1,6 +1,8 @@
 if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   passwd -d root
-  cat /etc/dropbear/authorized_keys.default > /etc/dropbear/authorized_keys
+  if [ -f '/etc/dropbear/authorized_keys.FFNRW_maintain' ]; then
+    cat /etc/dropbear/authorized_keys.FFNRW_maintain > /etc/dropbear/authorized_keys
+  fi
   
   #patch haveged to get started just after root-partition appears
   sed -i -e "s/START=98/START=11/" /etc/init.d/haveged
