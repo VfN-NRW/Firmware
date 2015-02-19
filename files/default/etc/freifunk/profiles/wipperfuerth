@@ -1,5 +1,5 @@
 ap_ssid2='wipp.freifunk.net'
-ap_ssid5='wipp.freifunk.net (5 GHz)'
+ap_ssid5='wipp.freifunk.net'
 bssid='02:CA:FE:15:22:67'
 channel2=5
 channel5=44
