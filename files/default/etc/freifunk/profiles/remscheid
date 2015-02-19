@@ -4,9 +4,9 @@ bssid='02:CA:FE:15:21:91'
 channel2=5
 channel5=44
 mesh_ip_prefix="fda0:747e:ab29:2191"
-fastd_servers="bragi"
-fastd_keys="4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad"
-fastd_remotes4="46.38.232.72:15069"
-fastd_remotes6="[2a03:4000:2:453::2]:15069"
+fastd_servers="bragi;rig"
+fastd_keys="4d3e470d707f79a28f269177c5bf9a884c3ded4890e426eacac5f12ade9acfad;e433b8aa10ddac906b89bde3effcedfdcc0a467956f8d949c5df3a4e0e6b9b56"
+fastd_remotes4="46.38.232.72:15069;62.141.34.115:15069"
+fastd_remotes6="[2a03:4000:2:453::2]:15069;"
 local_ip="10.69.0.1"
 community_sshkeys="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqmwBABp1zZzbZxZPKD0bvj8yvietPTM8jZL1NA3Hj2tEPUg1uWOn5zX7VpgGU49fJhbzvE7jDaO42n5HZiHmOzcfCB8D/1z1S3GhQCMgvB/pr23GSdMce/YdTOIaFKj9nmEZGUpp8WB+4CDnca1EwKFuKIYFQCbCMS8ZiY54qdboCKqRRENSnBgw/7jceFsY429CCjCrxKHmMVWnf9d5XvZUTGfOYxjBynY2p0XCeUJBRHP/PIWAg4JH7rnUl+ZNmnnMfEAqj8QSHyMSgscPmO9glBDmEGpI3V8SLRqkqs6SgeAfLQoK2v3EnnJvaEOkhixFnsYsSIf1vPPOQ7dRC1clZsLLxaZy2qhyk52pRHSTfpufYWibsP3FjRmffF83IlfBcEvVIful7XL2ZmTuROFo03xx/R/lVs4x1Kk7xISsj9Roh6IccgwtRiN83k5UXg50rQdqmJm6zK8von7ml5NjR/tgDQ3BVX/yVl1m3REYYu5Gr2ht/mnYbpW+2P/x8DuoIZWHW4Mb3d8ibxFTSrJWDmOwT1SmTlL7yIV0+5b+4oowdGI1wPdT+ydHYcj4apQUqpcqna+a76Zi9+YAWBC8O3JYWqe7nUvz38fjlR+J59QmlqQDoisBPLdwuBH6H25LHQANYLpwMpl7wcD4EyywNTxoBy9/mQJwzBebDfQ== robertp"
