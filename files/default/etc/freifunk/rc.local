@@ -124,6 +124,8 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   /etc/init.d/fastd enable
   /etc/init.d/sysntpd enable
 else #only when configured at boot
+  reset=0
+  hwid=$(uci -q get system.@system[0].hostname)
   COMMUNITY=$(uci -q get freifunk.hotspot.community)
   
   if [ -z "$COMMUNITY" ]; then
@@ -137,23 +139,29 @@ else #only when configured at boot
     uci set freifunk.hotspot.community="$COMMUNITY"
     uci set freifunk.fw.confver=0
     uci commit
-    logger "CRITICAL ERROR: rebooting in 600 seconds and reconfiguring than to community '$COMMUNITY'"
-    sleep 600 #give us a chance to debug this.
+    logger "CRITICAL ERROR: rebooting in 60 seconds and reconfiguring than to community '$COMMUNITY'"
+    sleep 60 #give us a chance to debug this.
     reboot
     exit #do not process this further.
   fi
-  [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=$(ff-curl api/community.php?hwid=$hwid)
-  #if there is no database-entry, use fallback.
-  [ -z "$COMMUNITY" ] && COMMUNITY='fallback'
   
-  if [ "$COMMUNITY" != 'fallback']; then
-    logger "fallback-community was configured at boot-time, fetched community-info from database: '$COMMUNITY', reconfiguring at reboot in 60 seconds"
-    uci set freifunk.fw.confver=0
-    uci commit
-    sleep 60
-    reboot
-    exit #do not process this further.
+  #Get the configured community from database
+  COMMUNITY_DB=$(ff-curl api/community.php?hwid=$hwid)
+  [ "$COMMUNITY_DB" == 'fallback' ] && COMMUNITY_DB=''
+  if [ ! -z "$COMMUNITY_DB" ]; then
+    if [ "$COMMUNITY" != "$COMMUNITY_DB" ]; then #overwrite community with db-entry
+      uci set freifunk.hotspot.community="$COMMUNITY_DB"
+      reset=1
+    fi
   fi
+  if [ "$reset" -eq "1" ]; then
+    uci set freifunk.fw.confver=0
+    uci commit freifunk
+    sleep 15
+    reboot
+    exit
+  fi
+
 fi
 
 ## load community-profile
