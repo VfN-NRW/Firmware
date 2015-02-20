@@ -33,8 +33,11 @@ tmpLastServer=""
 for i in `seq $no_of_server` ; do
   server=$(echo $fastd_servers | tr ";" " " | awk -v i="$i" '{print $i}')
   key=$(echo $fastd_keys | tr ";" " " | awk -v i="$i" '{print $i}')
-  remotevier=$(echo $fastd_remotes4 | tr ";" " " | awk -v i="$i" '{print $i}')
-  remotesechs=$(echo $fastd_remotes6 | tr ";" " " | awk -v i="$i" '{print $i}')
+  remotefour=$(echo $fastd_remotes4 | tr ";" " " | awk -v i="$i" '{print $i}')
+  remotesix=$(echo $fastd_remotes6 | tr ";" " " | awk -v i="$i" '{print $i}')
+  if [ -z $remotefour -a -z $remotesix ]; then
+    continue
+  fi
   
   if [ "$server" != "$tmpLastServer" ] ; then #delete old list-entrys if reconfiguring
     uci delete fastd.bb_$server.remote || true
@@ -45,8 +48,12 @@ for i in `seq $no_of_server` ; do
   uci set fastd.bb_$server.group=g_backbone
   uci set fastd.bb_$server.key=$key
   uci set fastd.bb_$server.enabled=1
-  uci add_list fastd.bb_$server.remote=$remotevier
-  uci add_list fastd.bb_$server.remote=$remotesechs
+  if [ ! -z $remotefour ]; then
+    uci add_list fastd.bb_$server.remote=$remotefour
+  fi
+  if [ ! -z $remotesix ]; then
+    uci add_list fastd.bb_$server.remote=$remotesix
+  fi
   tmpLastServer=$server
 done
 
