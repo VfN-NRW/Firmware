@@ -1,12 +1,12 @@
 ap_ssid2='dus.freifunk.net'
-ap_ssid5='dus.freifunk.net (5 GHz)'
+ap_ssid5='dus.freifunk.net'
 bssid='02:CA:FE:15:02:11'
 channel2=5
 channel5=44
 mesh_ip_prefix="fda0:747e:ab29:211"
-fastd_servers="bragi"
-fastd_keys="2d47f65f017fc56f2588e465618f300549046118d1436ba9b63ad1ebce5fa52c"
-fastd_remotes4="46.38.232.72:15147"
-fastd_remotes6="[2a03:4000:2:453::2]:15147"
+fastd_servers="bragi;rig"
+fastd_keys="2d47f65f017fc56f2588e465618f300549046118d1436ba9b63ad1ebce5fa52c;f8c316501c3beb9342a6fde8de8ad6641a0201b4630275fa580e811537d84cd3"
+fastd_remotes4="46.38.232.72:15147;62.141.34.115:15147"
+fastd_remotes6="[2a03:4000:2:453::2]:15147;"
 local_ip="10.147.0.1"
 community_sshkeys="ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAihRXbu9rkwCD5szx1CYyL7NuMlday+0qHfskswBCA9tfcUVS43xloy8oMfibKvtHfd9Ome8Rh89TeDIQ0KbPGAhZB4mYTSVHjKeRGsK5lEFJKclxPhOsXdI7lHhRiUvBOQcTVjgtsEUQi3xW8jaddP6iYtTtXWNTf5Wift+uhM5Fukzz6VGUTzhbbD6IXNLphYVWcFCIWtBC4MZchM2GxZazJ7vehMek9MfFkLMpim/0YgZsxWuqqtuTJl5wuq/1583zYI/JjcKNUS7xL7oiFQAHMo6eOq0krLJ4xkPntbshEb92H6hepeE4i1tDJUto7UKle9ftjsiClUT+tcNwYw== maint_dusonly"

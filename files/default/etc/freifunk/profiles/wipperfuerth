@@ -1,12 +1,12 @@
 ap_ssid2='wipp.freifunk.net'
-ap_ssid5='wipp.freifunk.net (5 GHz)'
+ap_ssid5='wipp.freifunk.net'
 bssid='02:CA:FE:15:22:67'
 channel2=5
 channel5=44
 mesh_ip_prefix="fda0:747e:ab29:2267"
-fastd_servers="bragi"
-fastd_keys="d57c4409658033f6000b382f4c5a947c73ef43da957330de19c89ac355c4117b"
-fastd_remotes4="46.38.232.72:15224"
-fastd_remotes6="[2a03:4000:2:453::2]:15224"
+fastd_servers="bragi;rig"
+fastd_keys="d57c4409658033f6000b382f4c5a947c73ef43da957330de19c89ac355c4117b;4c42a5dbc9aa891c636ca9e09739188924643d35603bb9cbde18e6394e9a7d0c"
+fastd_remotes4="46.38.232.72:15224;62.141.34.115:15224"
+fastd_remotes6="[2a03:4000:2:453::2]:15224;"
 local_ip="10.224.0.1" 
 community_sshkeys=""

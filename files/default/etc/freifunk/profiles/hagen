@@ -1,12 +1,12 @@
 ap_ssid2='ha.freifunk.net'
-ap_ssid5='ha.freifunk.net (5 GHz)'
+ap_ssid5='ha.freifunk.net'
 bssid='02:CA:FE:15:23:31'
 channel2=5
 channel5=44
 mesh_ip_prefix="fda0:747e:ab29:2331"
-fastd_servers="bragi"
-fastd_keys="6dc75ac5fed2bb1fc00691161fe9eae113f8e67309e830ae0addd167de515107"
-fastd_remotes4="46.38.232.72:15154"
-fastd_remotes6="[2a03:4000:2:453::2]:15154"
+fastd_servers="bragi;rig"
+fastd_keys="6dc75ac5fed2bb1fc00691161fe9eae113f8e67309e830ae0addd167de515107;b3002f9d4f1c80f50ce013e53e6845d9d90ef6015130c8a14e7d026320f2dc78"
+fastd_remotes4="46.38.232.72:15154;62.141.34.115:15154"
+fastd_remotes6="[2a03:4000:2:453::2]:15154;"
 local_ip="10.154.0.1"
 community_sshkeys=""

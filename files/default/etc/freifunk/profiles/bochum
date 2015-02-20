@@ -1,12 +1,12 @@
 ap_ssid2='bochum.freifunk.net'
-ap_ssid5='bochum.freifunk.net (5 GHz)'
+ap_ssid5='bochum.freifunk.net'
 bssid='02:CA:FE:15:02:34'
 channel2=5
 channel5=44
 mesh_ip_prefix="fda0:747e:ab29:234"
-fastd_servers="bragi"
-fastd_keys="3b9aee4d290c60134fe270f0a2c3e1bef45acf1a3b1a9fa5ecfd22fd336490a0"
-fastd_remotes4="46.38.232.72:15151"
-fastd_remotes6="[2a03:4000:2:453::2]:15151"
+fastd_servers="bragi;rig"
+fastd_keys="3b9aee4d290c60134fe270f0a2c3e1bef45acf1a3b1a9fa5ecfd22fd336490a0;9c59051e8944d2069d7d54d08a9ec90f43af9797da9c2b138e473135ff59f51f"
+fastd_remotes4="46.38.232.72:15151;62.141.34.115:15151"
+fastd_remotes6="[2a03:4000:2:453::2]:15151;"
 local_ip="10.151.0.1"
 community_sshkeys=""

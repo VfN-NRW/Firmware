@@ -1,12 +1,12 @@
 ap_ssid2='lev.freifunk.net'
-ap_ssid5='lev.freifunk.net (5 GHz)'
+ap_ssid5='lev.freifunk.net'
 bssid='02:CA:FE:15:21:44'
 channel2=5
 channel5=44
-fastd_servers="bragi"
 mesh_ip_prefix="fda0:747e:ab29:2144"
-fastd_keys="cec71b1bd4c9aad0c906766f71a29d35414c0b4a2a00f177de8ba2be68da517b"
-fastd_remotes4="46.38.232.72:15076"
-fastd_remotes6="[2a03:4000:2:453::2]:15076"
+fastd_servers="bragi;rig"
+fastd_keys="cec71b1bd4c9aad0c906766f71a29d35414c0b4a2a00f177de8ba2be68da517b;495ec50a98c316a223de13af0a74ec81c982807f96a0615f422c8c14b65f5bcd"
+fastd_remotes4="46.38.232.72:15076;62.141.34.115:15076"
+fastd_remotes6="[2a03:4000:2:453::2]:15076;"
 local_ip="10.76.0.1"
 community_sshkeys="ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtAmxj3njoTfrqVdy4BcJkUFZXVmqg4YRaN8VK4ysXr1FC6zQcUmhAuw7vTh9y8pJW9AhiE/yoeX3jmJFuBaBludWudNxWq91w59R/IPF1umdPERiQzUzxV30ST4MmB8kXsjniXGWqbBovOK2GwCbilgQiKsjGuWNxhcz6Y3Nr3vG6tLgbTK5pEz2sovf+KL7h+8HRmcz4OgvI8CRhHk84hnv8MChr+zjcptwQ3R35gwzUWYc60dJlOX1F/2NeDUivVI+WPNTGTzDZZYNxgTWC86g4y8W0o74FGTO4zf/SheArhV5OMkQl31PZPzBy5YIJ7CZy11ifORAqso6mjRw+w== Felix Kaechele"
