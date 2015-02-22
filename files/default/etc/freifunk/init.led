@@ -2,7 +2,7 @@
 
 #fix basic config:
 tmp=$(uci -q get freifunk.fw.filename)
-if [ "${tmp:22:10}" == 'tl-wdr3600' -o "${tmp:22:10}" == 'tl-wdr4300']; then
+if [ "${tmp:22:10}" == 'tl-wdr3600' -o "${tmp:22:10}" == 'tl-wdr4300' ]; then
   uci set system.led_wan=led
   uci set system.led_wan.name=WAN
   uci set system.led_wan.sysfs='tp-link:blue:wan'
