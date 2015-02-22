@@ -75,6 +75,7 @@ buildOwrt() {
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic-old m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-it821x m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-pdc202xx m
+    [ $TARGET == "ramips" ] && setConfig TARGET_ramips_rt3883 y
     make defconfig || exit 1
 
     setConfig PACKAGE_batctl m
@@ -110,4 +111,4 @@ buildOwrt ar71xx
 buildOwrt mpc85xx
 buildOwrt atheros
 buildOwrt x86_64
-
+buildOwrt ramips
