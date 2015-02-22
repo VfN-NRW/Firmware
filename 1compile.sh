@@ -13,7 +13,7 @@ else
   if [ -f "$mt_kf" ]; then
     rm "$mt_kf"
   fi
-  touch "$mt_comm_switch"
+  echo "If this file exists no community-manager SSH keys will be installed" > "$mt_comm_switch"
   echo "Building image without FFNRW-Maintainkeys"
 fi
 
