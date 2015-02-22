@@ -1,3 +1,39 @@
+From 5ba3f1eac041857deabe39432fdfe1a584bbdd81 Mon Sep 17 00:00:00 2001
+Message-Id: <5ba3f1eac041857deabe39432fdfe1a584bbdd81.1420645650.git.mschiffer@universe-factory.net>
+From: =?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@web.de>
+Date: Tue, 24 Sep 2013 04:36:27 +0200
+Subject: [PATCH] batman-adv: introduce 'no_rebroadcast' option
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This patch introduces a new sysfs option named "no_rebroadcast" on
+a per hard interface basis. It allows manually enabling a split-horizon
+like behaviour for the layer 2 multicast payload frames, in that
+incoming multicast payload frames on such a hard interface are only
+being rebroadcasted on all interfaces except the incoming one instead
+of being rebroadcasted on all interfaces.
+
+Such an option should only be enabled if you are certain that these
+rebroadcasts are unnecessary. This is usually the case for instance
+for point-to-point wifi longshots or wired links.
+
+This option can especially safe a significant amount of upload overhead
+if the neighbourhood on a link is rather large, for instance in some
+transitive, symmetric VPN configurations.
+
+Using this option wrongly will break your mesh network, use this option
+wisely and at your own risk!
+
+Signed-off-by: Linus Lüssing <linus.luessing@web.de>
+---
+ hard-interface.c           |  2 ++
+ send.c                     |  4 ++++
+ sysfs-class-net-batman-adv | 10 ++++++++
+ sysfs.c                    | 59 ++++++++++++++++++++++++++++++++++++++++++++++
+ types.h                    |  1 +
+ 5 files changed, 76 insertions(+)
+
 diff --git a/hard-interface.c b/hard-interface.c
 index fbda6b5..3997f9c 100644
 --- a/hard-interface.c
@@ -45,7 +81,7 @@ index 7f34a95..cf7fe00 100644
 +                or wired links. Using this option wrongly is going to
 +                break your mesh network, use at your own risk!
 diff --git a/sysfs.c b/sysfs.c
-index fc47baa..1a9b093 100644
+index fc47baa..adaeca4 100644
 --- a/sysfs.c
 +++ b/sysfs.c
 @@ -110,6 +110,17 @@ struct batadv_attribute batadv_attr_vlan_##_name = {	\
@@ -119,7 +155,12 @@ index fc47baa..1a9b093 100644
  static int batadv_store_bool_attr(char *buff, size_t count,
  				  struct net_device *net_dev,
  				  const char *attr_name, atomic_t *attr)
-@@ -848,6 +905,7 @@ static BATADV_ATTR(iface_status, S_IRUGO, batadv_show_iface_status, NULL);
+@@ -844,10 +901,12 @@ static ssize_t batadv_show_iface_status(struct kobject *kobj,
+ static BATADV_ATTR(mesh_iface, S_IRUGO | S_IWUSR, batadv_show_mesh_iface,
+ 		   batadv_store_mesh_iface);
+ static BATADV_ATTR(iface_status, S_IRUGO, batadv_show_iface_status, NULL);
++BATADV_ATTR_HIF_BOOL(no_rebroadcast, S_IRUGO | S_IWUSR, NULL);
+ 
  static struct batadv_attribute *batadv_batman_attrs[] = {
  	&batadv_attr_mesh_iface,
  	&batadv_attr_iface_status,
@@ -128,7 +169,7 @@ index fc47baa..1a9b093 100644
  };
  
 diff --git a/types.h b/types.h
-index 462a70c..b1c0f76 100644
+index 8854c05..39619fb 100644
 --- a/types.h
 +++ b/types.h
 @@ -101,6 +101,7 @@ struct batadv_hard_iface {
@@ -139,3 +180,5 @@ index 462a70c..b1c0f76 100644
  };
  
  /**
+-- 
+2.2.1
