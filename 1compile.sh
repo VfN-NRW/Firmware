@@ -95,7 +95,6 @@ buildOwrt() {
     #add mesh_no_rebroadcast-patch
     mkdir -p feeds/routing/batman-adv/patches/
     cat patches/mesh_no_rebroadcast.patch > feeds/routing/batman-adv/patches/010-mesh_no_rebroadcast.patch
-    patch feeds/routing/batman-adv/Makefile < patches/batman-adv-makefile.patch
     
     make -j 1 V=s
     if [ $? -ne 0 ]; then
