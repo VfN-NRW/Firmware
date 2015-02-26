@@ -102,7 +102,6 @@ iw phy1 info | grep -q '5180 MHz' && RADIO5="radio1"
     uci set wireless.$RADIO2.htmode=HT40-
   fi
   uci set wireless.$RADIO2.noscan=1
-  uci set wireless.$RADIO2.basic_rate='6000 9000 12000 18000 24000 36000 48000 54000'
 
   if [ "$(uci -q get freifunk.wlanmesh)" != "0" ] ; then
     uci set wireless.mesh2='wifi-iface'
