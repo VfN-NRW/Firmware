@@ -30,8 +30,8 @@ buildOwrt() {
   (
     TARGET=$1
     cd openwrt || exit 1
-    # Cleanup not needed, re-using compiled files
-    #git clean -fdX || exit 1
+    # TODO: Cleanup not needed, re-using compiled files
+    git clean -fdX || exit 1
     cp ../feeds/feeds.conf feeds.conf
 
     scripts/feeds update
