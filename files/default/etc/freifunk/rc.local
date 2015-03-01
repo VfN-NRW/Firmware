@@ -45,7 +45,12 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   
   #load community-profile
   COMMUNITY=$(uci -q get freifunk.hotspot.community)
-  source /etc/freifunk/profiles/$COMMUNITY
+  #check that community exists
+  if [ ! -f "/etc/freifunk/profiles/$COMMUNITY" ]; then
+    exit 1
+  else
+    source /etc/freifunk/profiles/$COMMUNITY
+  fi
   
   #remove unneeded vars
   unset ap_ssid2 ap_ssid5 bssid channel2 channel5 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6
@@ -166,7 +171,11 @@ fi
 
 ## load community-profile
 COMMUNITY=$(uci -q get freifunk.hotspot.community)
-source /etc/freifunk/profiles/$COMMUNITY
+if [ ! -f "/etc/freifunk/profiles/$COMMUNITY" ]; then
+  exit 1
+else
+  source /etc/freifunk/profiles/$COMMUNITY
+fi
 
 if [ ! -f /etc/dropbear/authorized_keys ]; then
   /etc/init.d/dropbear stop
