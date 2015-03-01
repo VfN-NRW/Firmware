@@ -5,6 +5,8 @@ COMMUNITY=$(uci -q get freifunk.hotspot.community)
 
 #Get the configured community from database
 [ -z "$COMMUNITY" ] && COMMUNITY=$(ff-curl api/community.php?hwid=$hwid)
+#check that community exists
+[ ! -f "/etc/freifunk/profiles/$COMMUNITY" ] && COMMUNITY=''
 #if its not fallback, use it.
 [ "$COMMUNITY" == 'fallback' ] && COMMUNITY=''
 [ ! -z "$COMMUNITY" ] && uci set freifunk.hotspot.community="$COMMUNITY"
@@ -58,7 +60,12 @@ done
 
 unset COMMUNITY_SCANS
 
-source /etc/freifunk/profiles/$COMMUNITY
+#check that community exists
+if [ -f "/etc/freifunk/profiles/$COMMUNITY" ]; then
+  source /etc/freifunk/profiles/$COMMUNITY
+else
+  exit 1
+fi
 
 #cleanup unneeded vars
 unset fastd_servers fastd_keys fastd_remotes4 fastd_remotes6 local_ip community_sshkeys
