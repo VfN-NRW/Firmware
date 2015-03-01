@@ -14,6 +14,7 @@ if [ ! -z "$ipv6_gw" ]; then
   ping6 "$ipv6_gw" -c 10 >/dev/null 2>&1
   if test $? -eq 0; then
     logger "IPv6 Router reachable."
+    rm -f /tmp/noip6routerflag
   else
     logger "IPv6 Router NOT reachable."
     if [ -f /tmp/noip6routerflag ] ; then
