@@ -8,3 +8,21 @@ if [ $? == 0 ] ; then
 else
   rm -f /tmp/nogwflag
 fi
+
+ipv6_gw="$(uci get network.l2meshroute.gateway)"
+if [ ! -z "$ipv6_gw" ]; then
+  ping6 "$ipv6_gw" -c 10 >/dev/null 2>&1
+  if test $? -eq 0; then
+    logger "IPv6 Router reachable."
+  else
+    logger "IPv6 Router NOT reachable."
+    if [ -f /tmp/noip6routerflag ] ; then
+      reboot
+      exit 0
+    else
+      touch /tmp/noip6routerflag
+    fi
+  fi
+else
+  logger "IPv6 Router NOT configured."
+fi
