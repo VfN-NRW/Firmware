@@ -1,6 +1,16 @@
 #!/bin/bash
+
+#make debian-stuff portable
+rename_bin=""
+$(rename.ul -V)
+if [ $? == 0 ] ; then
+  rename_bin="rename.ul"
+else
+  rename_bin="rename"
+fi
+
 function makeimage {
-  packages="$1"
+	packages="$1"
   files="$2"
   target=$3
   profile=$4
@@ -93,5 +103,5 @@ if [ "$FAIL" -ne "0" ]; then
 	echo "some subjobs failed"
 fi
 
-rename.ul openwrt- ff-nrw- images/*
+$rename_bin openwrt- ff-nrw- images/*
 
