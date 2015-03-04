@@ -83,12 +83,7 @@ buildOwrt() {
     setConfig PACKAGE_hostapd-utils m
     [ $TARGET == "ar71xx" ] && setConfig ATH_USER_REGD y
     [ $TARGET == "ar71xx" ] && setConfig PACKAGE_ATH_DFS y
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-core m
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-aec62xx m
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic m
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic-old m
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-it821x m
-    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-pdc202xx m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-aoe m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-core m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-ahci m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-artop m
@@ -99,6 +94,26 @@ buildOwrt() {
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-sil m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-sil24 m
     [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ata-via-sata m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-block2mtd m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-dm m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-core m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-aec62xx m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-generic-old m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-it821x m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-ide-pdc202xx m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-loop m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-mod m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-linear m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-multipath m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-raid0 m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-raid1 m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-raid10 m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-md-raid456 m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-nbd m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-scsi-cdrom m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-scsi-core m
+    [ $TARGET == "x86_64" ] && setConfig PACKAGE_kmod-scsi-generic m
     make -j 1 V=s defconfig || exit 1
 
     echo "Starting Download..."
