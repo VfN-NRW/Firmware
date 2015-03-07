@@ -1,6 +1,6 @@
 #!/bin/sh
 [ ! -d /tmp/ff-stats/ ] && mkdir /tmp/ff-stats/
-L2MESH=$(/usr/sbin/brctl show | sed -n -e '/^br-l2mesh[[:space:]]/,/^\S/ { /^\(br-l2mesh[[:space:]]\|\t\)/s/^.*\t//p }' | grep -v bat0 | tr '\n' ' ')
+L2MESH=$(/usr/sbin/brctl show | sed -n -e '/^br-l2mesh[[:space:]]/,/^\S/ { /^\(br-l2mesh[[:space:]]\|\t\)/s/^.*\t//p }' | grep -v bat0 | grep -v eth | tr '\n' ' ')
 BATIF=$(for i in `ls -1 /sys/class/net/`; do [ -f /sys/class/net/$i/batman_adv/mesh_iface ] && grep -q bat0 /sys/class/net/$i/batman_adv/mesh_iface && echo -n "$i "; done)
 
 (
