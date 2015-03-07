@@ -27,3 +27,9 @@ if [ ! -z "$ipv6_gw" ]; then
 else
   logger "IPv6 Router NOT configured."
 fi
+
+#check if wifi is stucking
+rm -f /tmp/wifi.running
+(iw dev > /dev/null && touch /tmp/wifi.running) &
+sleep 5
+[ ! -f /tmp/wifi.running ] && reboot -f
