@@ -1,6 +1,6 @@
 [submodule "openwrt"]
 	path = openwrt
-	url = git://git.openwrt.org/openwrt.git
+	url = git://git.openwrt.org/14.07/openwrt.git
 	ignore = dirty
 [submodule "feeds/packages"]
 	path = feeds/packages
