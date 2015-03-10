@@ -54,6 +54,9 @@ makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR740' ar71
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR741' ar71xx-generic-tl-wr741nd-v4-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v4-squashfs-sysupgrade.bin
 
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR801' openwrt-ar71xx-generic-tl-wa801nd-v1-squashfs-factory.bin openwrt-ar71xx-generic-tl-wa801nd-v1-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR801' openwrt-ar71xx-generic-tl-wa801nd-v2-squashfs-factory.bin openwrt-ar71xx-generic-tl-wa801nd-v2-squashfs-sysupgrade.bin
+
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR841' ar71xx-generic-tl-wr841nd-v5-squashfs-factory.bin ar71xx-generic-tl-wr841nd-v5-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR841' ar71xx-generic-tl-wr841n-v8-squashfs-factory.bin ar71xx-generic-tl-wr841n-v8-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR841' ar71xx-generic-tl-wr841n-v9-squashfs-factory.bin ar71xx-generic-tl-wr841n-v9-squashfs-sysupgrade.bin
