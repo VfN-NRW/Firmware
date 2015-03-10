@@ -49,6 +49,9 @@ CFGx86="kmod-ide-core kmod-ide-generic"
 echo $BUILD > files/_all/build
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'UBNT' ar71xx-generic-ubnt-nano-m-squashfs-factory.bin ar71xx-generic-ubnt-nano-m-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'UBNTUNIFI' openwrt-ar71xx-generic-ubnt-unifi-squashfs-factory.bin openwrt-ar71xx-generic-ubnt-unifi-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'UBNTUNIFIOUTDOOR' openwrt-ar71xx-generic-ubnt-unifi-outdoor-squashfs-factory.bin openwrt-ar71xx-generic-ubnt-unifi-outdoor-squashfs-sysupgrade.bin
+makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'UAPPRO' openwrt-ar71xx-generic-ubnt-uap-pro-squashfs-factory.bin openwrt-ar71xx-generic-ubnt-uap-pro-squashfs-sysupgrade.bin
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR740' ar71xx-generic-tl-wr740n-v4-squashfs-factory.bin ar71xx-generic-tl-wr740n-v4-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWR741' ar71xx-generic-tl-wr741nd-v2-squashfs-factory.bin ar71xx-generic-tl-wr741nd-v2-squashfs-sysupgrade.bin
