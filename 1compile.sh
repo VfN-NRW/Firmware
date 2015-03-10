@@ -40,7 +40,7 @@ buildOwrt() {
     scripts/feeds install fastd
     scripts/feeds install ecdsautils
     scripts/feeds install haveged
-    scripts/feeds install socat
+    #scripts/feeds install socat
     scripts/feeds install nacl
     scripts/feeds install kmod-block2mtd
     scripts/feeds install kmod-ide-core
@@ -127,7 +127,7 @@ buildOwrt() {
     mkdir -p feeds/routing/batman-adv/patches/
     cat ../patches/mesh_no_rebroadcast.patch > ../feeds/routing/batman-adv/patches/010-mesh_no_rebroadcast.patch
     
-    make -j 6
+    make -j 1
     if [ $? -ne 0 ]; then
         echo "$TARGET failed"
         exit 1
