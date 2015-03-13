@@ -127,7 +127,7 @@ buildOwrt() {
     mkdir -p feeds/routing/batman-adv/patches/
     cat ../patches/mesh_no_rebroadcast.patch > ../feeds/routing/batman-adv/patches/010-mesh_no_rebroadcast.patch
     
-    make -j 1
+    make -j 6
     if [ $? -ne 0 ]; then
         echo "$TARGET failed"
         exit 1
