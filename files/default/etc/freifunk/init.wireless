@@ -37,7 +37,6 @@ while [ -z "$COMMUNITY" ] ; do
   grep -q bot.freifunk.net /tmp/detectcommunity && COMMUNITY='bottrop'
   grep -q bochum.freifunk.net /tmp/detectcommunity && COMMUNITY='bochum'
   grep -q ha.freifunk.net /tmp/detectcommunity && COMMUNITY='hagen'
-  grep -q st.freifunk.net /tmp/detectcommunity && COMMUNITY='steinfurt'
 
   rm /tmp/detectcommunity
   
