@@ -17,7 +17,7 @@ function makeimage {
   factory=$5
   sysupgrade=$6
   (
-    cd OpenWrt-ImageBuilder-${target}.Linux-x86_64/
+    cd OpenWrt-ImageBuilder-${target}-for-unknown-x86_64/
     make clean
     rm -rf myfiles/
 
