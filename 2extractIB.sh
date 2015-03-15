@@ -2,8 +2,8 @@
 rm -rf OpenWrt-ImageBuilder-ar71xx_generic-for-unknown-x86_64/
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-ar71xx_generic-for-unknown-x86_64.tar.bz2
 
-rm -rf OpenWrt-ImageBuilder-atheros-for-unknown-x86_64/
-tar xvjf imagebuilder/OpenWrt-ImageBuilder-atheros-for-unknown-x86_64.tar.bz2
+#rm -rf OpenWrt-ImageBuilder-atheros-for-unknown-x86_64/
+#tar xvjf imagebuilder/OpenWrt-ImageBuilder-atheros-for-unknown-x86_64.tar.bz2
 
 rm -rf OpenWrt-ImageBuilder-mpc85xx_generic-for-unknown-x86_64/
 tar xvjf imagebuilder/OpenWrt-ImageBuilder-mpc85xx_generic-for-unknown-x86_64.tar.bz2
