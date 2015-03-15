@@ -117,7 +117,7 @@ buildOwrt() {
     make -j 1 V=s defconfig || exit 1
 
     echo "Starting Download..."
-    make -j 1 V=s download || exit 1
+    make -j 1 V=s download || make -j 1 V=s download || make -j 1 V=s download || make -j 1 V=s download || make -j 1 V=s download || make -j 1 V=s download || exit 1
 
     echo "Saving config to .config_$TARGET"
     cp .config ".config_$TARGET"
