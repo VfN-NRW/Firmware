@@ -63,7 +63,7 @@ echo -n ///community=
 echo $(uci get freifunk.hotspot.community)
 
 tmp=""
-if [ $(uci get freifunk.fw.survey) == '1']
+if [ $(uci get freifunk.fw.survey) == '1' ]
   freq=""
   noise=""
   for e in $(iw dev wlan0 survey dump | grep -E "frequency|noise" | sed "s/[\t]*//g" | cut -d' ' -f1 | sed 's/frequency/frequ/g'); do
