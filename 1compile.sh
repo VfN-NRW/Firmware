@@ -22,9 +22,6 @@ fi
 #fix openwrt bug
 sed -i -e "s/-d .git/-e .git/" "openwrt/scripts/getver.sh"
 
-#remove fastd from feeds/packages
-rm -fdR ./feeds/packages/net/fastd
-
 setConfig () {
   key=$1
   value=$2
