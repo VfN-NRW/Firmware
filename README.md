@@ -23,6 +23,10 @@ to add maintainkeys (for ssh) add "with_FFNRW_maintainkeys" as first parameter f
 
 `./1compile.sh && ./2extractIB.sh && ./3makeImage.sh with_FFNRW_maintainkeys`  
 
+To change the build-number:
+
+`echo "1234" > build.txt`  
+
 # Configuration
 Autoupdate firmware-distribution
 
