@@ -102,7 +102,7 @@ makeimage "$CFGMINI $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLMR3020' ar7
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWDR4300' ar71xx-generic-tl-wdr3600-v1-squashfs-factory.bin ar71xx-generic-tl-wdr3600-v1-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'TLWDR4300' ar71xx-generic-tl-wdr4300-v1-squashfs-factory.bin ar71xx-generic-tl-wdr4300-v1-squashfs-sysupgrade.bin
-makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" mpc85xx-generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
+#makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" mpc85xx-generic 'TLWDR4900' mpc85xx-generic-tl-wdr4900-v1-squashfs-factory.bin mpc85xx-generic-tl-wdr4900-v1-squashfs-sysupgrade.bin
 
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'MYNETN600' ar71xx-generic-mynet-n600-squashfs-factory.bin ar71xx-generic-mynet-n600-squashfs-sysupgrade.bin
 makeimage "$CFGBASE $CFGVPN $CFGHOTSPOT" "default" ar71xx-generic 'MYNETN750' ar71xx-generic-mynet-n750-squashfs-factory.bin ar71xx-generic-mynet-n750-squashfs-sysupgrade.bin
