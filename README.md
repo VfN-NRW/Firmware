@@ -17,7 +17,11 @@ apt-get install build-essential libncurses-dev libncurses5-dev zlib1g-dev gawk q
 `cd Firmware`  
 `git checkout stable`  
 `git submodule update --init`  
-`./1compile.sh`  
+`./1compile.sh && ./2extractIB.sh && ./3makeImage.sh`  
+
+to add maintainkeys (for ssh) add "with_FFNRW_maintainkeys" as first parameter for the 3rd script:
+
+`./1compile.sh && ./2extractIB.sh && ./3makeImage.sh with_FFNRW_maintainkeys`  
 
 # Configuration
 Autoupdate firmware-distribution
