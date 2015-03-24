@@ -14,10 +14,6 @@
 	path = feeds/management
 	url = https://github.com/openwrt-management/packages.git
 	ignore = dirty
-[submodule "feeds/fastd"]
-	path = feeds/fastd
-	url = git://git.universe-factory.net/fastd
-	ignore = dirty
 [submodule "feeds/kolbrich"]
 	path = feeds/kolbrich
 	url = https://github.com/kevin-olbrich/openwrt-feed.git

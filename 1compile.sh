@@ -22,9 +22,6 @@ fi
 #fix openwrt bug
 sed -i -e "s/-d .git/-e .git/" "openwrt/scripts/getver.sh"
 
-#remove fastd from feeds/packages
-rm -fdR ./feeds/packages/net/fastd
-
 setConfig () {
   key=$1
   value=$2
@@ -39,7 +36,7 @@ buildOwrt() {
     TARGET=$1
     cd openwrt || exit 1
     # TODO: Cleanup not needed, re-using compiled files
-    git clean -fdX || exit 1
+    #git clean -fdX || exit 1
     cp ../feeds/feeds.conf feeds.conf
 
     scripts/feeds update
@@ -146,6 +143,6 @@ buildOwrt() {
 }
 
 buildOwrt ar71xx
-buildOwrt mpc85xx
+#buildOwrt mpc85xx
 #buildOwrt atheros
 #buildOwrt x86_64
