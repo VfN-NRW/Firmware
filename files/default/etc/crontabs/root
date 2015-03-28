@@ -10,5 +10,5 @@
 1-59/2 * * * * sh /usr/sbin/ath9k-workaround
 0     14 * * * sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
 0      2 * * * sh /usr/sbin/ff-stats-wlanscan > /tmp/wlanscan
-0      * * * * iw dev wlan0 scan && iw dev wlan1 scan
+0      * * * * iw dev wlan0 scan lowpri passive && iw dev wlan1 scan lowpri passive
 *      * * * * echo '15' > /sys/class/net/bat0/mesh/hop_penalty
