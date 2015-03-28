@@ -84,7 +84,6 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.l2mesh.ip6addr="$IPV6"
   uci set network.l2mesh.ipaddr="$local_ip"
   uci set network.l2mesh.macaddr="$brmac"
-  unset lanif
   
   #add routing
   uci set network.l2meshroute='route6'
@@ -96,6 +95,7 @@ if [ "`uci -q get freifunk.fw.confver`" == "0" ] ; then
   uci set network.wan.type=bridge
   uci set network.wan.auto=1
   uci set network.wan.ifname="$(uci get network.wan.ifname) $lanif"
+  unset lanif
   
   #delete lan-entrys
   uci del network.lan
