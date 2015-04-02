@@ -139,6 +139,9 @@ bats=$(batctl o | sed 's/[\(\)]//g' | awk '{ if ($1 == $4) { print $1 "=" $3 }}'
 for bat in $bats; do
   bat_mac=$(echo $bat | cut -d '=' -f 1)
   bat_txrate=$(iw dev wlan0 station dump | grep -E "^Station|tx bitrate" | grep -A1 "$bat_mac" | grep "tx bitrate" | cut -d ' ' -f 2 | cut -d$'\t' -f 2)
+  if [ -z $bat_txrate ]; then
+    bat_txrate=$(iw dev wlan1 station dump | grep -E "^Station|tx bitrate" | grep -A1 "$bat_mac" | grep "tx bitrate" | cut -d ' ' -f 2 | cut -d$'\t' -f 2)
+  fi
   if [ -z $bat_txrate ]; then #seems to be a lan/vpn
     min_brwan_speed=999999
     tmp_str=""
