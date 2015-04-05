@@ -1,0 +1,29 @@
+#!/bin/sh
+
+[ "${ACTION}" = "released" ] || exit 0
+
+. /lib/functions.sh
+
+logger "$BUTTON pressed for $SEEN seconds"
+
+if [ "$SEEN" -lt 1 ]; then
+	echo "REBOOT" > /dev/console
+	sync
+	reboot
+elif [ "$SEEN" -gt 5 -a "$SEEN" -lt 15 ]; then #enable telnet on wan-if
+  #enable led-controls
+  . /etc/diag.sh
+	get_status_led
+  
+  #check if it's already running
+  if [ ! -z "$(ps | grep telnetd | grep -v grep)" ]; then
+    killall telnetd
+    status_led_on
+  else #start it
+    /etc/init.d/telnet_wan start
+    status_led_set_timer 800 400
+  fi
+elif [ "$SEEN" -gt 20 ]; then
+	echo "FACTORY RESET" > /dev/console
+	jffs2reset -y && reboot &
+fi
